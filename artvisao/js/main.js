@@ -1,112 +1,125 @@
-(function(){
+(function () {
   if (window.ArtVisaoI18n && typeof window.ArtVisaoI18n.init === 'function') {
     window.ArtVisaoI18n.init();
   }
 
-  document.addEventListener('DOMContentLoaded', function(){
+  function slugify(name) {
+    return name
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/\p{Diacritic}/gu, '')
+      .replace(/[^a-z0-9\s-]/g, '')
+      .trim()
+      .replace(/\s+/g, '-');
+  }
+
+  function collapseMobileNav() {
+    var navMain = document.getElementById('navMain');
+    if (!navMain || !navMain.classList.contains('show')) return;
+    if (!window.bootstrap || !window.bootstrap.Collapse) return;
+    window.bootstrap.Collapse.getOrCreateInstance(navMain).hide();
+  }
+
+  function initMenuFadeOnNavigate() {
     var navLinks = document.querySelectorAll('.nav-link[href^="#"]');
-    navLinks.forEach(function(link){
-      link.addEventListener('click', function(){
+    navLinks.forEach(function (link) {
+      link.addEventListener('click', function () {
+        collapseMobileNav();
+
         var hash = link.getAttribute('href');
         if (!hash || hash === '#') return;
         var target = document.querySelector(hash);
         if (!target) return;
-        // Reset class to allow re-triggering the animation
+
+        // Reset then re-add the class (and force a reflow) so the animation can re-trigger
         target.classList.remove('menu-fade');
-        // Force reflow
         void target.offsetWidth;
         target.classList.add('menu-fade');
-        // Clean up after animation
-        var onEnd = function(){
+
+        target.addEventListener('animationend', function onEnd() {
           target.classList.remove('menu-fade');
           target.removeEventListener('animationend', onEnd);
-        };
-        target.addEventListener('animationend', onEnd);
+        });
       });
     });
+  }
 
-    // Try to load brand logos from assets/brands/<slug>.svg or .png
-    var brandPills = document.querySelectorAll('.brand-pill');
-    brandPills.forEach(function(pill){
-      var name = pill.textContent.trim();
-      if (!name) return;
-      // If a data-logo is provided, prefer it (manual mapping); otherwise create a slug from the visible name
-      var dataSlug = pill.getAttribute('data-logo');
-      var slug = dataSlug && dataSlug.trim() ? dataSlug.trim() : name.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9\s-]/g,'').trim().replace(/\s+/g,'-');
-      var svgPath = 'assets/brands/' + slug + '.svg';
-      var pngPath = 'assets/brands/' + slug + '.png';
+  function showInitialsFallback(tile, name) {
+    var words = name.split(/\s+/).filter(Boolean).slice(0, 2);
+    var initials = words.map(function (w) { return w[0]; }).join('').toUpperCase() || name.charAt(0).toUpperCase();
 
-      var img = document.createElement('img');
-      img.className = 'brand-pill-logo';
-      img.alt = name + ' logo';
+    var xmlns = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(xmlns, 'svg');
+    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttribute('role', 'img');
 
-      // Candidate paths in preferred order: fetched svg/png/jpg, project svg/png, then fallback
-      var candidates = [
-        'assets/brands/fetched/' + slug + '.svg',
-        'assets/brands/fetched/' + slug + '.png',
-        'assets/brands/fetched/' + slug + '.jpg',
-        svgPath,
-        pngPath,
-      ];
+    var rect = document.createElementNS(xmlns, 'rect');
+    rect.setAttribute('width', '100');
+    rect.setAttribute('height', '100');
+    rect.setAttribute('rx', '14');
+    rect.setAttribute('fill', '#3f6f9e');
 
-      var idx = 0;
-      var applied = false;
+    var text = document.createElementNS(xmlns, 'text');
+    text.setAttribute('x', '50');
+    text.setAttribute('y', '59');
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('fill', '#fff');
+    text.setAttribute('font-family', 'Fraunces, Poppins, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue"');
+    text.setAttribute('font-size', '52');
+    text.setAttribute('font-weight', '700');
+    text.textContent = initials;
 
-      function tryNext(){
-        if (idx >= candidates.length){
-          // exhausted — create inline SVG initials fallback
-          try { if (img.parentNode) img.parentNode.removeChild(img); } catch(e){}
-          var words = name.split(/\s+/).filter(Boolean).slice(0,2);
-          var initials = words.map(function(w){return w[0];}).join('').toUpperCase();
-          if (!initials) initials = name.charAt(0).toUpperCase();
-          var svgWrap = document.createElement('span');
-          svgWrap.className = 'brand-pill-svg';
-          var xmlns = 'http://www.w3.org/2000/svg';
-          var svg = document.createElementNS(xmlns, 'svg');
-          svg.setAttribute('viewBox','0 0 100 100');
-          svg.setAttribute('role','img');
-          var rect = document.createElementNS(xmlns, 'rect');
-          rect.setAttribute('x','0'); rect.setAttribute('y','0'); rect.setAttribute('width','100'); rect.setAttribute('height','100'); rect.setAttribute('rx','14');
-          rect.setAttribute('fill','#3f6f9e');
-          var text = document.createElementNS(xmlns, 'text');
-          text.setAttribute('x','50'); text.setAttribute('y','59'); text.setAttribute('text-anchor','middle');
-          text.setAttribute('fill','#fff'); text.setAttribute('font-family','Fraunces, Poppins, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue"');
-          text.setAttribute('font-size','52'); text.setAttribute('font-weight','700');
-          text.textContent = initials;
-          svg.appendChild(rect); svg.appendChild(text); svgWrap.appendChild(svg);
-          pill.insertBefore(svgWrap, pill.firstChild);
-          pill.classList.add('has-fallback');
-          return;
-        }
+    svg.appendChild(rect);
+    svg.appendChild(text);
 
-        var src = candidates[idx++];
+    var svgWrap = document.createElement('span');
+    svgWrap.className = 'brand-tile-svg';
+    svgWrap.appendChild(svg);
 
-        // First try a fetch to check availability (more reliable than solely relying on image load events)
-        fetch(src).then(function(resp){
-          if (resp.ok){
-            img.src = src;
-          } else {
-            tryNext();
-          }
-        }).catch(function(){
-          tryNext();
-        });
+    tile.insertBefore(svgWrap, tile.firstChild);
+    tile.classList.add('has-fallback');
+  }
+
+  function loadBrandLogo(tile) {
+    var name = tile.textContent.trim();
+    if (!name) return;
+
+    // Manual data-logo mapping takes priority; otherwise derive a slug from the visible name
+    var dataSlug = tile.getAttribute('data-logo');
+    var slug = (dataSlug && dataSlug.trim()) || slugify(name);
+
+    // Preferred order: freshly fetched logos, then the project's curated ones
+    var candidates = [
+      'assets/brands/fetched/' + slug + '.svg',
+      'assets/brands/fetched/' + slug + '.png',
+      'assets/brands/fetched/' + slug + '.jpg',
+      'assets/brands/' + slug + '.svg',
+      'assets/brands/' + slug + '.png',
+    ];
+
+    var img = document.createElement('img');
+    img.className = 'brand-tile-logo';
+    img.alt = name + ' logo';
+
+    var idx = 0;
+    function tryNextCandidate() {
+      if (idx >= candidates.length) {
+        showInitialsFallback(tile, name);
+        return;
       }
+      img.src = candidates[idx++];
+    }
 
-      img.onload = function(){
-        if (!applied){
-          pill.insertBefore(img, pill.firstChild);
-          pill.classList.add('has-logo');
-          applied = true;
-        }
-      };
-      img.onerror = function(){
-        tryNext();
-      };
+    img.onload = function () {
+      tile.insertBefore(img, tile.firstChild);
+      tile.classList.add('has-logo');
+    };
+    img.onerror = tryNextCandidate;
+    tryNextCandidate();
+  }
 
-      // Start trying candidates
-      tryNext();
-    });
+  document.addEventListener('DOMContentLoaded', function () {
+    initMenuFadeOnNavigate();
+    document.querySelectorAll('.brand-tile').forEach(loadBrandLogo);
   });
-
 })();

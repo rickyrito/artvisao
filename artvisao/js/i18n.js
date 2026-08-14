@@ -154,59 +154,85 @@ window.ArtVisaoI18n = (function(){
     }
   };
 
-  function init(){
-    var store = {};
-    var i18nEls = document.querySelectorAll('[data-i18n]');
-    var altEls = document.querySelectorAll('[data-i18n-alt]');
-    var ariaEls = document.querySelectorAll('[data-i18n-aria]');
+  var STORAGE_KEY = 'artvisao-lang';
 
-    function fillStore(key, ptValue){
-      var entry = { pt: ptValue };
-      for (var lang in translations){
-        entry[lang] = translations[lang][key] != null ? translations[lang][key] : ptValue;
+  // Attribute-to-DOM-property bindings: how each data-i18n-* kind reads/writes its translated value
+  var BINDINGS = [
+    { selector: '[data-i18n]', attr: 'data-i18n', get: function (el) { return el.innerHTML; }, set: function (el, value) { el.innerHTML = value; } },
+    { selector: '[data-i18n-alt]', attr: 'data-i18n-alt', get: function (el) { return el.getAttribute('alt'); }, set: function (el, value) { el.setAttribute('alt', value); } },
+    {
+      selector: '[data-i18n-aria]', attr: 'data-i18n-aria', get: function (el) { return el.getAttribute('aria-label'); }, set: function (el, value) {
+        el.setAttribute('aria-label', value);
+        el.setAttribute('title', value);
       }
-      store[key] = entry;
-    }
+    },
+  ];
 
-    i18nEls.forEach(function(el){
-      fillStore(el.getAttribute('data-i18n'), el.innerHTML);
+  function readStorage() {
+    try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+  }
+
+  function writeStorage(lang) {
+    try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* storage unavailable (private mode, etc.) */ }
+  }
+
+  // Pairs each binding with the elements it applies to, queried once up front.
+  function bindToDom(bindings) {
+    return bindings.map(function (binding) {
+      return {
+        attr: binding.attr,
+        get: binding.get,
+        set: binding.set,
+        els: document.querySelectorAll(binding.selector),
+      };
     });
-    altEls.forEach(function(el){
-      fillStore(el.getAttribute('data-i18n-alt'), el.getAttribute('alt'));
+  }
+
+  // Harvests the Portuguese copy straight from the DOM, so `translations` above only
+  // needs to carry the fr/en overrides instead of duplicating every pt string.
+  function buildStore(boundBindings) {
+    var store = {};
+    boundBindings.forEach(function (binding) {
+      binding.els.forEach(function (el) {
+        var key = el.getAttribute(binding.attr);
+        var ptValue = binding.get(el);
+        var entry = { pt: ptValue };
+        for (var lang in translations) {
+          entry[lang] = translations[lang][key] != null ? translations[lang][key] : ptValue;
+        }
+        store[key] = entry;
+      });
     });
-    ariaEls.forEach(function(el){
-      fillStore(el.getAttribute('data-i18n-aria'), el.getAttribute('aria-label'));
+    return store;
+  }
+
+  function setLanguage(lang, store, boundBindings) {
+    boundBindings.forEach(function (binding) {
+      binding.els.forEach(function (el) {
+        var key = el.getAttribute(binding.attr);
+        if (store[key]) binding.set(el, store[key][lang]);
+      });
     });
 
-    function setLanguage(lang){
-      i18nEls.forEach(function(el){
-        var key = el.getAttribute('data-i18n');
-        if (store[key]) el.innerHTML = store[key][lang];
-      });
-      altEls.forEach(function(el){
-        var key = el.getAttribute('data-i18n-alt');
-        if (store[key]) el.setAttribute('alt', store[key][lang]);
-      });
-      ariaEls.forEach(function(el){
-        var key = el.getAttribute('data-i18n-aria');
-        if (store[key]) { el.setAttribute('aria-label', store[key][lang]); el.setAttribute('title', store[key][lang]); }
-      });
-      document.documentElement.setAttribute('lang', lang === 'fr' ? 'fr' : (lang === 'en' ? 'en' : 'pt'));
-      document.querySelectorAll('.lang-btn').forEach(function(btn){
-        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
-      });
-      try { localStorage.setItem('artvisao-lang', lang); } catch(e) {}
-    }
+    document.documentElement.setAttribute('lang', lang === 'fr' || lang === 'en' ? lang : 'pt');
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    });
+    writeStorage(lang);
+  }
 
-    document.querySelectorAll('.lang-btn').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        setLanguage(btn.getAttribute('data-lang'));
+  function init() {
+    var boundBindings = bindToDom(BINDINGS);
+    var store = buildStore(boundBindings);
+
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        setLanguage(btn.getAttribute('data-lang'), store, boundBindings);
       });
     });
 
-    var saved = null;
-    try { saved = localStorage.getItem('artvisao-lang'); } catch(e) {}
-    if (saved === 'fr' || saved === 'en') setLanguage(saved);
+    var saved = readStorage();
+    if (saved === 'fr' || saved === 'en') setLanguage(saved, store, boundBindings);
   }
 
   return {

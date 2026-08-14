@@ -3,77 +3,70 @@
 
 import fs from 'fs/promises';
 import path from 'path';
+import { resolveFromScript, ensureDir, exists } from './lib/fs-utils.js';
 
-const outDir = new URL('../assets/brands/fetched/', import.meta.url).pathname.replace(/^\/+([A-Za-z]:)?/, (m)=>m); // cross-platform
+const outDir = resolveFromScript(import.meta.url, 'assets', 'brands', 'fetched');
 
 const brands = [
   { name: 'Eschenbach', slugs: ['eschenbach'] },
-  { name: 'TitanFlex', slugs: ['titanflex','titan-flex'] },
+  { name: 'TitanFlex', slugs: ['titanflex', 'titan-flex'] },
   { name: 'Hoya', slugs: ['hoya'] },
   { name: 'Prada', slugs: ['prada'] },
   { name: 'Persol', slugs: ['persol'] },
-  { name: 'Ray-Ban', slugs: ['rayban','ray-ban'] },
+  { name: 'Ray-Ban', slugs: ['rayban', 'ray-ban'] },
   { name: 'Police', slugs: ['police'] },
-  { name: 'Carolina Herrera', slugs: ['carolina-herrera','carolinaherrera'] },
-  { name: 'New Balance', slugs: ['newbalance','new-balance'] },
+  { name: 'Carolina Herrera', slugs: ['carolina-herrera', 'carolinaherrera'] },
+  { name: 'New Balance', slugs: ['newbalance', 'new-balance'] },
   { name: 'Converse', slugs: ['converse'] },
-  { name: 'Maui Jim', slugs: ['mauijim','maui-jim'] },
+  { name: 'Maui Jim', slugs: ['mauijim', 'maui-jim'] },
   { name: 'Oakley', slugs: ['oakley'] }
 ];
 
-async function ensureDir(dir){
-  try{ await fs.mkdir(dir, { recursive: true }); } catch(e){}
-}
-
-async function tryFetch(url){
-  try{
-    const res = await fetch(url, {cache: 'no-store'});
+async function tryFetch(url) {
+  try {
+    const res = await fetch(url, { cache: 'no-store' });
     if (!res.ok) return null;
     const text = await res.text();
-    if (text && text.includes('<svg')) return text;
-    return null;
-  }catch(e){
+    return text && text.includes('<svg') ? text : null;
+  } catch (e) {
     return null;
   }
 }
 
-async function run(){
+async function run() {
   await ensureDir(outDir);
   const found = [];
   const failed = [];
-  for (const b of brands){
+
+  for (const b of brands) {
     let saved = false;
-    for (const s of b.slugs){
+    for (const s of b.slugs) {
       const url = `https://cdn.simpleicons.org/${s}`;
       console.log('Trying', url);
       const svg = await tryFetch(url);
-      if (svg){
-        const name = `${s}.svg`;
-        const outPath = path.join(outDir, name);
-        // do not overwrite existing files
-        try{
-          await fs.access(outPath);
-          console.log('Already exists, skipping', outPath);
-          found.push({brand: b.name, slug: s, path: outPath, skipped:true});
-          saved = true;
-          break;
-        }catch(e){
-          await fs.writeFile(outPath, svg, 'utf8');
-          console.log('Saved', outPath);
-          found.push({brand: b.name, slug: s, path: outPath});
-          saved = true;
-          break;
-        }
+      if (!svg) continue;
+
+      const outPath = path.join(outDir, `${s}.svg`);
+      if (await exists(outPath)) {
+        console.log('Already exists, skipping', outPath);
+        found.push({ brand: b.name, slug: s, path: outPath, skipped: true });
+      } else {
+        await fs.writeFile(outPath, svg, 'utf8');
+        console.log('Saved', outPath);
+        found.push({ brand: b.name, slug: s, path: outPath });
       }
+      saved = true;
+      break;
     }
-    if (!saved){
+    if (!saved) {
       console.log('Not found on CDN for', b.name);
       failed.push(b.name);
     }
   }
+
   console.log('\nSummary:');
-  console.log('Found:', found.map(f=>`${f.brand} -> ${f.slug}`).join(', ')||'none');
-  console.log('Missing:', failed.join(', ')||'none');
+  console.log('Found:', found.map(f => `${f.brand} -> ${f.slug}`).join(', ') || 'none');
+  console.log('Missing:', failed.join(', ') || 'none');
 }
 
-run().catch(err=>{console.error(err); process.exit(1)});
+run().catch(err => { console.error(err); process.exit(1); });

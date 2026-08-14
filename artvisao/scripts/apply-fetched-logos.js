@@ -6,57 +6,51 @@
 
 import fs from 'fs/promises';
 import path from 'path';
+import { resolveFromScript, ensureDir, exists } from './lib/fs-utils.js';
 
-const root = new URL('../', import.meta.url).pathname.replace(/^\/+([A-Za-z]:)?/, (m)=>m);
-const fetchedDir = path.join(root, 'assets', 'brands', 'fetched');
-const targetDir = path.join(root, 'assets', 'brands');
+const fetchedDir = resolveFromScript(import.meta.url, 'assets', 'brands', 'fetched');
+const targetDir = resolveFromScript(import.meta.url, 'assets', 'brands');
 const backupBase = path.join(targetDir, 'backup');
 
 const args = process.argv.slice(2);
 const reportOnly = args.includes('--report') || args.includes('-r');
 
-async function ensureDir(dir){
-  try{ await fs.mkdir(dir, { recursive: true }); }catch(e){}
+function nowStamp() {
+  return new Date().toISOString().replace(/[:.]/g, '-');
 }
 
-function nowStamp(){
-  const d = new Date();
-  return d.toISOString().replace(/[:.]/g,'-');
-}
-
-async function listFetched(){
-  try{
+async function listFetched() {
+  try {
     const items = await fs.readdir(fetchedDir);
-    return items.filter(f=>/\.(svg|png|jpe?g)$/i.test(f));
-  }catch(e){
+    return items.filter(f => /\.(svg|png|jpe?g)$/i.test(f));
+  } catch (e) {
     return [];
   }
 }
 
-async function run(){
+async function run() {
   const found = await listFetched();
-  if (found.length === 0){
+  if (found.length === 0) {
     console.log('No fetched logos found in', fetchedDir);
     return;
   }
   console.log('Found', found.length, 'fetched files:');
-  found.forEach(f=> console.log(' -', f));
+  found.forEach(f => console.log(' -', f));
 
   const report = [];
 
-  for (const file of found){
+  for (const file of found) {
     const src = path.join(fetchedDir, file);
     const dest = path.join(targetDir, file);
-    let exists = false;
-    try{ await fs.access(dest); exists = true; } catch(e){ exists = false; }
-    if (reportOnly){
-      report.push({file, action: exists ? 'would-backup-and-replace' : 'would-copy'});
+    const destExists = await exists(dest);
+
+    if (reportOnly) {
+      report.push({ file, action: destExists ? 'would-backup-and-replace' : 'would-copy' });
       continue;
     }
 
-    if (exists){
-      const stamp = nowStamp();
-      const backupDir = path.join(backupBase, stamp);
+    if (destExists) {
+      const backupDir = path.join(backupBase, nowStamp());
       await ensureDir(backupDir);
       const backupPath = path.join(backupDir, file);
       await fs.copyFile(dest, backupPath);
@@ -64,12 +58,12 @@ async function run(){
     }
     await fs.copyFile(src, dest);
     console.log('Copied', src, '->', dest);
-    report.push({file, action: exists ? 'backed-up-and-replaced' : 'copied'});
+    report.push({ file, action: destExists ? 'backed-up-and-replaced' : 'copied' });
   }
 
   console.log('\nReport:');
-  report.forEach(r=> console.log(r.file + ' -> ' + r.action));
+  report.forEach(r => console.log(r.file + ' -> ' + r.action));
   if (!reportOnly) console.log('\nBackups (if any) are in', backupBase);
 }
 
-run().catch(err=>{ console.error(err); process.exit(1); });
+run().catch(err => { console.error(err); process.exit(1); });
