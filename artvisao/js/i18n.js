@@ -83,7 +83,30 @@ window.ArtVisaoI18n = (function(){
       'wa-float-text': 'Contactez-nous',
       'wa-float-aria': 'Contacter via WhatsApp',
       'footer-fb-aria': 'Facebook',
-      'footer-ig-aria': 'Instagram'
+      'footer-ig-aria': 'Instagram',
+      'lang-trigger-aria': 'Choisir la langue et la région',
+      'lang-modal-title': 'Langue et région',
+      'lang-modal-note': 'Les prix sont affichés et facturés en euro (EUR).',
+      'lang-modal-close': 'Fermer',
+      'lang-field-region': 'Région',
+      'lang-field-language': 'Langue',
+      'lang-region-other': 'Autre pays',
+      'lang-modal-save': 'Enregistrer',
+      'nav-toggle-aria': 'Ouvrir le menu',
+      'nav-drawer-label': 'Menu',
+      'search-label': 'Rechercher',
+      'search-aria': 'Rechercher sur le site',
+      'search-placeholder': 'Rechercher sur le site…',
+      'search-hint': 'Recherchez des services, des marques, la collection ou des sections.',
+      'search-empty': 'Aucun résultat pour',
+      'search-group-servicos': 'Services',
+      'search-group-colecao': 'Collection',
+      'search-group-marcas': 'Marques',
+      'search-group-acordos': 'Accords',
+      'search-group-seccoes': 'Sections',
+      'marcas-eyebrow': 'Marques de confiance',
+      'marcas-title': 'Des partenaires qui inspirent notre sélection de montures',
+      'marcas-desc': 'Une curation de marques de référence en style et en technologie optique, choisies pour offrir une expérience premium au Portugal.'
     },
     en: {
       'nav-colecao': 'Collection',
@@ -168,16 +191,41 @@ window.ArtVisaoI18n = (function(){
       'wa-float-text': 'Chat with us',
       'wa-float-aria': 'Contact via WhatsApp',
       'footer-fb-aria': 'Facebook',
-      'footer-ig-aria': 'Instagram'
+      'footer-ig-aria': 'Instagram',
+      'lang-trigger-aria': 'Choose language and region',
+      'lang-modal-title': 'Language & region',
+      'lang-modal-note': 'Prices are shown and charged in Euro (EUR).',
+      'lang-modal-close': 'Close',
+      'lang-field-region': 'Region',
+      'lang-field-language': 'Language',
+      'lang-region-other': 'Other country',
+      'lang-modal-save': 'Save',
+      'nav-toggle-aria': 'Open menu',
+      'nav-drawer-label': 'Menu',
+      'search-label': 'Search',
+      'search-aria': 'Search the site',
+      'search-placeholder': 'Search the site…',
+      'search-hint': 'Search for services, brands, the collection or sections.',
+      'search-empty': 'No results for',
+      'search-group-servicos': 'Services',
+      'search-group-colecao': 'Collection',
+      'search-group-marcas': 'Brands',
+      'search-group-acordos': 'Partnerships',
+      'search-group-seccoes': 'Sections',
+      'marcas-eyebrow': 'Trusted brands',
+      'marcas-title': 'Partners that inspire our selection of frames',
+      'marcas-desc': 'A curation of leading brands in style and optical technology, chosen to offer a premium experience in Portugal.'
     }
   };
 
   var STORAGE_KEY = 'artvisao-lang';
+  var REGION_KEY = 'artvisao-region';
 
   // Attribute-to-DOM-property bindings: how each data-i18n-* kind reads/writes its translated value
   var BINDINGS = [
     { selector: '[data-i18n]', attr: 'data-i18n', get: function (el) { return el.innerHTML; }, set: function (el, value) { el.innerHTML = value; } },
     { selector: '[data-i18n-alt]', attr: 'data-i18n-alt', get: function (el) { return el.getAttribute('alt'); }, set: function (el, value) { el.setAttribute('alt', value); } },
+    { selector: '[data-i18n-placeholder]', attr: 'data-i18n-placeholder', get: function (el) { return el.getAttribute('placeholder'); }, set: function (el, value) { el.setAttribute('placeholder', value); } },
     {
       selector: '[data-i18n-aria]', attr: 'data-i18n-aria', get: function (el) { return el.getAttribute('aria-label'); }, set: function (el, value) {
         el.setAttribute('aria-label', value);
@@ -186,12 +234,12 @@ window.ArtVisaoI18n = (function(){
     },
   ];
 
-  function readStorage() {
-    try { return localStorage.getItem(STORAGE_KEY); } catch (e) { return null; }
+  function readStorage(key) {
+    try { return localStorage.getItem(key); } catch (e) { return null; }
   }
 
-  function writeStorage(lang) {
-    try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* storage unavailable (private mode, etc.) */ }
+  function writeStorage(key, value) {
+    try { localStorage.setItem(key, value); } catch (e) { /* storage unavailable (private mode, etc.) */ }
   }
 
   // Pairs each binding with the elements it applies to, queried once up front.
@@ -224,6 +272,21 @@ window.ArtVisaoI18n = (function(){
     return store;
   }
 
+  // Language names stay in their own language — that is what visitors scan for in a picker.
+  var LANGUAGES = { pt: 'Portugu\u00eas', fr: 'Fran\u00e7ais', en: 'English' };
+
+  // There is a single shop, so region is a display preference: it picks the header flag
+  // and suggests the matching language rather than switching any storefront.
+  var REGIONS = {
+    pt: { flag: '\ud83c\uddf5\ud83c\uddf9', lang: 'pt' },
+    fr: { flag: '\ud83c\uddeb\ud83c\uddf7', lang: 'fr' },
+    uk: { flag: '\ud83c\uddec\ud83c\udde7', lang: 'en' },
+    other: { flag: '\ud83c\udf10', lang: 'en' },
+  };
+
+  var currentLang = 'pt';
+  var currentRegion = 'pt';
+
   function setLanguage(lang, store, boundBindings) {
     boundBindings.forEach(function (binding) {
       binding.els.forEach(function (el) {
@@ -232,25 +295,106 @@ window.ArtVisaoI18n = (function(){
       });
     });
 
-    document.documentElement.setAttribute('lang', lang === 'fr' || lang === 'en' ? lang : 'pt');
-    document.querySelectorAll('.lang-btn').forEach(function (btn) {
-      btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+    currentLang = lang;
+    document.documentElement.setAttribute('lang', lang);
+
+    document.querySelectorAll('[data-lang-name]').forEach(function (el) { el.textContent = LANGUAGES[lang]; });
+    document.querySelectorAll('[data-lang-code]').forEach(function (el) { el.textContent = lang.toUpperCase(); });
+
+    writeStorage(STORAGE_KEY, lang);
+  }
+
+  function setRegion(region) {
+    currentRegion = region;
+    document.querySelectorAll('[data-lang-flag]').forEach(function (el) { el.textContent = REGIONS[region].flag; });
+    writeStorage(REGION_KEY, region);
+  }
+
+  // Wires the header trigger to the preferences dialog. Nothing is applied until Save,
+  // so dismissing the dialog leaves the current language untouched.
+  function initModal(apply) {
+    var triggers = document.querySelectorAll('[data-lang-trigger]');
+    var modal = document.getElementById('langModal');
+    if (!triggers.length || !modal) return;
+
+    // Whichever trigger opened the dialog is the one focus goes back to on close.
+    var opener = triggers[0];
+
+    var regionSelect = document.getElementById('langRegion');
+    var langSelect = document.getElementById('langLanguage');
+    var saveBtn = document.getElementById('langSave');
+    var focusables = modal.querySelectorAll('button, select');
+
+    function onKeydown(e) {
+      if (e.key === 'Escape') { close(); return; }
+      if (e.key !== 'Tab' || !focusables.length) return;
+
+      var first = focusables[0];
+      var last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+
+    function open() {
+      regionSelect.value = currentRegion;
+      langSelect.value = currentLang;
+      modal.hidden = false;
+      document.body.classList.add('lang-modal-open');
+      opener.setAttribute('aria-expanded', 'true');
+      regionSelect.focus();
+      document.addEventListener('keydown', onKeydown);
+    }
+
+    function close() {
+      modal.hidden = true;
+      document.body.classList.remove('lang-modal-open');
+      opener.setAttribute('aria-expanded', 'false');
+      opener.focus();
+      document.removeEventListener('keydown', onKeydown);
+    }
+
+    triggers.forEach(function (el) {
+      el.addEventListener('click', function () {
+        opener = el;
+        open();
+      });
     });
-    writeStorage(lang);
+    modal.querySelectorAll('[data-lang-dismiss]').forEach(function (el) {
+      el.addEventListener('click', close);
+    });
+
+    // Picking a region pre-selects its language; the visitor can still override it below.
+    regionSelect.addEventListener('change', function () {
+      langSelect.value = REGIONS[regionSelect.value].lang;
+    });
+
+    saveBtn.addEventListener('click', function () {
+      setRegion(regionSelect.value);
+      apply(langSelect.value);
+      close();
+    });
   }
 
   function init() {
     var boundBindings = bindToDom(BINDINGS);
     var store = buildStore(boundBindings);
 
-    document.querySelectorAll('.lang-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        setLanguage(btn.getAttribute('data-lang'), store, boundBindings);
-      });
-    });
+    function apply(lang) {
+      setLanguage(lang, store, boundBindings);
+    }
 
-    var saved = readStorage();
-    if (saved === 'fr' || saved === 'en') setLanguage(saved, store, boundBindings);
+    var savedRegion = readStorage(REGION_KEY);
+    setRegion(REGIONS[savedRegion] ? savedRegion : 'pt');
+
+    var savedLang = readStorage(STORAGE_KEY);
+    apply(LANGUAGES[savedLang] ? savedLang : 'pt');
+
+    initModal(apply);
   }
 
   return {

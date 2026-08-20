@@ -13,33 +13,51 @@
       .replace(/\s+/g, '-');
   }
 
-  function collapseMobileNav() {
+  // The mobile nav is a Bootstrap offcanvas; returns it only while it is actually open.
+  function openMobileNav() {
     var navMain = document.getElementById('navMain');
-    if (!navMain || !navMain.classList.contains('show')) return;
-    if (!window.bootstrap || !window.bootstrap.Collapse) return;
-    window.bootstrap.Collapse.getOrCreateInstance(navMain).hide();
+    if (!navMain || !navMain.classList.contains('show')) return null;
+    if (!window.bootstrap || !window.bootstrap.Offcanvas) return null;
+    return { el: navMain, instance: window.bootstrap.Offcanvas.getOrCreateInstance(navMain) };
+  }
+
+  function flashTarget(target) {
+    // Reset then re-add the class (and force a reflow) so the animation can re-trigger
+    target.classList.remove('menu-fade');
+    void target.offsetWidth;
+    target.classList.add('menu-fade');
+
+    target.addEventListener('animationend', function onEnd() {
+      target.classList.remove('menu-fade');
+      target.removeEventListener('animationend', onEnd);
+    });
   }
 
   function initMenuFadeOnNavigate() {
-    var navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+    var navLinks = document.querySelectorAll('.nav-link[href^="#"], .nav-drawer-action[href^="#"]');
     navLinks.forEach(function (link) {
-      link.addEventListener('click', function () {
-        collapseMobileNav();
-
+      link.addEventListener('click', function (e) {
         var hash = link.getAttribute('href');
-        if (!hash || hash === '#') return;
-        var target = document.querySelector(hash);
-        if (!target) return;
+        var target = hash && hash !== '#' ? document.querySelector(hash) : null;
+        var drawer = openMobileNav();
 
-        // Reset then re-add the class (and force a reflow) so the animation can re-trigger
-        target.classList.remove('menu-fade');
-        void target.offsetWidth;
-        target.classList.add('menu-fade');
+        if (!drawer) {
+          if (target) flashTarget(target);
+          return;
+        }
 
-        target.addEventListener('animationend', function onEnd() {
-          target.classList.remove('menu-fade');
-          target.removeEventListener('animationend', onEnd);
-        });
+        // The drawer locks body scroll while it animates out, so jump only once it is gone.
+        if (target) {
+          e.preventDefault();
+          drawer.el.addEventListener('hidden.bs.offcanvas', function onHidden() {
+            drawer.el.removeEventListener('hidden.bs.offcanvas', onHidden);
+            target.scrollIntoView();
+            // Also set the hash so the URL still reflects the section, as it does on desktop
+            window.location.hash = hash;
+            flashTarget(target);
+          });
+        }
+        drawer.instance.hide();
       });
     });
   }
