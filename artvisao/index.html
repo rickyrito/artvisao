@@ -22,28 +22,39 @@
 <main>
 
 <header class="fixed-top site-header">
-<nav class="navbar navbar-expand-md">
-<div class="container-brand d-flex flex-wrap align-items-center justify-content-between py-3">
-<a href="#top" class="d-flex align-items-center gap-2 text-decoration-none">
-<img src="assets/logo-artvisao-DsLE4gJY.jpg" alt="Art'Visão" class="navbar-brand-logo"/>
-<span class="font-display fs-3 text-ink">art'visão</span>
-</a>
-<button type="button" class="search-trigger order-md-1" data-search-trigger aria-haspopup="dialog" aria-expanded="false" aria-controls="searchOverlay" aria-label="Pesquisar no site" title="Pesquisar no site" data-i18n-aria="search-aria">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-<span class="search-trigger-text" data-i18n="search-label">Pesquisar</span>
-</button>
-<div class="d-flex align-items-center gap-2 order-md-3">
-<button type="button" class="lang-trigger d-none d-md-inline-flex" data-lang-trigger aria-haspopup="dialog" aria-expanded="false" aria-controls="langModal" aria-label="Escolher idioma e região" title="Escolher idioma e região" data-i18n-aria="lang-trigger-aria">
-<span class="lang-trigger-flag" data-lang-flag aria-hidden="true">🇵🇹</span>
-<span class="lang-trigger-name d-none d-lg-inline" data-lang-name>Português</span>
-<span class="lang-trigger-code" data-lang-code>PT</span>
-</button>
-<button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#navMain" aria-controls="navMain" aria-label="Abrir menu" title="Abrir menu" data-i18n-aria="nav-toggle-aria">
-<span class="navbar-toggler-icon"></span>
-</button>
+<div class="pre-menu">
+<div class="container-brand pre-menu-inner">
+<div class="pre-menu-side d-none d-lg-flex">
+<a href="faqs.html" class="pre-menu-link" data-i18n="nav-faqs">FAQs</a>
+<a href="links.html" class="pre-menu-link" data-i18n="nav-links">Links úteis</a>
+<a href="unidade-movel.html" class="pre-menu-link" data-i18n="nav-unidade">Unidade móvel</a>
 </div>
-<!-- Full-screen drawer below md; Bootstrap flattens .offcanvas-md back to the inline nav at md+ -->
-<div class="offcanvas-md offcanvas-end nav-drawer flex-grow-0 w-100 order-md-2" tabindex="-1" id="navMain" aria-labelledby="navMainLabel">
+<div class="pre-menu-announce">
+<button type="button" class="pre-menu-arrow" data-announce-prev aria-label="Aviso anterior" title="Aviso anterior" data-i18n-aria="ann-prev"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button>
+<div class="pre-menu-track" aria-live="polite">
+<a class="pre-menu-item" href="#visita" data-i18n="ann1">Duas lojas: Castelo Branco e Soito</a>
+<a class="pre-menu-item" href="unidade-movel.html" data-i18n="ann2">Unidade Móvel de Optometria — vamos ter consigo</a>
+<a class="pre-menu-item" href="#acordos" data-i18n="ann3">Acordos Medicare e Future Healthcare</a>
+</div>
+<button type="button" class="pre-menu-arrow" data-announce-next aria-label="Aviso seguinte" title="Aviso seguinte" data-i18n-aria="ann-next"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-chevron-right"></use></svg></button>
+</div>
+<div class="pre-menu-side pre-menu-side-end d-none d-lg-flex">
+<div class="pre-menu-social">
+<a href="https://www.facebook.com/oticaartvisao" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg><span>Facebook</span></a>
+<a href="https://www.instagram.com/art_visao/" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.5" y1="6.5" y2="6.5"></line></svg><span>Instagram</span></a>
+<a href="https://wa.me/351926002095" target="_blank" rel="noopener noreferrer"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg><span>WhatsApp</span></a>
+</div>
+</div>
+</div>
+</div>
+<div class="container-brand site-header-inner">
+<nav class="navbar navbar-expand-xl nav-pill">
+<a href="#apresentacao" class="nav-pill-brand text-decoration-none">
+<img src="assets/logo-artvisao-DsLE4gJY.jpg" alt="Art'Visão" class="navbar-brand-logo"/>
+<span class="font-display nav-pill-wordmark">art'visão</span>
+</a>
+<!-- Full-screen drawer below xl; Bootstrap flattens .offcanvas-xl back to the inline nav at xl+ -->
+<div class="offcanvas-xl offcanvas-end nav-drawer" tabindex="-1" id="navMain" aria-labelledby="navMainLabel">
 <div class="offcanvas-header nav-drawer-header">
 <h2 class="visually-hidden" id="navMainLabel" data-i18n="nav-drawer-label">Menu</h2>
 <a href="#visita" class="nav-drawer-action">
@@ -61,10 +72,12 @@
 <li class="nav-item"><a class="nav-link nav-link-brand" href="#colecao"><span data-i18n="nav-colecao">Coleção</span><svg xmlns="http://www.w3.org/2000/svg" class="nav-link-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-chevron-right"></use></svg></a></li>
 <li class="nav-item"><a class="nav-link nav-link-brand" href="#servicos"><span data-i18n="nav-servicos">Serviços</span><svg xmlns="http://www.w3.org/2000/svg" class="nav-link-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-chevron-right"></use></svg></a></li>
 <li class="nav-item"><a class="nav-link nav-link-brand" href="#clientes"><span data-i18n="nav-clientes">Clientes</span><svg xmlns="http://www.w3.org/2000/svg" class="nav-link-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-chevron-right"></use></svg></a></li>
-<li class="nav-item"><a class="nav-link nav-link-brand" href="#sobre"><span data-i18n="nav-sobre">Sobre</span><svg xmlns="http://www.w3.org/2000/svg" class="nav-link-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-chevron-right"></use></svg></a></li>
 <li class="nav-item"><a class="nav-link nav-link-brand" href="#visita"><span data-i18n="nav-visita">Visite-nos</span><svg xmlns="http://www.w3.org/2000/svg" class="nav-link-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-chevron-right"></use></svg></a></li>
+<li class="nav-item d-xl-none"><a class="nav-link nav-link-brand" href="faqs.html"><span data-i18n="nav-faqs">FAQs</span><svg xmlns="http://www.w3.org/2000/svg" class="nav-link-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-chevron-right"></use></svg></a></li>
+<li class="nav-item d-xl-none"><a class="nav-link nav-link-brand" href="links.html"><span data-i18n="nav-links">Links úteis</span><svg xmlns="http://www.w3.org/2000/svg" class="nav-link-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-chevron-right"></use></svg></a></li>
+<li class="nav-item d-xl-none"><a class="nav-link nav-link-brand" href="unidade-movel.html"><span data-i18n="nav-unidade">Unidade móvel</span><svg xmlns="http://www.w3.org/2000/svg" class="nav-link-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-chevron-right"></use></svg></a></li>
 </ul>
-<div class="nav-drawer-footer d-md-none">
+<div class="nav-drawer-footer d-xl-none">
 <button type="button" class="lang-trigger" data-lang-trigger aria-haspopup="dialog" aria-expanded="false" aria-controls="langModal" aria-label="Escolher idioma e região" title="Escolher idioma e região" data-i18n-aria="lang-trigger-aria">
 <span class="lang-trigger-flag" data-lang-flag aria-hidden="true">🇵🇹</span>
 <span class="lang-trigger-name" data-lang-name>Português</span>
@@ -73,63 +86,59 @@
 </div>
 </div>
 </div>
-<div class="d-none d-md-flex align-items-center gap-3 order-md-4">
-<a href="#visita" class="btn-dark-sm"><span data-i18n="nav-cta">Marcar exame</span>
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
-</a>
+<div class="nav-pill-end d-none d-xl-flex">
+<span class="nav-pill-divider" aria-hidden="true"></span>
+<button type="button" class="lang-trigger" data-lang-trigger aria-haspopup="dialog" aria-expanded="false" aria-controls="langModal" aria-label="Escolher idioma e região" title="Escolher idioma e região" data-i18n-aria="lang-trigger-aria">
+<span class="lang-trigger-flag" data-lang-flag aria-hidden="true">🇵🇹</span>
+<span class="lang-trigger-name d-none d-xxl-inline" data-lang-name>Português</span>
+<span class="lang-trigger-code" data-lang-code>PT</span>
+</button>
 </div>
-</div>
+<button type="button" class="nav-pill-search" data-search-trigger aria-haspopup="dialog" aria-expanded="false" aria-controls="searchOverlay" aria-label="Pesquisar no site" title="Pesquisar no site" data-i18n-aria="search-aria">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+</button>
+<button class="navbar-toggler nav-pill-toggler border-0 d-xl-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#navMain" aria-controls="navMain" aria-label="Abrir menu" title="Abrir menu" data-i18n-aria="nav-toggle-aria">
+<span class="navbar-toggler-icon"></span>
+</button>
 </nav>
+</div>
 </header>
 
-<section id="top" class="bg-gradient-hero position-relative overflow-hidden hero-section">
-<div class="container-brand">
+<section id="apresentacao" class="container-brand pb-5 pb-md-6 section-first">
 <div class="row g-5 align-items-center">
-<div class="col-12 col-lg-7">
-<span class="d-inline-flex align-items-center gap-2 border border-ink-15 px-3 py-1 text-uppercase hero-badge">
-<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-sparkle"></use></svg>
-<span data-i18n="hero-badge">Óptica de autor · desde 2008</span>
-</span>
-<h1 class="font-display mt-4 hero-title" data-i18n="hero-title">A sua visão,<br/><em class="text-sky fst-italic">moldada</em> com arte.</h1>
-<p class="mt-4 fs-5 col-lg-9 hero-description" data-i18n="hero-desc">Na Art'Visão escolhemos cada armação como se fosse para nós. Exames visuais cuidadosos, lentes de alta precisão e um atendimento humano — em Portugal, há mais de uma década.</p>
-<div class="d-flex flex-wrap align-items-center gap-3 mt-4">
-<a href="#visita" class="btn-ink"><span data-i18n="hero-cta1">Agendar exame visual</span>
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
-</a>
-<a href="#colecao" class="btn-outline-ink" data-i18n="hero-cta2">Ver a coleção</a>
+<div class="col-12 col-lg-6 position-relative">
+<div class="overflow-hidden shadow-soft about-media">
+<img src="assets/storefront-CpZGgCnH.jpeg" alt="Loja Art'Visão" data-i18n-alt="storefront-alt" class="w-100 object-cover" loading="lazy"/>
 </div>
-<div class="row mt-5 pt-4 border-top border-ink-10 col-lg-9">
-<div class="col-4">
-<div class="font-display fs-3">+15</div>
-<div class="mt-1 hero-stat-label" data-i18n="stat1-label">anos a cuidar de olhares</div>
-</div>
-<div class="col-4">
-<div class="font-display fs-3">200+</div>
-<div class="mt-1 hero-stat-label" data-i18n="stat2-label">armações selecionadas</div>
-</div>
-<div class="col-4">
-<div class="font-display fs-3">Hoya</div>
-<div class="mt-1 hero-stat-label" data-i18n="stat3-label">lentes de alta precisão</div>
+<div class="position-absolute d-none d-md-block bg-sky text-cream p-4 rounded-4 shadow-frame hero-thumb-card hero-thumb-card-right">
+<p class="font-display fs-2 mb-0">2008</p>
+<p class="text-uppercase mb-0 about-badge" data-i18n="sobre-badge">a primeira loja</p>
 </div>
 </div>
+<div class="col-12 col-lg-6">
+<h1 class="font-display section-title" data-i18n="sobre-title">Uma óptica que conhece cada cliente pelo nome.</h1>
+<p class="mt-3 section-copy" data-i18n="sobre-p1">A Art'Visão nasceu de uma paixão simples: aliar técnica e estética para que cada par de óculos seja, ao mesmo tempo, um instrumento de saúde e uma assinatura pessoal.</p>
+<p class="section-copy" data-i18n="sobre-p2">Trabalhamos com as melhores marcas, mas o que nos distingue é a forma como o atendemos — sem pressas, com escuta atenta e a confiança de quem está em casa.</p>
+<div class="row row-cols-2 g-2 mt-3 testimonial-caption">
+<div class="col d-flex align-items-center gap-2"><span class="bg-sky rounded-circle about-dot"></span> <span data-i18n="sobre-li1">Acordo Medicare</span></div>
+<div class="col d-flex align-items-center gap-2"><span class="bg-sky rounded-circle about-dot"></span> Future Healthcare</div>
+<div class="col d-flex align-items-center gap-2"><span class="bg-sky rounded-circle about-dot"></span> <span data-i18n="sobre-li3">Garantia de adaptação</span></div>
+<div class="col d-flex align-items-center gap-2"><span class="bg-sky rounded-circle about-dot"></span> <span data-i18n="sobre-li4">Reparações no local</span></div>
 </div>
-<div class="col-12 col-lg-5 position-relative">
-<div class="position-relative overflow-hidden shadow-soft aspect-4x5 hero-image-frame">
-<img src="assets/hero-portrait-Bq2HNdNQ.jpg" alt="Mulher elegante usando armação Art'Visão" data-i18n-alt="hero-img-alt" class="w-100 h-100 object-cover"/>
-</div>
-<div class="position-absolute d-none d-md-block bg-cream p-3 shadow-frame border border-ink-10 hero-thumb-card">
-<img src="assets/frame-newbalance-QZsuseFw.jpeg" alt="Armação New Balance" data-i18n-alt="nb-thumb-alt" class="hero-thumb-image"/>
-<p class="mt-2 mb-0 hero-thumb-caption" data-i18n="hero-badge-nb">Coleção esportiva · New Balance</p>
-</div>
-<div class="position-absolute d-none d-md-block bg-sky text-cream px-3 py-2 text-uppercase hero-badge-pill" data-i18n="hero-badge-new">novo · 2026</div>
+<div class="tech-lead mt-4 pt-4 border-top border-ink-10">
+<p class="text-uppercase text-sky mb-2 section-eyebrow" data-i18n="rt-label">Responsável técnico</p>
+<p class="font-display tech-lead-name mb-1">Dr. Licínio Nunes Matos</p>
+<p class="tech-lead-role mb-3" data-i18n="rt-role">Optometrista · Contactologista</p>
+<dl class="tech-lead-cv mb-0">
+<dt data-i18n="rt-hab-label">Habilitações académicas</dt>
+<dd data-i18n="rt-hab">Licenciatura em Optometria - Ciências da Visão pela Universidade da Beira Interior (UBI), uma instituição de referência nacional sediada na Covilhã e pioneira no ensino e investigação desta vertente da saúde visual em Portugal.</dd>
+<dt data-i18n="rt-esp-label">Especialidades técnicas</dt>
+<dd data-i18n="rt-esp">Atuação focada em Optometria (avaliação primária da saúde visual, refração e prescrição de lentes) e Contactologia (especialização na adaptação de lentes de contacto para a correção de diferentes problemas oculares, como miopia, astigmatismo ou presbiopia).</dd>
+</dl>
 </div>
 </div>
 </div>
-</section>
-
-<section aria-label="Destaques" class="bg-cream py-5 py-md-6">
-<div class="container-brand py-4">
-<div class="row row-cols-2 row-cols-md-4 g-4 text-center">
+<div class="row row-cols-2 row-cols-md-4 g-4 text-center mt-4 mt-md-5 pt-4 pt-md-5 border-top border-ink-10">
 <div class="col">
 <a href="#colecao" class="feature-link d-flex flex-column align-items-center text-decoration-none">
 <span class="feature-icon"><span class="feature-icon-fill"></span>
@@ -165,7 +174,6 @@
 <span class="font-display fs-5 text-ink mt-3" data-i18n="feat4-title">Loja</span>
 <span class="mt-1 feature-caption" data-i18n="feat4-desc">Onde estamos</span>
 </a>
-</div>
 </div>
 </div>
 </section>
@@ -355,6 +363,65 @@
 </div>
 </div>
 </div>
+<div class="row g-4 mt-4 mt-md-5 pt-4 pt-md-5 border-top border-cream-10 mobile-unit">
+<div class="col-lg-5">
+<span class="d-inline-flex align-items-center gap-2 px-3 py-1 text-uppercase mobile-unit-badge">
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-sparkle"></use></svg>
+<span data-i18n="mu-eyebrow">Vamos ter consigo</span>
+</span>
+<h3 class="font-display mt-3 mobile-unit-title" data-i18n="mu-title">Unidade Móvel de Optometria</h3>
+<p class="mt-3 text-soft-cream mobile-unit-desc" data-i18n="mu-desc">Nem sempre é fácil chegar à óptica. Deslocamo-nos a eventos na Beira Alta e na Beira Baixa — em lares, escolas, empresas e juntas de freguesia — e levamos o rastreio visual a quem dele precisa.</p>
+<p class="text-uppercase mt-4 mb-2 mobile-unit-label" data-i18n="mu-audience-label">Pensada para</p>
+<ul class="mobile-unit-tags">
+<li data-i18n="mu-aud1">Séniores</li>
+<li data-i18n="mu-aud2">Crianças em idade escolar</li>
+<li data-i18n="mu-aud3">Atletas e equipas</li>
+</ul>
+<a href="#visita" class="btn-sky-sm mt-4"><span data-i18n="mu-cta">Falar sobre uma deslocação</span>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+</a>
+</div>
+<div class="col-lg-7">
+<p class="text-uppercase mb-3 mobile-unit-label" data-i18n="mu-exams-label">O que o rastreio inclui</p>
+<ol class="mobile-unit-list">
+<li class="mobile-unit-item">
+<span class="mobile-unit-num" aria-hidden="true">01</span>
+<span class="mobile-unit-item-text">
+<span class="mobile-unit-item-title" data-i18n="mu-ex1-title">Acuidade visual</span>
+<span class="mobile-unit-item-desc" data-i18n="mu-ex1-desc">Qualidade de visão ao perto e ao longe.</span>
+</span>
+</li>
+<li class="mobile-unit-item">
+<span class="mobile-unit-num" aria-hidden="true">02</span>
+<span class="mobile-unit-item-text">
+<span class="mobile-unit-item-title" data-i18n="mu-ex2-title">Refração completa</span>
+<span class="mobile-unit-item-desc" data-i18n="mu-ex2-desc">Determinação da graduação necessária.</span>
+</span>
+</li>
+<li class="mobile-unit-item">
+<span class="mobile-unit-num" aria-hidden="true">03</span>
+<span class="mobile-unit-item-text">
+<span class="mobile-unit-item-title" data-i18n="mu-ex3-title">Motilidade ocular</span>
+<span class="mobile-unit-item-desc" data-i18n="mu-ex3-desc">Movimento e coordenação dos dois olhos.</span>
+</span>
+</li>
+<li class="mobile-unit-item">
+<span class="mobile-unit-num" aria-hidden="true">04</span>
+<span class="mobile-unit-item-text">
+<span class="mobile-unit-item-title" data-i18n="mu-ex4-title">Pressão intraocular</span>
+<span class="mobile-unit-item-desc" data-i18n="mu-ex4-desc">Medição de apoio à deteção precoce de glaucoma.</span>
+</span>
+</li>
+<li class="mobile-unit-item">
+<span class="mobile-unit-num" aria-hidden="true">05</span>
+<span class="mobile-unit-item-text">
+<span class="mobile-unit-item-title" data-i18n="mu-ex5-title">Sistema acomodativo</span>
+<span class="mobile-unit-item-desc" data-i18n="mu-ex5-desc">Capacidade de focar a diferentes distâncias.</span>
+</span>
+</li>
+</ol>
+</div>
+</div>
 </div>
 </section>
 
@@ -404,82 +471,102 @@
 </div>
 </section>
 
-<section id="sobre" class="container-brand py-5 py-md-6">
-<div class="row g-5 align-items-center">
-<div class="col-12 col-lg-6 position-relative">
-<div class="overflow-hidden shadow-soft about-media">
-<img src="assets/storefront-CpZGgCnH.jpeg" alt="Loja Art'Visão" data-i18n-alt="storefront-alt" class="w-100 object-cover" loading="lazy"/>
-</div>
-<div class="position-absolute d-none d-md-block bg-sky text-cream p-4 rounded-4 shadow-frame hero-thumb-card hero-thumb-card-right">
-<p class="font-display fs-2 mb-0">2008</p>
-<p class="text-uppercase mb-0 about-badge" data-i18n="sobre-badge">a primeira loja</p>
-</div>
-</div>
-<div class="col-12 col-lg-6">
-<p class="text-sky text-uppercase mb-2 section-eyebrow" data-i18n="sobre-eyebrow">Sobre nós</p>
-<h2 class="font-display section-title" data-i18n="sobre-title">Uma óptica que conhece cada cliente pelo nome.</h2>
-<p class="mt-3 section-copy" data-i18n="sobre-p1">A Art'Visão nasceu de uma paixão simples: aliar técnica e estética para que cada par de óculos seja, ao mesmo tempo, um instrumento de saúde e uma assinatura pessoal.</p>
-<p class="section-copy" data-i18n="sobre-p2">Trabalhamos com as melhores marcas, mas o que nos distingue é a forma como o atendemos — sem pressas, com escuta atenta e a confiança de quem está em casa.</p>
-<div class="row row-cols-2 g-2 mt-3 testimonial-caption">
-<div class="col d-flex align-items-center gap-2"><span class="bg-sky rounded-circle about-dot"></span> <span data-i18n="sobre-li1">Acordo Medicare</span></div>
-<div class="col d-flex align-items-center gap-2"><span class="bg-sky rounded-circle about-dot"></span> Future Healthcare</div>
-<div class="col d-flex align-items-center gap-2"><span class="bg-sky rounded-circle about-dot"></span> <span data-i18n="sobre-li3">Garantia de adaptação</span></div>
-<div class="col d-flex align-items-center gap-2"><span class="bg-sky rounded-circle about-dot"></span> <span data-i18n="sobre-li4">Reparações no local</span></div>
-</div>
-</div>
-</div>
-</section>
 
 <section id="visita" class="bg-cream pb-5 pb-md-6">
 <div class="container-brand">
 <div class="bg-ink text-cream shadow-soft p-4 p-md-5 visit-panel">
 <div class="row g-4">
-<div class="col-12 col-lg-6">
+<div class="col-12 col-lg-4">
 <p class="text-sky text-uppercase mb-2 section-eyebrow" data-i18n="nav-visita">Visite-nos</p>
 <h2 class="font-display section-title-lg" data-i18n="visita-title">Passe por cá. Trazemos o café.</h2>
 <p class="mt-3 text-soft-cream" data-i18n="visita-desc">Marque o seu exame visual ou venha simplesmente experimentar. Estamos prontos para o receber.</p>
-<a href="tel:+351212105432" class="btn-sky-sm mt-3">
+<a href="tel:+351926002095" class="btn-sky-sm mt-3">
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-phone"></use></svg>
-+351 212 105 432
++351 926 002 095
 </a>
-</div>
-<div class="col-12 col-lg-6">
-<div class="row row-cols-1 row-cols-sm-2 g-3">
-<div class="col">
-<div class="border border-cream-10 bg-cream-04 rounded-4 p-3 h-100">
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
-<div class="text-uppercase mt-2 visit-label" data-i18n="visita-label-endereco">Endereço</div>
-<div class="visit-value"><a href="https://www.google.com/maps/place/Art'Vis%C3%A3o/@39.8164797,-7.4868901,17z/data=!3m1!4b1!4m6!3m5!1s0xd3d5f6b8c904e03:0x7376081cd4caddb4!8m2!3d39.8164797!4d-7.4843152!16s%2Fg%2F11hdx9h9cx" target="_blank" rel="noopener noreferrer" class="text-cream">R. Dr. Simplício Magro, lote 107
-6000-332 Castelo Branco</a></div>
-</div>
-</div>
-<div class="col">
-<div class="border border-cream-10 bg-cream-04 rounded-4 p-3 h-100">
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
-<div class="text-uppercase mt-2 visit-label" data-i18n="visita-label-horario">Horário</div>
-<div class="visit-value" data-i18n="visita-horario-value">Ter–Sáb · 10h–17h30
-Almoço 13h–14h</div>
-</div>
-</div>
-<div class="col">
-<div class="border border-cream-10 bg-cream-04 rounded-4 p-3 h-100">
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>
-<div class="text-uppercase mt-2 visit-label">E-mail</div>
+<!-- Contactos comuns às duas lojas, fora das colunas para não parecerem de uma delas -->
+<div class="mt-4 pt-4 border-top border-cream-10">
+<div class="text-uppercase visit-label">E-mail</div>
 <div class="visit-value"><a href="mailto:geral@artvisao.pt" class="text-cream">geral@artvisao.pt</a></div>
 </div>
 </div>
-<div class="col">
-<div class="border border-cream-10 bg-cream-04 rounded-4 p-3 h-100">
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky" aria-hidden="true"><use href="#icon-phone"></use></svg>
-<div class="text-uppercase mt-2 visit-label">WhatsApp</div>
-<div class="visit-value"><a href="https://wa.me/351926002095" target="_blank" rel="noopener noreferrer" class="text-cream">+351 926 002 095</a></div>
+<div class="col-12 col-md-6 col-lg-4">
+<div class="visit-shop border border-cream-10 bg-cream-04 rounded-4 h-100 overflow-hidden d-flex flex-column">
+<div class="p-3">
+<div class="d-flex align-items-center gap-2">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky flex-shrink-0" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<h3 class="font-display visit-shop-name mb-0">Castelo Branco</h3>
+</div>
+<div class="visit-value mt-3"><a href="https://www.google.com/maps/place/Art'Vis%C3%A3o/@39.8164797,-7.4868901,17z/data=!3m1!4b1!4m6!3m5!1s0xd3d5f6b8c904e03:0x7376081cd4caddb4!8m2!3d39.8164797!4d-7.4843152!16s%2Fg%2F11hdx9h9cx" target="_blank" rel="noopener noreferrer" class="text-cream">R. Dr. Simplício Magro, lote 107
+6000-332 Castelo Branco</a></div>
+<div class="visit-value mt-2"><a href="tel:+351272105432" class="text-cream">272 105 432</a></div>
+<div class="text-uppercase mt-3 visit-label" data-i18n="visita-label-horario">Horário</div>
+<div class="visit-value" data-i18n="visita-horario-value">Ter–Sáb · 10h–17h30
+Almoço 13h–14h</div>
+</div>
+<div class="map-slot mt-auto">
+<iframe class="map-embed" hidden data-consent-src="https://maps.google.com/maps?q=39.8164797,-7.4843152&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Localização da loja de Castelo Branco no Google Maps"></iframe>
+<div class="map-blocked">
+<p class="mb-2" data-i18n="consent-map-blocked">O mapa é fornecido pelo Google e coloca cookies no seu dispositivo.</p>
+<button type="button" class="btn-sky-sm" data-consent-enable-maps data-i18n="consent-map-enable">Ver o mapa</button>
+</div>
+</div>
+</div>
+</div>
+<div class="col-12 col-md-6 col-lg-4">
+<div class="visit-shop border border-cream-10 bg-cream-04 rounded-4 h-100 overflow-hidden d-flex flex-column">
+<div class="p-3">
+<div class="d-flex align-items-center gap-2">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky flex-shrink-0" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+<h3 class="font-display visit-shop-name mb-0">Soito</h3>
+</div>
+<div class="visit-value mt-3"><a href="https://www.google.com/maps/search/?api=1&query=Centro%20de%20Neg%C3%B3cios%20Transfronteiri%C3%A7o%20do%20Soito" target="_blank" rel="noopener noreferrer" class="text-cream">Centro de Negócios Transfronteiriço do Soito
+Avenida de São Cristóvão, 6320-624 Soito</a></div>
+<div class="text-uppercase mt-3 visit-label" data-i18n="visita-label-horario">Horário</div>
+<div class="visit-value" data-i18n="visita-horario-soito">Terça · 10h–17h30
+Sáb · 10h–13h30</div>
+</div>
+<div class="map-slot mt-auto">
+<iframe class="map-embed" hidden data-consent-src="https://maps.google.com/maps?q=Centro%20de%20Neg%C3%B3cios%20Transfronteiri%C3%A7o%20do%20Soito&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Localização da loja do Soito no Google Maps"></iframe>
+<div class="map-blocked">
+<p class="mb-2" data-i18n="consent-map-blocked">O mapa é fornecido pelo Google e coloca cookies no seu dispositivo.</p>
+<button type="button" class="btn-sky-sm" data-consent-enable-maps data-i18n="consent-map-enable">Ver o mapa</button>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="mt-4 overflow-hidden rounded-4">
-<iframe class="map-embed" src="https://maps.google.com/maps?q=39.8164797,-7.4843152&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Localização Art'Visão no Google Maps"></iframe>
+</div>
+<div class="contact-block mt-4 mt-md-5">
+<div class="row g-4 align-items-start">
+<div class="col-12 col-lg-4">
+<h2 class="font-display contact-title" data-i18n="cf-title">Envie-nos uma mensagem</h2>
+<p class="mt-2 section-copy contact-intro" data-i18n="cf-intro">Respondemos por email, normalmente no mesmo dia útil. Para marcações urgentes, prefira o telefone.</p>
+<p class="contact-privacy mt-3" data-i18n="cf-privacy">Os dados que escrever são usados apenas para lhe responder e não são partilhados com terceiros.</p>
+</div>
+<div class="col-12 col-lg-8">
+<form class="contact-form" id="contactForm" action="contact.php" method="post" novalidate>
+<label class="visually-hidden" for="cfName" data-i18n="cf-name">Nome</label>
+<input class="contact-input" type="text" id="cfName" name="name" required maxlength="120" autocomplete="name" placeholder="O seu nome*" data-i18n-placeholder="cf-name-ph"/>
+<label class="visually-hidden" for="cfEmail" data-i18n="cf-email">Email</label>
+<input class="contact-input" type="email" id="cfEmail" name="email" required autocomplete="email" placeholder="O seu email*" data-i18n-placeholder="cf-email-ph"/>
+<label class="visually-hidden" for="cfMsg" data-i18n="cf-msg">Mensagem</label>
+<textarea class="contact-input" id="cfMsg" name="message" required maxlength="5000" rows="6" placeholder="A sua mensagem*" data-i18n-placeholder="cf-msg-ph"></textarea>
+<!-- Campo-armadilha: escondido das pessoas e dos leitores de ecrã, os robôs preenchem-no -->
+<div class="contact-hp" aria-hidden="true"><label>Website<input type="text" name="website" tabindex="-1" autocomplete="off"/></label></div>
+<button type="submit" class="contact-submit" data-i18n="cf-submit">Enviar</button>
+<p class="contact-status" id="contactStatus" role="status" aria-live="polite" hidden></p>
+<!-- Mensagens de estado geradas em runtime, aqui para serem traduzidas como o resto -->
+<div class="visually-hidden" aria-hidden="true">
+<span data-cf-msg="sending" data-i18n="cf-sending">A enviar…</span>
+<span data-cf-msg="sent" data-i18n="cf-sent">Mensagem enviada. Obrigado — respondemos em breve.</span>
+<span data-cf-msg="incomplete" data-i18n="cf-incomplete">Preencha o nome, o email e a mensagem.</span>
+<span data-cf-msg="bademail" data-i18n="cf-bademail">Esse endereço de email não parece válido.</span>
+<span data-cf-msg="toolong" data-i18n="cf-toolong">A mensagem é demasiado longa.</span>
+<span data-cf-msg="failed" data-i18n="cf-failed">Não foi possível enviar. Escreva-nos para geral@artvisao.pt ou ligue.</span>
+</div>
+</form>
+</div>
 </div>
 </div>
 </div>
@@ -499,7 +586,8 @@ Almoço 13h–14h</div>
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.5" y1="6.5" y2="6.5"></line></svg>
 </a>
 </div>
-<p class="mb-0"><span data-i18n="footer-copy">© 2026 Art'Visão. Todos os direitos reservados.</span></p>
+<p class="mb-0"><span data-i18n="footer-copy">© 2026 Art'Visão. Todos os direitos reservados.</span>
+<a href="#" class="footer-consent-link" data-consent-open data-i18n="consent-footer-link">Preferências de cookies</a></p>
 </div>
 </footer>
 
@@ -509,6 +597,59 @@ Almoço 13h–14h</div>
 </span>
 <span class="wa-float-text" data-i18n="wa-float-text">Fale connosco</span>
 </a>
+
+<!-- Consentimento: banner de primeiro nível e painel de preferências.
+     As categorias reflectem o que o site carrega mesmo — não há analytics nem marketing. -->
+<div class="consent-banner" id="consentBanner" role="region" aria-labelledby="consentBannerTitle" hidden>
+<div class="container-brand consent-banner-inner">
+<div>
+<p class="font-display consent-banner-title mb-1" id="consentBannerTitle" data-i18n="consent-title">Cookies neste site</p>
+<p class="mb-0 consent-banner-text" data-i18n="consent-text">Usamos armazenamento local para guardar o idioma que escolheu. Os mapas das lojas são carregados pelo Google e só depois da sua autorização.</p>
+</div>
+<div class="consent-actions">
+<button type="button" class="consent-btn consent-btn-ghost" data-consent-prefs data-i18n="consent-prefs">Preferências</button>
+<button type="button" class="consent-btn consent-btn-outline" data-consent-reject><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg><span data-i18n="consent-reject">Rejeitar</span></button>
+<button type="button" class="consent-btn consent-btn-solid" data-consent-accept><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="consent-accept">Aceitar</span></button>
+</div>
+</div>
+</div>
+
+<div class="consent-panel-overlay" id="consentPanel" hidden>
+<div class="consent-panel-backdrop" data-consent-dismiss></div>
+<div class="consent-panel" role="dialog" aria-modal="true" aria-labelledby="consentPanelTitle">
+<div class="consent-panel-head">
+<h2 class="font-display consent-panel-title mb-0" id="consentPanelTitle" data-i18n="consent-panel-title">As suas escolhas de privacidade</h2>
+<button type="button" class="consent-panel-close" data-consent-dismiss aria-label="Fechar" title="Fechar" data-i18n-aria="lang-modal-close">
+<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+</button>
+</div>
+<div class="consent-panel-body">
+<p class="consent-panel-intro" data-i18n="consent-panel-intro">Pode decidir o que autoriza. A sua escolha fica guardada neste dispositivo e pode alterá-la a qualquer momento pelo link no rodapé.</p>
+<div class="consent-panel-quick">
+<button type="button" class="consent-btn consent-btn-outline" data-consent-reject><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg><span data-i18n="consent-reject-all">Rejeitar tudo</span></button>
+<button type="button" class="consent-btn consent-btn-solid" data-consent-accept><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><span data-i18n="consent-accept-all">Aceitar tudo</span></button>
+</div>
+<div class="consent-cat">
+<div class="consent-cat-head">
+<span class="consent-cat-name" data-i18n="consent-cat-nec">Necessárias</span>
+<span class="consent-cat-always" data-i18n="consent-always">Sempre ativas</span>
+</div>
+<p class="consent-cat-desc mb-0" data-i18n="consent-cat-nec-desc">Guardam no seu navegador o idioma e a região que escolheu. Não saem do seu dispositivo nem identificam quem é.</p>
+</div>
+<div class="consent-cat">
+<div class="consent-cat-head">
+<label class="consent-cat-name" for="consentMaps" data-i18n="consent-cat-maps">Mapas do Google</label>
+<label class="consent-switch">
+<input type="checkbox" id="consentMaps"/>
+<span class="consent-switch-track" aria-hidden="true"></span>
+</label>
+</div>
+<p class="consent-cat-desc mb-0" data-i18n="consent-cat-maps-desc">Mostram a localização das duas lojas. São carregados a partir do Google, que coloca cookies e recebe o seu endereço IP. Sem autorização, os mapas não são carregados.</p>
+</div>
+<button type="button" class="consent-save" data-consent-save data-i18n="consent-save">Guardar e continuar</button>
+</div>
+</div>
+</div>
 
 <!-- Site search: index is rebuilt from the DOM on every keystroke, so it follows the active language -->
 <div class="search-overlay" id="searchOverlay">
@@ -581,5 +722,7 @@ Almoço 13h–14h</div>
 <script src="js/i18n.js"></script>
 <script src="js/main.js"></script>
 <script src="js/search.js"></script>
+<script src="js/consent.js"></script>
+<script src="js/contact.js"></script>
 </body>
 </html>

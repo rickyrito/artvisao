@@ -53,6 +53,13 @@
         '', document.getElementById('servicos'), card);
     });
 
+    // Unidade móvel — bloco próprio dentro de #servicos, com os exames no haystack
+    var unit = document.querySelector('#servicos .mobile-unit');
+    if (unit) {
+      add('services', text(unit.querySelector('.mobile-unit-title')), text(unit.querySelector('.mobile-unit-desc')),
+        text(unit.querySelector('.mobile-unit-list')), document.getElementById('servicos'), unit);
+    }
+
     // Coleção — as armações têm imagem, por isso entram com miniatura
     document.querySelectorAll('#colecao .product-card').forEach(function (card) {
       var img = card.querySelector('img');
@@ -80,7 +87,7 @@
       if (!heading) return;
 
       var own = Array.prototype.filter.call(
-        section.querySelectorAll('.section-copy, .brand-copy, .hero-description, .testimonial-quote, .visit-value, .visit-label'),
+        section.querySelectorAll('.section-copy, .brand-copy, .tech-lead, .hero-description, .testimonial-quote, .visit-value, .visit-label'),
         function (el) { return !el.closest('.service-card, .product-card, .brand-tile'); }
       );
       var ownText = own.map(text).join(' ');

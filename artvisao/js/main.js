@@ -62,6 +62,51 @@
     });
   }
 
+  // Avisos rotativos do pré-menu. Todos os slides estão no DOM (para o i18n os traduzir
+  // como a tudo o resto); só a classe is-current decide qual se vê.
+  function initAnnouncements() {
+    var track = document.querySelector('.pre-menu-track');
+    if (!track) return;
+
+    var items = track.querySelectorAll('.pre-menu-item');
+    if (items.length < 2) {
+      if (items.length) items[0].classList.add('is-current');
+      return;
+    }
+
+    var index = 0;
+    var timer = null;
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function show(next) {
+      index = (next + items.length) % items.length;
+      items.forEach(function (el, i) { el.classList.toggle('is-current', i === index); });
+    }
+
+    function start() {
+      if (reduced || timer) return;
+      timer = setInterval(function () { show(index + 1); }, 6000);
+    }
+
+    function stop() {
+      clearInterval(timer);
+      timer = null;
+    }
+
+    var announce = track.closest('.pre-menu-announce');
+    announce.querySelector('[data-announce-prev]').addEventListener('click', function () { show(index - 1); stop(); start(); });
+    announce.querySelector('[data-announce-next]').addEventListener('click', function () { show(index + 1); stop(); start(); });
+
+    // Não roda por baixo do cursor nem enquanto o teclado lá está
+    announce.addEventListener('mouseenter', stop);
+    announce.addEventListener('mouseleave', start);
+    announce.addEventListener('focusin', stop);
+    announce.addEventListener('focusout', start);
+
+    show(0);
+    start();
+  }
+
   function showInitialsFallback(tile, name) {
     var words = name.split(/\s+/).filter(Boolean).slice(0, 2);
     var initials = words.map(function (w) { return w[0]; }).join('').toUpperCase() || name.charAt(0).toUpperCase();
@@ -138,6 +183,7 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     initMenuFadeOnNavigate();
+    initAnnouncements();
     document.querySelectorAll('.brand-tile').forEach(loadBrandLogo);
   });
 })();

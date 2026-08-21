@@ -32,16 +32,72 @@ a{text-decoration:none;}
 .text-soft-cream-muted{color:rgba(250,246,239,.6)!important;}
 .aspect-4x5{aspect-ratio:4/5;}
 .object-cover{object-fit:cover;}
-/* z-index matches Bootstrap's offcanvas layer: the header hosts the mobile drawer, so its
-   stacking context has to clear the offcanvas backdrop and the floating WhatsApp button. */
-.site-header{background-color:rgba(250,246,239,.9);border-bottom:1px solid rgba(28,28,26,.08);z-index:1045;height:auto;}
-/* backdrop-filter makes the header a containing block for position:fixed descendants,
-   which would trap the mobile nav drawer inside it — so the blur is desktop-only. */
-@media (min-width:768px){.site-header{backdrop-filter:blur(8px);}}
-section[id]{scroll-margin-top:9.5rem;}
-@media (min-width:768px){section[id]{scroll-margin-top:7.5rem;}}
+/* Pré-menu: faixa escura acima da barra, com contacto, avisos rotativos e redes */
+.pre-menu{background:var(--ink);color:rgba(250,246,239,.75);font-size:.78rem;}
+.pre-menu-inner{display:grid;grid-template-columns:1fr minmax(0,44rem) 1fr;align-items:center;gap:1rem;min-height:2.4rem;}
+.pre-menu-side{display:flex;align-items:center;gap:1.1rem;min-width:0;}
+.pre-menu-side-end{justify-content:flex-end;}
+.pre-menu-link{white-space:nowrap;color:rgba(250,246,239,.75);transition:color .2s ease;}
+.pre-menu-link:hover,.pre-menu-link.is-current{color:var(--cream);}
+.pre-menu-link.is-current{text-decoration:underline;text-underline-offset:.25rem;}
+.pre-menu-announce{display:flex;align-items:center;gap:.35rem;min-width:0;justify-content:center;}
+.pre-menu-arrow{display:flex;background:none;border:0;padding:.25rem;color:rgba(250,246,239,.55);cursor:pointer;flex-shrink:0;transition:color .2s ease;}
+.pre-menu-arrow:hover{color:var(--cream);}
+/* Os avisos ocupam a mesma célula da grelha para que a faixa não salte de altura ao trocar */
+.pre-menu-track{display:grid;flex:1 1 auto;min-width:0;}
+.pre-menu-item{grid-area:1/1;justify-self:center;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;color:rgba(250,246,239,.85);opacity:0;visibility:hidden;transition:opacity .35s ease;}
+.pre-menu-item.is-current{opacity:1;visibility:visible;}
+.pre-menu-item:hover{color:var(--cream);text-decoration:underline;}
+.pre-menu-social{display:flex;align-items:center;flex-shrink:0;}
+.pre-menu-social a{display:inline-flex;align-items:center;gap:.4rem;padding-inline:.75rem;white-space:nowrap;color:rgba(250,246,239,.72);transition:color .2s ease;}
+.pre-menu-social a:first-child{padding-left:0;}
+.pre-menu-social a:last-child{padding-right:0;}
+.pre-menu-social a + a{border-left:1px solid rgba(250,246,239,.2);}
+.pre-menu-social a:hover{color:var(--cream);}
+@media (prefers-reduced-motion:reduce){.pre-menu-item{transition:none;}}
+
+/* Floating pill header: the bar detaches from the top edge and rides over the content,
+   so the header element itself is just a transparent rail.
+   z-index matches Bootstrap's offcanvas layer, since the header hosts the mobile drawer and
+   its stacking context has to clear the offcanvas backdrop and the floating WhatsApp button. */
+.site-header{background:var(--card);border:0;z-index:1045;height:auto;box-shadow:0 14px 34px -20px rgba(28,28,26,.45),0 1px 3px rgba(28,28,26,.06);}
+.site-header-inner{display:flex;align-items:center;gap:.75rem;}
+.nav-pill{flex:1 1 auto;min-width:0;display:flex;flex-wrap:nowrap;align-items:center;gap:1rem;padding:.7rem 0;background:none;}
+.nav-pill-brand{display:flex;align-items:center;gap:.55rem;flex-shrink:0;}
+.nav-pill-wordmark{font-size:1.3rem;line-height:1;color:var(--ink);}
+.nav-pill-end{align-items:center;gap:.85rem;flex-shrink:0;margin-right:.35rem;}
+.nav-pill-divider{width:1px;height:1.5rem;background:rgba(28,28,26,.15);}
+.nav-pill-toggler{padding:.35rem .5rem;}
+
+/* Search sits inside the pill, in the icon slot after the language chip */
+.nav-pill-search{display:flex;align-items:center;justify-content:center;flex-shrink:0;height:2.4rem;width:2.4rem;background:none;border:0;color:var(--ink);cursor:pointer;transition:background-color .2s ease,color .2s ease;}
+.nav-pill-search svg{width:19px;height:19px;}
+.nav-pill-search:hover{background-color:rgba(28,28,26,.06);color:var(--sky);}
+
+@media (min-width:1200px){
+  /* Nav fills the middle of the bar; the blur is only safe here, where the drawer is not in play
+     (backdrop-filter would make the header a containing block for the fixed-position drawer). */
+  .site-header{background:rgba(255,255,255,.94);backdrop-filter:blur(10px);}
+  .nav-pill #navMain{flex:1 1 auto;min-width:0;}
+  .nav-pill .offcanvas-body{flex-grow:1;justify-content:center;}
+  /* Guard: if the labels ever outgrow the pill, clip rather than let them overlap the brand */
+  .nav-pill{overflow:hidden;}
+  .nav-pill .navbar-nav{flex-wrap:nowrap;gap:1.1rem;}
+  .nav-pill .nav-link-brand{font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}
+}
+@media (max-width:1199.98px){
+  .nav-pill-brand{margin-right:auto;}
+}
+@media (max-width:560px){
+  .nav-pill{gap:.5rem;}
+  .nav-pill-wordmark{font-size:1.1rem;}
+}
+section[id]{scroll-margin-top:8rem;}
+/* First section on the page has to clear the fixed header */
+.section-first{padding-top:8.5rem;}
+@media (min-width:768px){.section-first{padding-top:9.5rem;}}
 .hero-section{padding-top:6.5rem;padding-bottom:3.5rem;}
-@media (min-width:768px){.hero-section{padding-top:9rem;padding-bottom:6rem;}}
+@media (min-width:768px){.hero-section{padding-top:7.5rem;padding-bottom:6rem;}}
 .hero-badge{font-size:.75rem;letter-spacing:.2em;background-color:rgba(250,246,239,.6);color:rgba(28,28,26,.7);}
 .hero-title{font-size:3.2rem;line-height:1.05;}
 .hero-description{color:rgba(28,28,26,.7);}
@@ -75,7 +131,7 @@ section[id]{scroll-margin-top:9.5rem;}
 .testimonial-quote{font-family:'Fraunces',serif;font-size:1.25rem;margin-top:1rem;}
 .testimonial-author{font-weight:500;color:var(--ink);}
 .about-dot{display:inline-block;height:.4rem;width:.4rem;}
-.hero-thumb-card-right{right:-1.5rem;bottom:-1.5rem;}
+.hero-thumb-card-right{left:auto;right:-1.5rem;bottom:-1.5rem;}
 .bg-ink{background-color:var(--ink)!important;}
 .bg-cream{background-color:var(--cream)!important;}
 .bg-sky{background-color:var(--sky)!important;}
@@ -98,8 +154,6 @@ section[id]{scroll-margin-top:9.5rem;}
 .btn-outline-ink:hover{background-color:rgba(28,28,26,.05);color:var(--ink);}
 .btn-sky-sm{display:inline-flex;align-items:center;gap:.5rem;background-color:var(--sky);color:var(--cream);padding:.75rem 1.5rem;font-size:.9rem;}
 .btn-sky-sm:hover{opacity:.9;color:var(--cream);}
-.btn-dark-sm{display:inline-flex;align-items:center;gap:.5rem;background-color:var(--ink);color:var(--cream);padding:.6rem 1.25rem;font-size:.9rem;transition:opacity .2s ease;}
-.btn-dark-sm:hover{opacity:.9;color:var(--cream);}
 .navbar-brand-logo{height:3rem;width:3rem;object-fit:cover;box-shadow:0 0 0 1px rgba(28,28,26,.1);}
 .nav-link-brand{color:rgba(28,28,26,.8);font-size:.9rem;}
 .nav-link-brand:hover{color:var(--ink);}
@@ -121,16 +175,141 @@ section[id]{scroll-margin-top:9.5rem;}
 .product-info p{font-size:.85rem;color:rgba(28,28,26,.6);margin:0}
 .service-card{transition:background-color .2s ease,border-color .2s ease;}
 .service-card:hover{border-color:rgba(91,143,199,.4)!important;background-color:rgba(250,246,239,.07);}
-.map-embed{width:100%;height:320px;border:0;display:block;}
-/* Site search: header trigger + overlay panel */
-.search-trigger{display:inline-flex;align-items:center;gap:.65rem;width:min(280px,100%);padding:.6rem .85rem;background:rgba(28,28,26,.045);border:1px solid rgba(28,28,26,.12);color:rgba(28,28,26,.55);font-family:inherit;font-size:.9rem;text-align:left;cursor:pointer;transition:border-color .2s ease,color .2s ease;}
-.search-trigger:hover{border-color:var(--sky);color:var(--ink);}
-.search-trigger svg{width:18px;height:18px;flex-shrink:0;}
+.map-embed{width:100%;height:200px;border:0;display:block;}
+/* Cada loja é uma coluna com o seu mapa colado ao fundo do cartão, para que
+   mapa e morada se leiam como um bloco só. */
+.visit-shop-name{font-size:1.2rem;color:var(--cream);}
+/* Página de FAQs — acordeão nativo com <details>, sem JS */
+.faq-item{border-bottom:1px solid rgba(28,28,26,.12);}
+.faq-item:first-child{border-top:1px solid rgba(28,28,26,.12);}
+.faq-question{display:flex;align-items:flex-start;justify-content:space-between;gap:1.25rem;padding:1.15rem 0;list-style:none;cursor:pointer;font-family:'Fraunces',serif;font-size:1.15rem;line-height:1.3;color:var(--ink);transition:color .2s ease;}
+.faq-question::-webkit-details-marker{display:none;}
+.faq-question:hover{color:var(--sky);}
+.faq-chevron{flex-shrink:0;margin-top:.2rem;color:var(--sky);transition:transform .2s ease;}
+.faq-item[open] .faq-chevron{transform:rotate(180deg);}
+.faq-answer{margin:0;padding:0 2.5rem 1.35rem 0;font-size:.95rem;line-height:1.65;color:rgba(28,28,26,.7);}
+.faq-disclaimer{padding:.9rem 1.1rem;background:rgba(91,143,199,.1);border-left:2px solid var(--sky);font-size:.85rem;line-height:1.55;color:rgba(28,28,26,.75);}
+@media (prefers-reduced-motion:reduce){.faq-chevron{transition:none;}}
+
+/* Página da unidade móvel */
+.um-section-title{font-size:1.35rem;color:var(--ink);margin:0 0 1.1rem;}
+.um-figure{margin:0 0 2.25rem;overflow:hidden;}
+.um-figure img{width:100%;height:260px;object-fit:cover;object-position:center 30%;display:block;}
+.um-grid{display:grid;gap:.85rem;}
+@media (min-width:768px){.um-grid{grid-template-columns:repeat(3,1fr);}}
+.um-card{padding:1.1rem 1.2rem;border:1px solid rgba(28,28,26,.12);background:var(--card);}
+.um-card-title{font-family:'Fraunces',serif;font-size:1rem;color:var(--ink);margin:0 0 .4rem;}
+.um-card-desc{font-size:.83rem;line-height:1.55;color:rgba(28,28,26,.65);}
+/* A lista de exames é partilhada com a secção escura do índice; aqui vai sobre creme */
+.um-list-light .mobile-unit-item{border-color:rgba(28,28,26,.12);background:var(--card);}
+.um-list-light .mobile-unit-item:hover{border-color:var(--sky);background:rgba(91,143,199,.06);}
+.um-list-light .mobile-unit-item-title{color:var(--ink);}
+.um-list-light .mobile-unit-item-desc{color:rgba(28,28,26,.65);}
+@media (min-width:576px){.um-list-light .mobile-unit-item:first-child{grid-column:auto;}}
+.um-steps{list-style:none;margin:0;padding:0;display:grid;gap:1rem;}
+.um-step{display:flex;align-items:flex-start;gap:1rem;}
+.um-step-num{flex-shrink:0;display:grid;place-items:center;width:2rem;height:2rem;background:var(--sky);color:var(--cream);font-family:'Fraunces',serif;font-size:.95rem;}
+.um-step-text{display:flex;flex-direction:column;gap:.2rem;min-width:0;}
+.um-step-title{font-size:.98rem;font-weight:500;color:var(--ink);}
+.um-step-desc{font-size:.85rem;line-height:1.6;color:rgba(28,28,26,.65);}
+.um-note{padding:1.25rem 1.4rem;background:rgba(91,143,199,.1);border-left:2px solid var(--sky);}
+.um-note-title{font-size:1.1rem;color:var(--ink);margin:0 0 .5rem;}
+.um-note p{font-size:.88rem;line-height:1.65;color:rgba(28,28,26,.75);}
+
+/* Formulário de contacto */
+.contact-block{padding-top:2rem;border-top:1px solid rgba(28,28,26,.12);}
+.contact-title{font-size:1.6rem;color:var(--ink);}
+.contact-intro{font-size:.95rem;}
+.contact-privacy{font-size:.8rem;line-height:1.55;color:rgba(28,28,26,.55);}
+.contact-form{display:flex;flex-direction:column;gap:.85rem;}
+.contact-input{width:100%;padding:.9rem 1.1rem;background:var(--card);border:1px solid rgba(28,28,26,.15);font-family:inherit;font-size:.95rem;color:var(--ink);transition:border-color .2s ease;}
+.contact-input::placeholder{color:rgba(28,28,26,.45);letter-spacing:.02em;}
+.contact-input:focus{outline:none;border-color:var(--sky);}
+.contact-input:user-invalid{border-color:#b4483c;}
+textarea.contact-input{resize:vertical;min-height:9rem;}
+/* Armadilha para robôs: fora do ecrã, sem display:none (alguns robôs ignoram campos ocultos) */
+.contact-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+.contact-submit{align-self:flex-start;padding:.95rem 2.25rem;background:var(--ink);border:0;font-family:inherit;font-size:.85rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);cursor:pointer;transition:background-color .2s ease,opacity .2s ease;}
+.contact-submit:hover{background:var(--sky);}
+.contact-submit:disabled{opacity:.6;cursor:default;}
+.contact-status{margin:0;font-size:.88rem;color:rgba(28,28,26,.7);}
+.contact-status.is-ok{color:#2f6b4f;}
+.contact-status.is-error{color:#b4483c;}
+
+/* Página de links úteis */
+.link-group-title{font-size:1.1rem;letter-spacing:.02em;color:var(--ink);margin:0 0 1rem;}
+.link-group-title + .link-grid{margin-bottom:2.25rem;}
+.link-grid{display:grid;gap:.85rem;}
+@media (min-width:768px){.link-grid{grid-template-columns:repeat(2,1fr);}}
+.link-card{display:flex;flex-direction:column;gap:.4rem;padding:1.1rem 1.2rem;border:1px solid rgba(28,28,26,.12);background:var(--card);transition:border-color .2s ease,transform .2s ease;}
+.link-card:hover{border-color:var(--sky);transform:translateY(-2px);}
+.link-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;}
+.link-card-name{font-family:'Fraunces',serif;font-size:1rem;line-height:1.3;color:var(--ink);}
+.link-arrow{flex-shrink:0;margin-top:.15rem;color:var(--sky);}
+.link-card-desc{font-size:.83rem;line-height:1.55;color:rgba(28,28,26,.65);}
+.link-card-host{font-size:.72rem;letter-spacing:.08em;text-transform:lowercase;color:rgba(28,28,26,.45);}
+
+/* Consentimento de cookies — banner de primeiro nível e painel de preferências */
+.consent-banner{position:fixed;left:0;right:0;bottom:0;z-index:1100;background:var(--card);border-top:1px solid rgba(28,28,26,.12);box-shadow:0 -14px 34px -22px rgba(28,28,26,.5);}
+.consent-banner[hidden]{display:none;}
+.consent-banner-inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1.25rem;padding-block:1.1rem;}
+.consent-banner-title{font-size:1.05rem;color:var(--ink);}
+.consent-banner-text{max-width:62ch;font-size:.85rem;color:rgba(28,28,26,.7);}
+.consent-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;}
+.consent-btn{display:inline-flex;align-items:center;gap:.45rem;padding:.6rem 1.15rem;font-family:inherit;font-size:.85rem;font-weight:500;border:1px solid transparent;cursor:pointer;transition:background-color .2s ease,border-color .2s ease,color .2s ease;}
+.consent-btn-solid{background:var(--ink);color:var(--cream);}
+.consent-btn-solid:hover{background:var(--sky);}
+.consent-btn-outline{background:none;border-color:rgba(28,28,26,.2);color:var(--ink);}
+.consent-btn-outline:hover{border-color:var(--ink);}
+.consent-btn-ghost{background:none;color:rgba(28,28,26,.65);text-decoration:underline;padding-inline:.35rem;}
+.consent-btn-ghost:hover{color:var(--ink);}
+/* O botão do WhatsApp assentaria em cima do banner enquanto a escolha está por fazer */
+body.consent-banner-open .wa-float{display:none;}
+
+.consent-panel-overlay{position:fixed;inset:0;z-index:1200;display:flex;align-items:center;justify-content:center;padding:1.5rem;}
+.consent-panel-overlay[hidden]{display:none;}
+.consent-panel-backdrop{position:absolute;inset:0;background:rgba(28,28,26,.55);backdrop-filter:blur(3px);animation:langFade .2s ease both;}
+.consent-panel{position:relative;display:flex;flex-direction:column;width:100%;max-width:620px;max-height:100%;background:var(--card);box-shadow:0 40px 90px -30px rgba(28,28,26,.55);animation:langRise .24s ease both;}
+.consent-panel-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-shrink:0;padding:1.35rem 1.75rem;border-bottom:1px solid rgba(28,28,26,.12);}
+.consent-panel-title{font-size:1.4rem;}
+.consent-panel-close{display:flex;background:none;border:0;padding:.25rem;color:var(--ink);cursor:pointer;transition:color .2s ease;}
+.consent-panel-close:hover{color:var(--sky);}
+.consent-panel-body{overflow-y:auto;padding:1.5rem 1.75rem 1.75rem;}
+.consent-panel-intro{font-size:.9rem;color:rgba(28,28,26,.7);}
+.consent-panel-quick{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.25rem 0 1.5rem;}
+.consent-cat{padding:1rem 1.15rem;background:rgba(28,28,26,.04);margin-bottom:.85rem;}
+.consent-cat-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.4rem;}
+.consent-cat-name{font-size:.95rem;font-weight:500;color:var(--ink);}
+.consent-cat-always{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(28,28,26,.45);}
+.consent-cat-desc{font-size:.83rem;line-height:1.55;color:rgba(28,28,26,.65);}
+.consent-switch{position:relative;display:inline-flex;flex-shrink:0;cursor:pointer;}
+.consent-switch input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer;}
+.consent-switch-track{display:block;width:2.75rem;height:1.5rem;background:rgba(28,28,26,.2);transition:background-color .2s ease;}
+.consent-switch-track::after{content:'';display:block;width:1.1rem;height:1.1rem;margin:.2rem;background:var(--card);transition:transform .2s ease;}
+.consent-switch input:checked + .consent-switch-track{background:var(--sky);}
+.consent-switch input:checked + .consent-switch-track::after{transform:translateX(1.25rem);}
+.consent-switch input:focus-visible + .consent-switch-track{outline:2px solid var(--sky);outline-offset:2px;}
+.consent-save{display:block;width:100%;margin-top:1.25rem;background:var(--sky);border:0;padding:.95rem;font-family:inherit;font-size:.85rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--cream);cursor:pointer;transition:background-color .2s ease;}
+.consent-save:hover{background:#3f6f9e;}
+body.consent-panel-open{overflow:hidden;}
+
+/* Lugar do mapa enquanto não houver autorização */
+.map-slot{position:relative;}
+.map-blocked{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:.25rem;height:200px;padding:1.25rem;background:rgba(250,246,239,.04);border-top:1px solid rgba(250,246,239,.1);}
+.map-blocked[hidden]{display:none;}
+.map-blocked p{font-size:.82rem;color:rgba(250,246,239,.65);}
 @media (max-width:767.98px){
-  .search-trigger{width:auto;gap:0;padding:.5rem;background:none;border-color:transparent;color:var(--ink);}
-  .search-trigger-text{display:none;}
+  .consent-banner-inner{flex-direction:column;align-items:stretch;}
+  .consent-actions{justify-content:flex-end;}
+  .consent-panel-overlay{padding:1rem;}
+  .consent-panel-head{padding:1.15rem 1.25rem;}
+  .consent-panel-body{padding:1.25rem;}
+}
+@media (prefers-reduced-motion:reduce){
+  .consent-panel-backdrop,.consent-panel{animation:none;}
 }
 
+/* Site search: header trigger + overlay panel */
 .search-overlay{position:fixed;inset:0;z-index:1150;display:flex;align-items:flex-start;justify-content:center;padding:5.5rem 1.5rem 1.5rem;background:rgba(28,28,26,.55);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease;}
 .search-overlay.is-open{opacity:1;visibility:visible;pointer-events:auto;}
 .search-panel{display:flex;flex-direction:column;width:100%;max-width:620px;max-height:100%;background:var(--card);box-shadow:0 40px 90px -30px rgba(28,28,26,.55);}
@@ -160,7 +339,7 @@ body.search-open{overflow:hidden;}
 }
 @media (prefers-reduced-motion:reduce){.search-overlay{transition:none;}}
 
-/* Mobile menu: full-screen drawer below md. At md+ Bootstrap's .offcanvas-md rules
+/* Mobile menu: full-screen drawer below xl. At xl+ Bootstrap's .offcanvas-xl rules
    flatten it back to the inline navbar, so these styles are scoped to the small breakpoint. */
 .nav-drawer{--bs-offcanvas-width:100%;}
 .nav-drawer-header{align-items:center;justify-content:space-between;gap:1rem;padding:1.15rem 1.5rem;border-bottom:1px solid rgba(28,28,26,.1);}
@@ -170,8 +349,8 @@ body.search-open{overflow:hidden;}
 .nav-drawer-close:hover{color:var(--sky);}
 .nav-drawer-footer{margin-top:auto;padding:1.35rem 1.5rem;border-top:1px solid rgba(28,28,26,.1);}
 .nav-link-chevron{flex-shrink:0;color:rgba(28,28,26,.4);}
-@media (min-width:768px){.nav-link-chevron{display:none;}}
-@media (max-width:767.98px){
+@media (min-width:1200px){.nav-link-chevron{display:none;}}
+@media (max-width:1199.98px){
   .nav-drawer{background-color:var(--cream);}
   .nav-drawer .offcanvas-body{display:flex;flex-direction:column;padding:0;overflow-y:auto;}
   .nav-drawer .nav-link-brand{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.15rem 1.5rem;font-size:.95rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid rgba(28,28,26,.08);transition:background-color .15s ease;}
@@ -217,6 +396,8 @@ body.lang-modal-open{overflow:hidden;}
 @media (prefers-reduced-motion:reduce){
   .lang-modal-backdrop,.lang-modal-dialog{animation:none;}
 }
+.footer-consent-link{margin-left:.6rem;color:rgba(28,28,26,.6);text-decoration:underline;}
+.footer-consent-link:hover{color:var(--sky);}
 .footer-social{display:flex;align-items:center;gap:1rem;}
 .footer-social a{display:flex;color:rgba(28,28,26,.6);transition:color .2s ease;}
 .footer-social a:hover{color:var(--sky);}
@@ -224,6 +405,31 @@ body.lang-modal-open{overflow:hidden;}
 .wa-float:hover{transform:scale(1.05);color:#fff;}
 .wa-float-badge{display:flex;height:2.25rem;width:2.25rem;flex-shrink:0;align-items:center;justify-content:center;background-color:#fff;color:#25D366;}
 .wa-float-text{font-size:.875rem;font-weight:500;white-space:nowrap;}
+
+/* Responsável técnico — credenciais transcritas da placa da loja */
+.tech-lead-name{font-size:1.25rem;color:var(--ink);}
+.tech-lead-role{font-size:.9rem;color:rgba(28,28,26,.75);}
+.tech-lead-cv{margin:0;}
+.tech-lead-cv dt{margin-top:.9rem;font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(28,28,26,.5);}
+.tech-lead-cv dt:first-of-type{margin-top:0;}
+.tech-lead-cv dd{margin:.3rem 0 0;font-size:.85rem;line-height:1.55;color:rgba(28,28,26,.65);}
+
+/* Mobile optometry unit — wider block inside the dark services section */
+.mobile-unit-badge{font-size:.7rem;letter-spacing:.2em;border:1px solid rgba(250,246,239,.25);color:rgba(250,246,239,.75);}
+.mobile-unit-title{font-size:2rem;line-height:1.1;}
+.mobile-unit-desc{font-size:.95rem;}
+.mobile-unit-label{font-size:.7rem;letter-spacing:.2em;color:var(--sky);font-weight:600;}
+.mobile-unit-tags{display:flex;flex-wrap:wrap;gap:.5rem;list-style:none;padding:0;margin:0;}
+.mobile-unit-tags li{padding:.35rem .75rem;border:1px solid rgba(250,246,239,.15);background-color:rgba(250,246,239,.04);font-size:.8rem;color:rgba(250,246,239,.8);}
+.mobile-unit-list{list-style:none;padding:0;margin:0;display:grid;gap:.85rem;}
+.mobile-unit-item{display:flex;align-items:flex-start;gap:1rem;padding:.85rem 1rem;border:1px solid rgba(250,246,239,.1);background-color:rgba(250,246,239,.04);transition:border-color .2s ease,background-color .2s ease;}
+.mobile-unit-item:hover{border-color:rgba(91,143,199,.4);background-color:rgba(250,246,239,.07);}
+.mobile-unit-num{flex-shrink:0;font-family:'Fraunces',serif;font-size:1rem;line-height:1.4;color:var(--sky);}
+.mobile-unit-item-text{display:flex;flex-direction:column;gap:.15rem;min-width:0;}
+.mobile-unit-item-title{font-size:.95rem;font-weight:500;color:var(--cream);}
+.mobile-unit-item-desc{font-size:.85rem;color:rgba(250,246,239,.6);}
+@media (min-width:576px){.mobile-unit-list{grid-template-columns:repeat(2,1fr);}}
+@media (min-width:576px){.mobile-unit-item:first-child{grid-column:1 / -1;}}
 
 /* Brands / Integrations showcase */
 .brands-section{padding-top:3.5rem;padding-bottom:2.75rem;background:var(--cream)}
@@ -245,10 +451,6 @@ body.lang-modal-open{overflow:hidden;}
 
 @media (max-width:900px){.brand-grid{grid-template-columns:repeat(4,1fr);}}
 @media (max-width:560px){.brand-grid{grid-template-columns:repeat(2,1fr);gap:.85rem;}.brands-card{padding:2.5rem 1.25rem;}}
-
-/* Header subtle tweak for shop-like feel */
-.site-header .navbar{padding-top:.5rem;padding-bottom:.5rem}
-.site-header .container-brand{align-items:center}
 
 /* Menu selection fade-in */
 .menu-fade{animation:menuFadeIn .32s ease both}
