@@ -53,19 +53,10 @@
         '', document.getElementById('servicos'), card);
     });
 
-    // Unidade móvel — bloco próprio dentro de #servicos, com os exames no haystack
-    var unit = document.querySelector('#servicos .mobile-unit');
-    if (unit) {
-      add('services', text(unit.querySelector('.mobile-unit-title')), text(unit.querySelector('.mobile-unit-desc')),
-        text(unit.querySelector('.mobile-unit-list')), document.getElementById('servicos'), unit);
-    }
-
-    // Coleção — as armações têm imagem, por isso entram com miniatura
-    document.querySelectorAll('#colecao .product-card').forEach(function (card) {
-      var img = card.querySelector('img');
-      add('collection', text(card.querySelector('.product-info h3')),
-        text(card.querySelector('.card-caption')), text(card.querySelector('.price-badge')),
-        document.getElementById('colecao'), card, img ? img.getAttribute('src') : null);
+    // Artigos — tipos de óculos e de lentes de contacto
+    document.querySelectorAll('#artigos .type-card').forEach(function (card) {
+      add('collection', text(card.querySelector('.type-title')), text(card.querySelector('.type-desc')), '',
+        document.getElementById('artigos'), card);
     });
 
     // Marcas — o nome fica em .brand-tile-text mesmo quando o logo o esconde
@@ -88,7 +79,7 @@
 
       var own = Array.prototype.filter.call(
         section.querySelectorAll('.section-copy, .brand-copy, .tech-lead, .hero-description, .testimonial-quote, .visit-value, .visit-label'),
-        function (el) { return !el.closest('.service-card, .product-card, .brand-tile'); }
+        function (el) { return !el.closest('.service-card, .type-card, .brand-tile'); }
       );
       var ownText = own.map(text).join(' ');
 
@@ -141,7 +132,7 @@
 
   var GROUPS = [
     ['services', 'services', 'Serviços'],
-    ['collection', 'collection', 'Coleção'],
+    ['collection', 'collection', 'Artigos'],
     ['brands', 'brands', 'Marcas'],
     ['deals', 'deals', 'Acordos'],
     ['sections', 'sections', 'Secções'],

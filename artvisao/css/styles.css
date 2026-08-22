@@ -108,11 +108,12 @@ section[id]{scroll-margin-top:8rem;}
 .hero-thumb-image{height:6rem;width:8rem;object-fit:cover;}
 .hero-thumb-caption{font-size:.75rem;color:rgba(28,28,26,.6);}
 .hero-badge-pill{top:0;right:0;font-size:.7rem;letter-spacing:.15em;box-shadow:-10px 10px 0 rgba(28,28,26,.06);}
-.feature-caption{font-size:.75rem;color:rgba(28,28,26,.6);}
 .section-eyebrow{font-size:.75rem;letter-spacing:.25em;}
 .section-title{font-size:2.5rem;}
 .section-title-lg{font-size:2.25rem;}
 .section-copy{color:rgba(28,28,26,.7);}
+/* Descrição por baixo do título: limita-se a medida para a linha não ficar longa demais */
+.section-lede{max-width:46rem;}
 .card-caption{font-size:.75rem;color:rgba(28,28,26,.6);}
 .service-copy{font-size:.9rem;color:rgba(250,246,239,.7);}
 .service-icon{height:2.75rem;width:2.75rem;}
@@ -205,22 +206,58 @@ section[id]{scroll-margin-top:8rem;}
 .navbar-brand-logo{height:3rem;width:3rem;object-fit:cover;box-shadow:0 0 0 1px rgba(28,28,26,.1);}
 .nav-link-brand{color:rgba(28,28,26,.8);font-size:.9rem;}
 .nav-link-brand:hover{color:var(--ink);}
-.feature-icon{position:relative;display:grid;place-items:center;height:6rem;width:6rem;border:1px solid rgba(91,143,199,.3);background-color:var(--cream);transition:box-shadow .2s ease,border-color .2s ease;}
-.feature-link:hover .feature-icon{border-color:var(--sky);box-shadow:0 10px 30px -8px rgba(28,28,26,.35);}
-.feature-link:hover .feature-icon svg{color:var(--cream);position:relative;z-index:1;}
-.feature-icon-fill{position:absolute;inset:.375rem;background:linear-gradient(135deg,var(--sky),#3f6f9e);opacity:0;transition:opacity .2s ease;}
-.feature-link:hover .feature-icon-fill{opacity:1;}
-.product-card{transition:transform .2s ease,box-shadow .2s ease;}
-.product-card:hover{transform:translateY(-4px);box-shadow:0 10px 30px -8px rgba(28,28,26,.35);}
-.product-card img{transition:transform .7s ease;}
-.product-card:hover img{transform:scale(1.05);}
-.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1.25rem;}
-.price-badge{background:var(--ink);color:var(--cream);padding:.35rem .6rem;font-weight:600;font-size:.9rem;}
-.product-actions{display:flex;gap:.5rem;align-items:center;}
-.product-cta{padding:.45rem .85rem;background:var(--sky);color:var(--cream);border:0;font-weight:600;font-size:.9rem;cursor:pointer}
-.product-cta.secondary{background:transparent;color:var(--ink);border:1px solid rgba(28,28,26,.08)}
-.product-info h3{font-size:1rem;margin:0 0 .25rem 0}
-.product-info p{font-size:.85rem;color:rgba(28,28,26,.6);margin:0}
+/* Artigos: duas colunas de tipos (óculos | lentes) e, por baixo, um carrossel em
+   que cada imagem traz a descrição do tipo correspondente. */
+.type-columns{display:grid;grid-template-columns:1fr;gap:2.5rem;}
+@media (min-width:992px){.type-columns{grid-template-columns:1fr 1fr;column-gap:2.5rem;}}
+.type-group{font-family:'Fraunces',serif;font-size:1.3rem;color:var(--ink);margin:0 0 1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(28,28,26,.14);}
+.type-group-wide{margin-top:3rem;}
+.type-list{display:grid;gap:.8rem;}
+.type-card{display:flex;align-items:flex-start;gap:.95rem;padding:1rem 1.15rem;background:var(--card);border:1px solid rgba(28,28,26,.1);transition:border-color .2s ease,box-shadow .2s ease;}
+.type-card:hover{border-color:rgba(91,143,199,.45);box-shadow:0 10px 24px -14px rgba(28,28,26,.35);}
+.type-icon{flex-shrink:0;display:grid;place-items:center;width:2.4rem;height:2.4rem;background:rgba(91,143,199,.1);color:var(--sky);}
+.type-body{display:flex;flex-direction:column;gap:.2rem;min-width:0;}
+.type-title{font-family:'Fraunces',serif;font-size:1.05rem;line-height:1.25;color:var(--ink);}
+.type-desc{font-size:.84rem;line-height:1.5;color:rgba(28,28,26,.65);}
+
+/* Destaque: o painel de texto está parado e faz cross-fade no lugar, enquanto a fita de
+   imagens desliza por baixo. São dois movimentos independentes, de propósito. */
+.highlight{display:grid;grid-template-columns:1fr;background:var(--card);border:1px solid rgba(28,28,26,.1);overflow:hidden;}
+.highlight-text{display:grid;padding:1.5rem 1.4rem;background:#f3ece0;}
+.highlight-copy{grid-area:1/1;align-self:center;opacity:0;visibility:hidden;transition:opacity .45s ease;}
+.highlight-copy.is-current{opacity:1;visibility:visible;}
+.highlight-title{font-family:'Fraunces',serif;font-size:1.25rem;line-height:1.2;color:var(--ink);margin:0 0 .5rem;}
+.highlight-desc{font-size:.87rem;line-height:1.6;color:rgba(28,28,26,.7);margin:0;}
+
+.highlight-viewport{position:relative;overflow:hidden;height:12rem;}
+.highlight-track{display:flex;height:100%;margin:0;padding:0;list-style:none;transition:transform .6s cubic-bezier(.4,0,.2,1);}
+/* Menos de 100% deixa a imagem seguinte a espreitar à direita */
+.highlight-item{flex:0 0 78%;height:100%;padding-right:.4rem;}
+.highlight-item img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 35%;}
+
+@media (min-width:768px){
+  .highlight{grid-template-columns:minmax(0,34%) 1fr;}
+  .highlight-text{padding:2rem 1.9rem;}
+  .highlight-viewport{height:17rem;}
+  .highlight-item{flex:0 0 62%;}
+}
+
+.highlight-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;display:grid;place-items:center;
+  width:2.2rem;height:2.2rem;padding:0;background:rgba(28,28,26,.35);border:0;color:var(--cream);cursor:pointer;
+  opacity:0;transition:opacity .2s ease,background-color .2s ease;}
+.highlight-arrow svg{width:1.2rem;height:1.2rem;}
+.highlight-prev{left:.6rem;}
+.highlight-next{right:.6rem;}
+.highlight:hover .highlight-arrow,.highlight-arrow:focus-visible{opacity:1;}
+.highlight-arrow:hover{background:var(--sky);}
+/* Fundo esbatido por trás: os pontos passam por cima de imagens claras e escuras */
+.highlight-dots{position:absolute;right:.75rem;bottom:.75rem;z-index:2;display:flex;gap:.35rem;
+  padding:.45rem .6rem;background:rgba(28,28,26,.42);backdrop-filter:blur(2px);}
+.highlight-dots button{width:1.3rem;height:.18rem;padding:0;border:0;background:rgba(250,246,239,.5);cursor:pointer;transition:background-color .2s ease;}
+.highlight-dots button.active{background:var(--cream);}
+@media (prefers-reduced-motion:reduce){
+  .highlight-track,.highlight-copy,.highlight-arrow{transition:none;}
+}
 .service-card{transition:background-color .2s ease,border-color .2s ease;}
 .service-card-link{display:inline-flex;align-items:center;gap:.45rem;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--sky);transition:color .2s ease,gap .2s ease;}
 .service-card-link:hover{color:var(--cream);gap:.7rem;}

@@ -181,9 +181,76 @@
     tryNextCandidate();
   }
 
+
+  // Destaque dos artigos: a fita de imagens desliza e o painel de texto faz cross-fade
+  // no lugar — dois movimentos separados, para a mudança não acontecer toda de uma vez.
+  // A fita tem um clone da primeira imagem no fim, para a espreitadela nunca ficar vazia.
+  function initHighlight() {
+    var root = document.querySelector('[data-highlight]');
+    if (!root) return;
+
+    var track = root.querySelector('.highlight-track');
+    var items = track.querySelectorAll('.highlight-item');
+    var copies = root.querySelectorAll('.highlight-copy');
+    var dots = root.querySelectorAll('[data-highlight-go]');
+    var total = copies.length;
+    if (!total || !items.length) return;
+
+    var index = 0;
+    var timer = null;
+
+    function render() {
+      var step = items[0].getBoundingClientRect().width;
+      track.style.transform = 'translateX(' + (-index * step) + 'px)';
+
+      copies.forEach(function (el, i) { el.classList.toggle('is-current', i === index); });
+      dots.forEach(function (el, i) {
+        el.classList.toggle('active', i === index);
+        if (i === index) el.setAttribute('aria-current', 'true');
+        else el.removeAttribute('aria-current');
+      });
+    }
+
+    function go(i) {
+      index = (i % total + total) % total;
+      render();
+    }
+
+    function start() {
+      stop();
+      timer = setInterval(function () { go(index + 1); }, 6000);
+    }
+    function stop() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+
+    root.querySelector('[data-highlight-prev]').addEventListener('click', function () { go(index - 1); start(); });
+    root.querySelector('[data-highlight-next]').addEventListener('click', function () { go(index + 1); start(); });
+    dots.forEach(function (el, i) {
+      el.addEventListener('click', function () { go(i); start(); });
+    });
+
+    // Parar enquanto o visitante lá está, para não lhe fugir o que está a ler
+    root.addEventListener('mouseenter', stop);
+    root.addEventListener('mouseleave', start);
+    root.addEventListener('focusin', stop);
+    root.addEventListener('focusout', start);
+
+    // A largura do passo vem do layout, por isso reposiciona-se ao redimensionar
+    var resizing;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizing);
+      resizing = setTimeout(render, 150);
+    });
+
+    render();
+    start();
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initMenuFadeOnNavigate();
     initAnnouncements();
+    initHighlight();
     document.querySelectorAll('.brand-tile').forEach(loadBrandLogo);
   });
 })();
