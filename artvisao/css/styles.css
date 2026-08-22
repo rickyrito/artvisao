@@ -105,7 +105,6 @@ section[id]{scroll-margin-top:8rem;}
 .hero-image-frame{clip-path:polygon(0 0,86% 0,100% 9%,100% 100%,0 100%);}
 .hero-image-frame img{filter:saturate(1.1) contrast(1.06);transition:transform .5s ease;}
 .hero-image-frame::after{content:'';position:absolute;inset:0;pointer-events:none;mix-blend-mode:multiply;background:linear-gradient(155deg,rgba(91,143,199,.32) 0%,rgba(91,143,199,0) 42%,rgba(28,28,26,0) 60%,rgba(28,28,26,.22) 100%);}
-.hero-thumb-card{bottom:-1.5rem;left:-1.5rem;background-color:rgba(250,246,239,.72)!important;backdrop-filter:blur(10px);border-left:2px solid var(--sky)!important;}
 .hero-thumb-image{height:6rem;width:8rem;object-fit:cover;}
 .hero-thumb-caption{font-size:.75rem;color:rgba(28,28,26,.6);}
 .hero-badge-pill{top:0;right:0;font-size:.7rem;letter-spacing:.15em;box-shadow:-10px 10px 0 rgba(28,28,26,.06);}
@@ -118,8 +117,55 @@ section[id]{scroll-margin-top:8rem;}
 .service-copy{font-size:.9rem;color:rgba(250,246,239,.7);}
 .service-icon{height:2.75rem;width:2.75rem;}
 .testimonial-caption{font-size:.9rem;}
-.about-media{border-radius:0;}
-.about-badge{font-size:.75rem;letter-spacing:.1em;opacity:.8;}
+/* Secção de apresentação, em duas linhas: uma faixa a toda a largura (foto + painel
+   com o título) e, por baixo, dois blocos lado a lado. */
+.intro-banner{display:grid;grid-template-columns:1fr;background:var(--ink);color:var(--cream);overflow:hidden;box-shadow:0 20px 60px -15px rgba(28,28,26,.25);}
+.intro-banner-media{position:relative;min-height:20rem;}
+/* O carrossel é absoluto para preencher a coluna, cuja altura é dada pelo painel ao lado */
+.intro-carousel{position:absolute;inset:0;}
+.intro-carousel .carousel-inner,.intro-carousel .carousel-item{height:100%;}
+.intro-banner-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 42%;}
+/* Fotos verticais em que o enquadramento central corta o essencial */
+.intro-carousel .focus-high{object-position:center 22%;}
+.intro-carousel .focus-low{object-position:center 62%;}
+.intro-carousel-arrow{width:auto;padding:0 1rem;opacity:.55;color:var(--cream);filter:drop-shadow(0 1px 4px rgba(28,28,26,.6));transition:opacity .2s ease;}
+.intro-carousel-arrow svg{width:1.75rem;height:1.75rem;}
+.intro-banner-media:hover .intro-carousel-arrow,.intro-carousel-arrow:focus-visible{opacity:1;}
+.intro-carousel-dots{right:.9rem;bottom:.9rem;left:auto;margin:0;gap:.35rem;}
+.intro-carousel-dots button{width:1.35rem;height:.2rem;margin:0;border:0;background:rgba(250,246,239,.5);opacity:1;box-shadow:0 1px 3px rgba(28,28,26,.4);transition:background-color .2s ease;}
+.intro-carousel-dots button.active{background:var(--cream);}
+/* z-index mantém a tarja do ano acima do carrossel */
+.intro-banner-since{position:absolute;z-index:2;left:0;bottom:0;display:flex;align-items:baseline;gap:.55rem;margin:0;padding:.6rem 1.1rem;background:var(--sky);color:var(--cream);}
+.intro-banner-since strong{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:500;line-height:1;}
+.intro-banner-since span{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;opacity:.85;}
+.intro-banner-panel{display:flex;flex-direction:column;justify-content:center;padding:2.5rem 1.75rem;}
+.intro-banner-title{font-size:2.1rem;line-height:1.08;margin:0;}
+.intro-banner-copy{max-width:34rem;margin:1.25rem 0 0;font-size:.98rem;line-height:1.7;color:rgba(250,246,239,.72);}
+/* Botão em creme: sobre o painel escuro é o inverso do .btn-ink usado no resto da página */
+.intro-banner-cta{align-self:flex-start;display:inline-flex;align-items:center;gap:.6rem;margin-top:1.75rem;padding:.9rem 1.9rem;background:var(--cream);color:var(--ink);font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;transition:background-color .2s ease,color .2s ease;}
+.intro-banner-cta:hover{background:var(--sky);color:var(--cream);}
+.intro-banner-cta svg{width:1rem;height:1rem;transition:transform .2s ease;}
+.intro-banner-cta:hover svg{transform:translateX(3px);}
+@media (min-width:768px){
+  .intro-banner{grid-template-columns:1fr 1fr;}
+  .intro-banner-media{min-height:22rem;}
+  .intro-banner-panel{padding:3rem 2.75rem;}
+  .intro-banner-title{font-size:2.6rem;}
+}
+@media (min-width:1200px){
+  .intro-banner-panel{padding:3.5rem;}
+  .intro-banner-title{font-size:3rem;}
+}
+.intro-split{display:grid;grid-template-columns:1fr;gap:1.5rem;margin-top:1.5rem;}
+@media (min-width:992px){.intro-split{grid-template-columns:1fr 1fr;}}
+.intro-block{display:flex;flex-direction:column;padding:2rem 1.75rem;background:var(--card);border:1px solid rgba(28,28,26,.12);}
+@media (min-width:768px){.intro-block{padding:2.5rem;}}
+.intro-block-tint{background:rgba(91,143,199,.09);border-color:transparent;}
+/* Bodoni Moda — os tipos de Giambattista Bodoni, impressor do Duque de Parma nos anos 1790.
+   O contraste extremo entre hastes e filetes dá-lhe presença imediata na página; a entrelinha
+   é folgada para os filetes finos respirarem. */
+.intro-statement{font-family:'Bodoni Moda',Georgia,'Times New Roman',serif;font-size:1.15rem;line-height:1.55;color:var(--ink);}
+@media (min-width:768px){.intro-statement{font-size:1.3rem;}}
 .visit-panel{border-radius:0;background-image:linear-gradient(135deg,var(--ink),#132436);}
 .visit-label{font-size:.7rem;letter-spacing:.1em;color:rgba(250,246,239,.6);}
 .visit-value{font-size:.9rem;white-space:pre-line;}
@@ -130,8 +176,6 @@ section[id]{scroll-margin-top:8rem;}
 .service-title{font-family:'Fraunces',serif;font-size:1.5rem;margin-top:1rem;}
 .testimonial-quote{font-family:'Fraunces',serif;font-size:1.25rem;margin-top:1rem;}
 .testimonial-author{font-weight:500;color:var(--ink);}
-.about-dot{display:inline-block;height:.4rem;width:.4rem;}
-.hero-thumb-card-right{left:auto;right:-1.5rem;bottom:-1.5rem;}
 .bg-ink{background-color:var(--ink)!important;}
 .bg-cream{background-color:var(--cream)!important;}
 .bg-sky{background-color:var(--sky)!important;}
@@ -147,6 +191,10 @@ section[id]{scroll-margin-top:8rem;}
 .border-cream-10{border-color:rgba(250,246,239,.1)!important;}
 .bg-cream-04{background-color:rgba(250,246,239,.04)!important;}
 .bg-cream-04:hover{background-color:rgba(250,246,239,.07)!important;}
+/* Caixa fixa para os logótipos dos acordos: com object-fit todas as marcas ficam com
+   peso ótico semelhante, apesar de irem de 1,5:1 (Médis) a 5,6:1 (Multicare).
+   Algumas destas SVG só trazem viewBox, sem largura nem altura. */
+.accord-logo-img{display:block;width:10rem;height:2.75rem;object-fit:contain;object-position:left center;}
 .bg-sky-20{background-color:rgba(91,143,199,.2)!important;}
 .btn-ink{display:inline-flex;align-items:center;gap:.5rem;background-color:var(--ink);color:var(--cream);padding:.9rem 1.75rem;font-size:.9rem;font-weight:500;border:0;transition:background-color .2s ease;}
 .btn-ink:hover{background-color:var(--sky);color:var(--cream);}
@@ -174,6 +222,8 @@ section[id]{scroll-margin-top:8rem;}
 .product-info h3{font-size:1rem;margin:0 0 .25rem 0}
 .product-info p{font-size:.85rem;color:rgba(28,28,26,.6);margin:0}
 .service-card{transition:background-color .2s ease,border-color .2s ease;}
+.service-card-link{display:inline-flex;align-items:center;gap:.45rem;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--sky);transition:color .2s ease,gap .2s ease;}
+.service-card-link:hover{color:var(--cream);gap:.7rem;}
 .service-card:hover{border-color:rgba(91,143,199,.4)!important;background-color:rgba(250,246,239,.07);}
 .map-embed{width:100%;height:200px;border:0;display:block;}
 /* Cada loja é uma coluna com o seu mapa colado ao fundo do cartão, para que
@@ -362,36 +412,35 @@ body.search-open{overflow:hidden;}
 .lang-trigger{display:inline-flex;align-items:center;gap:.5rem;background:none;border:0;padding:.25rem 0;font-family:inherit;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(28,28,26,.7);cursor:pointer;transition:color .2s ease;}
 .lang-trigger:hover{color:var(--ink);}
 .lang-trigger-flag{font-size:1.05rem;line-height:1;}
-/* Hairline dividers between the parts, so hiding the name on small screens still reads right */
-.lang-trigger-name,.lang-trigger-code{border-left:1px solid rgba(28,28,26,.25);padding-left:.5rem;}
+/* Hairline divider between the flag and the language name */
+.lang-trigger-name{border-left:1px solid rgba(28,28,26,.25);padding-left:.5rem;}
 
 .lang-modal{position:fixed;inset:0;z-index:1080;display:flex;align-items:center;justify-content:center;padding:1.5rem;}
 .lang-modal[hidden]{display:none;}
 .lang-modal-backdrop{position:absolute;inset:0;background:rgba(28,28,26,.55);backdrop-filter:blur(3px);animation:langFade .2s ease both;}
-.lang-modal-dialog{position:relative;width:100%;max-width:620px;max-height:100%;overflow-y:auto;background:var(--card);box-shadow:0 40px 90px -30px rgba(28,28,26,.55);animation:langRise .24s ease both;}
-.lang-modal-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.35rem 2rem;border-bottom:1px solid rgba(28,28,26,.12);}
+.lang-modal-dialog{position:relative;width:100%;max-width:24rem;max-height:100%;overflow-y:auto;background:var(--card);box-shadow:0 40px 90px -30px rgba(28,28,26,.55);animation:langRise .24s ease both;}
+.lang-modal-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.15rem 1.5rem;border-bottom:1px solid rgba(28,28,26,.12);}
 .lang-modal-title{font-size:1.5rem;margin:0;}
 .lang-modal-close{display:flex;background:none;border:0;padding:.25rem;color:var(--ink);cursor:pointer;transition:color .2s ease;}
 .lang-modal-close:hover{color:var(--sky);}
-.lang-modal-body{padding:1.75rem 2rem 2rem;}
-.lang-modal-note{font-size:.95rem;color:rgba(28,28,26,.7);margin-bottom:1.5rem;}
-.lang-field{background:rgba(28,28,26,.045);padding:.7rem 1.1rem .75rem;margin-bottom:1rem;transition:background-color .2s ease;}
-.lang-field:focus-within{background:rgba(91,143,199,.1);}
-.lang-field-label{display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(28,28,26,.55);margin-bottom:.15rem;}
-.lang-field-control{position:relative;display:flex;align-items:center;}
-.lang-field-select{appearance:none;-webkit-appearance:none;width:100%;background:none;border:0;padding:0 2rem 0 0;font-family:inherit;font-size:1.15rem;color:var(--ink);cursor:pointer;}
-.lang-field-select:focus{outline:none;}
-.lang-field-chevron{position:absolute;right:0;color:rgba(28,28,26,.6);pointer-events:none;}
-.lang-save{display:block;width:100%;margin-top:1.5rem;background:var(--sky);border:0;padding:1rem;font-family:inherit;font-size:.85rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);cursor:pointer;transition:background-color .2s ease;}
-.lang-save:hover{background:#3f6f9e;}
+.lang-modal-body{padding:.4rem 0 .6rem;}
+.lang-options{list-style:none;margin:0;padding:0;}
+.lang-option{display:flex;align-items:center;gap:.85rem;width:100%;padding:.85rem 1.5rem;background:none;border:0;font-family:inherit;font-size:1.05rem;color:var(--ink);text-align:left;cursor:pointer;transition:background-color .2s ease;}
+.lang-option:hover{background:rgba(91,143,199,.09);}
+.lang-option.is-active{background:rgba(91,143,199,.12);font-weight:600;}
+.lang-option-flag{font-size:1.3rem;line-height:1;}
+.lang-option-name{flex:1 1 auto;}
+/* A marca de escolhido ocupa lugar sempre, para as linhas não saltarem ao mudar de idioma */
+.lang-option-check{flex-shrink:0;width:1.1rem;height:1.1rem;color:var(--sky);opacity:0;}
+.lang-option.is-active .lang-option-check{opacity:1;}
 body.lang-modal-open{overflow:hidden;}
 @keyframes langFade{from{opacity:0}to{opacity:1}}
 @keyframes langRise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @media (max-width:560px){
   .lang-modal{padding:1rem;}
-  .lang-modal-header{padding:1.1rem 1.25rem;}
+  .lang-modal-header{padding:1rem 1.25rem;}
   .lang-modal-title{font-size:1.3rem;}
-  .lang-modal-body{padding:1.35rem 1.25rem 1.5rem;}
+  .lang-modal-body{padding:.4rem 0 .6rem;}
 }
 @media (prefers-reduced-motion:reduce){
   .lang-modal-backdrop,.lang-modal-dialog{animation:none;}
@@ -415,12 +464,6 @@ body.lang-modal-open{overflow:hidden;}
 .tech-lead-cv dd{margin:.3rem 0 0;font-size:.85rem;line-height:1.55;color:rgba(28,28,26,.65);}
 
 /* Mobile optometry unit — wider block inside the dark services section */
-.mobile-unit-badge{font-size:.7rem;letter-spacing:.2em;border:1px solid rgba(250,246,239,.25);color:rgba(250,246,239,.75);}
-.mobile-unit-title{font-size:2rem;line-height:1.1;}
-.mobile-unit-desc{font-size:.95rem;}
-.mobile-unit-label{font-size:.7rem;letter-spacing:.2em;color:var(--sky);font-weight:600;}
-.mobile-unit-tags{display:flex;flex-wrap:wrap;gap:.5rem;list-style:none;padding:0;margin:0;}
-.mobile-unit-tags li{padding:.35rem .75rem;border:1px solid rgba(250,246,239,.15);background-color:rgba(250,246,239,.04);font-size:.8rem;color:rgba(250,246,239,.8);}
 .mobile-unit-list{list-style:none;padding:0;margin:0;display:grid;gap:.85rem;}
 .mobile-unit-item{display:flex;align-items:flex-start;gap:1rem;padding:.85rem 1rem;border:1px solid rgba(250,246,239,.1);background-color:rgba(250,246,239,.04);transition:border-color .2s ease,background-color .2s ease;}
 .mobile-unit-item:hover{border-color:rgba(91,143,199,.4);background-color:rgba(250,246,239,.07);}
@@ -444,8 +487,8 @@ body.lang-modal-open{overflow:hidden;}
 .brand-tile:hover{transform:translateY(-3px);box-shadow:0 14px 30px -12px rgba(28,28,26,.2);border-color:rgba(91,143,199,.35);}
 .brand-tile.has-logo .brand-tile-text,
 .brand-tile.has-fallback .brand-tile-text{display:none !important}
-.brand-tile img.brand-tile-logo{max-height:2.1rem;max-width:80%;height:auto;width:auto;filter:grayscale(1);opacity:.72;transition:filter .2s ease,opacity .2s ease;}
-.brand-tile:hover img.brand-tile-logo{filter:grayscale(0);opacity:1;}
+.brand-tile img.brand-tile-logo{max-height:2.1rem;max-width:80%;height:auto;width:auto;transition:transform .2s ease;}
+.brand-tile:hover img.brand-tile-logo{transform:scale(1.04);}
 .brand-tile-svg{height:2.1rem;width:2.1rem;display:inline-block}
 .brand-tile-svg svg{height:100%;width:100%;display:block;}
 

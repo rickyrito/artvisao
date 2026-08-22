@@ -2,3 +2,6 @@
 *.log
 .env
 .DS_Store
+
+# Originais das fotos do carrossel (21 MB) — só as versões otimizadas vão para o repo
+artvisao/assets/carrossel/originais/

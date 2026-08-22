@@ -132,9 +132,13 @@ window.ArtVisaoI18n = (function(){
       'acord1-desc': 'Profitez des remises Medicare sur les montures et les verres. Présentez votre carte en boutique et bénéficiez-en immédiatement.',
       'acord2-title': 'Future Healthcare',
       'acord2-desc': 'Accédez aux avantages spéciaux Future Healthcare. Examens, montures et verres avec des conditions exclusives pour ses clients.',
+      'acord3-desc': 'Réseau Médis : présentez votre carte et bénéficiez des conditions convenues sur les examens, montures et verres.',
+      'acord4-desc': 'Membre du réseau Multicare. La prise en charge est appliquée sur place, sans démarches de votre part.',
+      'acord5-desc': 'Réseau AdvanceCare, qui gère les plans de santé de plusieurs assureurs. Il suffit de vous identifier en boutique.',
+      'acord6-desc': 'Prestataire conventionné ADSE, avec des conditions propres aux bénéficiaires et à leur foyer.',
       'servicos-eyebrow': 'Ce que nous faisons',
       'servicos-title': 'Des soins complets pour vos yeux.',
-      'servicos-desc': 'Nous travaillons avec les accords Medicare et Future Healthcare. Un accueil sans hâte, centré sur l\'essentiel : bien voir et se sentir bien.',
+      'servicos-desc': 'La vue change lentement et presque toujours sans prévenir — la correction évolue, la pression intraoculaire monte, la rétine donne ses premiers signes bien avant la moindre gêne. Un examen régulier repère ces changements tant qu\'ils sont simples à corriger. C\'est pourquoi nous recommandons une consultation tous les deux ans, et tous les ans à partir de 60 ans ou en cas de diabète ou d\'antécédents familiaux de glaucome.',
       'serv1-title': 'Examen visuel complet',
       'serv1-desc': 'Évaluation détaillée de votre acuité visuelle avec des équipements modernes et du temps pour vous.',
       'serv2-title': 'Conseil sur les montures',
@@ -153,7 +157,20 @@ window.ArtVisaoI18n = (function(){
       'testi3-quote': '"Ils m\'ont aidée à trouver la monture idéale pour mon visage. Je suis sortie de la boutique en souriant."',
       'testi3-caption': 'Cliente desde 2019',
       'storefront-alt': 'Boutique Art\'Visão',
-      'sobre-badge': 'la première boutique',
+      'car-label': 'Photos de la boutique',
+      'car-prev': 'Image précédente',
+      'car-next': 'Image suivante',
+      'car-dots': 'Choisir une image',
+      'car-atendimento-alt': 'Accueil au comptoir chez Art\'Visão',
+      'car-sol-alt': 'Cliente essayant des lunettes de soleil',
+      'car-armacoes-alt': 'Mur de montures de la boutique',
+      'car-consulta-alt': 'Table d\'accueil et de conseil',
+      'car-bancada-alt': 'Montures exposées sur le comptoir',
+      'car-gabinete-alt': 'Cabinet d\'optométrie',
+      'car-exame-alt': 'Examen visuel avec monture d\'essai',
+      'car-retinografia-alt': 'Observation du fond de l\'œil',
+      'sobre-badge-pre': 'depuis',
+      'sobre-badge': 'à prendre soin de votre vue',
       'rt-hab-label': 'Formation académique',
       'rt-hab': 'Licence en Optométrie - Sciences de la Vision par l\'Universidade da Beira Interior (UBI), établissement de référence national situé à Covilhã et pionnier de l\'enseignement et de la recherche dans ce domaine de la santé visuelle au Portugal.',
       'rt-esp-label': 'Spécialités techniques',
@@ -162,10 +179,8 @@ window.ArtVisaoI18n = (function(){
       'rt-role': 'Optométriste · Contactologue',
       'sobre-title': 'Un opticien qui connaît chaque client par son nom.',
       'sobre-p1': 'Art\'Visão est née d\'une passion simple : allier technique et esthétique pour que chaque paire de lunettes soit à la fois un instrument de santé et une signature personnelle.',
-      'sobre-p2': 'Nous travaillons avec les meilleures marques, mais ce qui nous distingue, c\'est notre façon de vous accueillir — sans hâte, avec une écoute attentive et la confiance de qui se sent chez soi.',
-      'sobre-li1': 'Accord Medicare',
-      'sobre-li3': 'Garantie d\'adaptation',
-      'sobre-li4': 'Réparations sur place',
+      'sobre-eyebrow': 'Ce qui nous distingue',
+      'sobre-p2': 'Nous proposons la meilleure technologie ophtalmique et des marques de renom, mais notre priorité reste la façon dont nous vous accueillons. Nous prenons le temps d\'écouter vos besoins, d\'évaluer votre santé oculaire avec rigueur et de vous aider à trouver les lunettes parfaites — avec le calme et la confiance que l\'on a entre amis.',
       'visita-title': 'Passez nous voir. On vous offre le café.',
       'visita-desc': 'Prenez rendez-vous pour votre examen visuel ou venez simplement essayer. Nous sommes prêts à vous accueillir.',
       'visita-label-horario': 'Horaires',
@@ -194,33 +209,12 @@ window.ArtVisaoI18n = (function(){
       'wa-float-aria': 'Contacter via WhatsApp',
       'footer-fb-aria': 'Facebook',
       'footer-ig-aria': 'Instagram',
-      'lang-trigger-aria': 'Choisir la langue et la région',
-      'lang-modal-title': 'Langue et région',
-      'lang-modal-note': 'Les prix sont affichés et facturés en euro (EUR).',
+      'lang-trigger-aria': 'Choisir la langue',
+      'lang-modal-title': 'Langue',
       'lang-modal-close': 'Fermer',
-      'lang-field-region': 'Région',
-      'lang-field-language': 'Langue',
-      'lang-region-other': 'Autre pays',
-      'lang-modal-save': 'Enregistrer',
-      'mu-eyebrow': 'Nous venons à vous',
+      'mu-saber-mais': 'En savoir plus',
       'mu-title': 'Unité Mobile d\'Optométrie',
       'mu-desc': 'Se déplacer chez l\'opticien n\'est pas toujours simple. Nous nous rendons à des événements en Beira Alta et en Beira Baixa — maisons de retraite, écoles, entreprises et mairies de village — pour amener le dépistage visuel à ceux qui en ont besoin.',
-      'mu-audience-label': 'Pensée pour',
-      'mu-aud1': 'Seniors',
-      'mu-aud2': 'Enfants scolarisés',
-      'mu-aud3': 'Sportifs et équipes',
-      'mu-cta': 'Parler d\'un déplacement',
-      'mu-exams-label': 'Ce que le dépistage comprend',
-      'mu-ex1-title': 'Acuité visuelle',
-      'mu-ex1-desc': 'Qualité de vision de près et de loin.',
-      'mu-ex2-title': 'Réfraction complète',
-      'mu-ex2-desc': 'Détermination de la correction nécessaire.',
-      'mu-ex3-title': 'Motilité oculaire',
-      'mu-ex3-desc': 'Mouvement et coordination des deux yeux.',
-      'mu-ex4-title': 'Pression intraoculaire',
-      'mu-ex4-desc': 'Mesure d\'aide au dépistage précoce du glaucome.',
-      'mu-ex5-title': 'Système accommodatif',
-      'mu-ex5-desc': 'Capacité à faire le point à différentes distances.',
       'nav-toggle-aria': 'Ouvrir le menu',
       'nav-drawer-label': 'Menu',
       'search-aria': 'Rechercher sur le site',
@@ -368,9 +362,13 @@ window.ArtVisaoI18n = (function(){
       'acord1-desc': 'Enjoy Medicare discounts on frames and lenses. Show your card in store and benefit right away.',
       'acord2-title': 'Future Healthcare',
       'acord2-desc': 'Access special Future Healthcare benefits. Exams, frames and lenses with exclusive advantages for its clients.',
+      'acord3-desc': 'Médis network: show your card and get the agreed terms on exams, frames and lenses.',
+      'acord4-desc': 'Part of the Multicare network. Your cover is applied on the spot, with no paperwork on your side.',
+      'acord5-desc': 'AdvanceCare network, which manages health plans for several insurers. Just identify yourself in store.',
+      'acord6-desc': 'ADSE-contracted provider, with specific terms for beneficiaries and their household.',
       'servicos-eyebrow': 'What we do',
       'servicos-title': 'Complete care for your eyes.',
-      'servicos-desc': 'We work with Medicare and Future Healthcare agreements. Unhurried service, focused on what really matters: seeing well and feeling good.',
+      'servicos-desc': 'Sight changes slowly and almost always without warning — the prescription shifts, intraocular pressure rises, the retina shows its first signs long before anything feels wrong. A regular exam catches those changes while they are still simple to correct. That is why we recommend a check-up every two years, and yearly from 60 or whenever there is diabetes or a family history of glaucoma.',
       'serv1-title': 'Complete eye exam',
       'serv1-desc': 'Detailed assessment of your visual acuity with modern equipment and time for you.',
       'serv2-title': 'Frame guidance',
@@ -389,7 +387,20 @@ window.ArtVisaoI18n = (function(){
       'testi3-quote': '"They helped me find the perfect frame for my face. I left the store smiling."',
       'testi3-caption': 'Client since 2019',
       'storefront-alt': 'Art\'Visão store',
-      'sobre-badge': 'the first store',
+      'car-label': 'Photos of the store',
+      'car-prev': 'Previous image',
+      'car-next': 'Next image',
+      'car-dots': 'Choose an image',
+      'car-atendimento-alt': 'Counter service at Art\'Visão',
+      'car-sol-alt': 'Customer trying on sunglasses',
+      'car-armacoes-alt': 'The store\'s frame wall',
+      'car-consulta-alt': 'Consultation and advice table',
+      'car-bancada-alt': 'Frames displayed on the counter',
+      'car-gabinete-alt': 'Optometry consulting room',
+      'car-exame-alt': 'Eye exam with a trial frame',
+      'car-retinografia-alt': 'Examining the back of the eye',
+      'sobre-badge-pre': 'since',
+      'sobre-badge': 'caring for your sight',
       'rt-hab-label': 'Academic background',
       'rt-hab': 'BSc in Optometry - Vision Sciences from Universidade da Beira Interior (UBI), a leading national institution based in Covilhã and a pioneer in the teaching and research of this field of visual health in Portugal.',
       'rt-esp-label': 'Technical specialities',
@@ -398,10 +409,8 @@ window.ArtVisaoI18n = (function(){
       'rt-role': 'Optometrist · Contact lens specialist',
       'sobre-title': 'An optician who knows every client by name.',
       'sobre-p1': 'Art\'Visão was born from a simple passion: combining technique and aesthetics so that every pair of glasses is, at once, a health tool and a personal signature.',
-      'sobre-p2': 'We work with the best brands, but what sets us apart is how we treat you — unhurried, with attentive listening and the confidence of being at home.',
-      'sobre-li1': 'Medicare agreement',
-      'sobre-li3': 'Fit guarantee',
-      'sobre-li4': 'On-site repairs',
+      'sobre-eyebrow': 'What sets us apart',
+      'sobre-p2': 'We offer the best ophthalmic technology and renowned brands, but our priority is how we welcome you. We take the time to listen to your needs, assess your eye health thoroughly and help you find the perfect glasses — with the ease and trust of being among friends.',
       'visita-title': 'Come by. We\'ll bring the coffee.',
       'visita-desc': 'Book your eye exam or just come try things on. We\'re ready to welcome you.',
       'visita-label-horario': 'Hours',
@@ -430,33 +439,12 @@ window.ArtVisaoI18n = (function(){
       'wa-float-aria': 'Contact via WhatsApp',
       'footer-fb-aria': 'Facebook',
       'footer-ig-aria': 'Instagram',
-      'lang-trigger-aria': 'Choose language and region',
-      'lang-modal-title': 'Language & region',
-      'lang-modal-note': 'Prices are shown and charged in Euro (EUR).',
+      'lang-trigger-aria': 'Choose language',
+      'lang-modal-title': 'Language',
       'lang-modal-close': 'Close',
-      'lang-field-region': 'Region',
-      'lang-field-language': 'Language',
-      'lang-region-other': 'Other country',
-      'lang-modal-save': 'Save',
-      'mu-eyebrow': 'We come to you',
+      'mu-saber-mais': 'Learn more',
       'mu-title': 'Mobile Optometry Unit',
       'mu-desc': 'Getting to the optician is not always easy. We travel to events across Beira Alta and Beira Baixa — care homes, schools, workplaces and parish councils — bringing vision screening to those who need it.',
-      'mu-audience-label': 'Designed for',
-      'mu-aud1': 'Seniors',
-      'mu-aud2': 'School-age children',
-      'mu-aud3': 'Athletes and teams',
-      'mu-cta': 'Talk to us about a visit',
-      'mu-exams-label': 'What the screening covers',
-      'mu-ex1-title': 'Visual acuity',
-      'mu-ex1-desc': 'Quality of vision at near and far distances.',
-      'mu-ex2-title': 'Full refraction',
-      'mu-ex2-desc': 'Working out the prescription needed.',
-      'mu-ex3-title': 'Ocular motility',
-      'mu-ex3-desc': 'Movement and coordination of both eyes.',
-      'mu-ex4-title': 'Intraocular pressure',
-      'mu-ex4-desc': 'A measurement that supports early glaucoma detection.',
-      'mu-ex5-title': 'Accommodative system',
-      'mu-ex5-desc': 'The ability to focus at varying distances.',
       'nav-toggle-aria': 'Open menu',
       'nav-drawer-label': 'Menu',
       'search-aria': 'Search the site',
@@ -475,7 +463,6 @@ window.ArtVisaoI18n = (function(){
   };
 
   var STORAGE_KEY = 'artvisao-lang';
-  var REGION_KEY = 'artvisao-region';
 
   // Attribute-to-DOM-property bindings: how each data-i18n-* kind reads/writes its translated value
   var BINDINGS = [
@@ -529,19 +516,14 @@ window.ArtVisaoI18n = (function(){
   }
 
   // Language names stay in their own language — that is what visitors scan for in a picker.
-  var LANGUAGES = { pt: 'Portugu\u00eas', fr: 'Fran\u00e7ais', en: 'English' };
-
-  // There is a single shop, so region is a display preference: it picks the header flag
-  // and suggests the matching language rather than switching any storefront.
-  var REGIONS = {
-    pt: { flag: '\ud83c\uddf5\ud83c\uddf9', lang: 'pt' },
-    fr: { flag: '\ud83c\uddeb\ud83c\uddf7', lang: 'fr' },
-    uk: { flag: '\ud83c\uddec\ud83c\udde7', lang: 'en' },
-    other: { flag: '\ud83c\udf10', lang: 'en' },
+  // The flag rides along with the language, since the picker no longer asks for a region.
+  var LANGUAGES = {
+    pt: { name: 'Portugu\u00eas', flag: '\ud83c\uddf5\ud83c\uddf9' },
+    fr: { name: 'Fran\u00e7ais', flag: '\ud83c\uddeb\ud83c\uddf7' },
+    en: { name: 'English', flag: '\ud83c\uddec\ud83c\udde7' },
   };
 
   var currentLang = 'pt';
-  var currentRegion = 'pt';
 
   function setLanguage(lang, store, boundBindings) {
     boundBindings.forEach(function (binding) {
@@ -554,19 +536,19 @@ window.ArtVisaoI18n = (function(){
     currentLang = lang;
     document.documentElement.setAttribute('lang', lang);
 
-    document.querySelectorAll('[data-lang-name]').forEach(function (el) { el.textContent = LANGUAGES[lang]; });
-    document.querySelectorAll('[data-lang-code]').forEach(function (el) { el.textContent = lang.toUpperCase(); });
+    document.querySelectorAll('[data-lang-name]').forEach(function (el) { el.textContent = LANGUAGES[lang].name; });
+    document.querySelectorAll('[data-lang-flag]').forEach(function (el) { el.textContent = LANGUAGES[lang].flag; });
+    document.querySelectorAll('[data-lang-set]').forEach(function (el) {
+      var on = el.getAttribute('data-lang-set') === lang;
+      el.classList.toggle('is-active', on);
+      if (on) el.setAttribute('aria-current', 'true');
+      else el.removeAttribute('aria-current');
+    });
 
     writeStorage(STORAGE_KEY, lang);
   }
 
-  function setRegion(region) {
-    currentRegion = region;
-    document.querySelectorAll('[data-lang-flag]').forEach(function (el) { el.textContent = REGIONS[region].flag; });
-    writeStorage(REGION_KEY, region);
-  }
-
-  // Wires the header trigger to the preferences dialog. Nothing is applied until Save,
+  // Wires the header trigger to the language dialog. Picking a language applies it at once,
   // so dismissing the dialog leaves the current language untouched.
   function initModal(apply) {
     var triggers = document.querySelectorAll('[data-lang-trigger]');
@@ -576,10 +558,8 @@ window.ArtVisaoI18n = (function(){
     // Whichever trigger opened the dialog is the one focus goes back to on close.
     var opener = triggers[0];
 
-    var regionSelect = document.getElementById('langRegion');
-    var langSelect = document.getElementById('langLanguage');
-    var saveBtn = document.getElementById('langSave');
-    var focusables = modal.querySelectorAll('button, select');
+    var options = modal.querySelectorAll('[data-lang-set]');
+    var focusables = modal.querySelectorAll('button');
 
     function onKeydown(e) {
       if (e.key === 'Escape') { close(); return; }
@@ -597,12 +577,10 @@ window.ArtVisaoI18n = (function(){
     }
 
     function open() {
-      regionSelect.value = currentRegion;
-      langSelect.value = currentLang;
       modal.hidden = false;
       document.body.classList.add('lang-modal-open');
       opener.setAttribute('aria-expanded', 'true');
-      regionSelect.focus();
+      (modal.querySelector('[data-lang-set].is-active') || focusables[0]).focus();
       document.addEventListener('keydown', onKeydown);
     }
 
@@ -624,15 +602,11 @@ window.ArtVisaoI18n = (function(){
       el.addEventListener('click', close);
     });
 
-    // Picking a region pre-selects its language; the visitor can still override it below.
-    regionSelect.addEventListener('change', function () {
-      langSelect.value = REGIONS[regionSelect.value].lang;
-    });
-
-    saveBtn.addEventListener('click', function () {
-      setRegion(regionSelect.value);
-      apply(langSelect.value);
-      close();
+    options.forEach(function (el) {
+      el.addEventListener('click', function () {
+        apply(el.getAttribute('data-lang-set'));
+        close();
+      });
     });
   }
 
@@ -643,9 +617,6 @@ window.ArtVisaoI18n = (function(){
     function apply(lang) {
       setLanguage(lang, store, boundBindings);
     }
-
-    var savedRegion = readStorage(REGION_KEY);
-    setRegion(REGIONS[savedRegion] ? savedRegion : 'pt');
 
     var savedLang = readStorage(STORAGE_KEY);
     apply(LANGUAGES[savedLang] ? savedLang : 'pt');
