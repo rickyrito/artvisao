@@ -36,6 +36,24 @@
         if (blocked) blocked.hidden = false;
       }
     });
+
+    // Mapa desenhado por nós (Leaflet + OpenStreetMap): os tiles também são um pedido a
+    // terceiros, por isso nada é carregado antes do consentimento. Quem o desenha é o main.js.
+    document.querySelectorAll('[data-consent-map]').forEach(function (el) {
+      var slot = el.closest('.map-slot');
+      var blocked = slot && slot.querySelector('.map-blocked');
+      if (allowed) {
+        el.hidden = false;
+        if (blocked) blocked.hidden = true;
+        if (!el.hasAttribute('data-map-ready')) {
+          el.setAttribute('data-map-ready', '');
+          window.dispatchEvent(new CustomEvent('artvisao:mapa-autorizado', { detail: el }));
+        }
+      } else {
+        el.hidden = true;
+        if (blocked) blocked.hidden = false;
+      }
+    });
   }
 
   function apply(choice) {

@@ -216,8 +216,13 @@
       render();
     }
 
+    // Quem pediu menos movimento no sistema não leva o carrossel a andar sozinho;
+    // as setas e os pontos continuam a funcionar.
+    var menosMovimento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     function start() {
       stop();
+      if (menosMovimento) return;
       timer = setInterval(function () { go(index + 1); }, 6000);
     }
     function stop() {
@@ -247,10 +252,71 @@
     start();
   }
 
+
+  // As duas lojas num só mapa. O embed do Google só marca um lugar por iframe, por isso
+  // este é desenhado com Leaflet sobre tiles do OpenStreetMap — não precisa de chave de API.
+  // A biblioteca só é descarregada depois do consentimento, para nada ser pedido antes disso.
+  var LOJAS = [
+    { nome: 'Art\'Visão · Castelo Branco', lat: 39.8164797, lng: -7.4843152 },
+    { nome: 'Art\'Visão · Soito', lat: 40.3587299, lng: -6.9686759 }
+  ];
+
+  function carregarLeaflet(pronto) {
+    if (window.L) { pronto(); return; }
+
+    var css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css';
+    document.head.appendChild(css);
+
+    var js = document.createElement('script');
+    js.src = 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';
+    js.onload = pronto;
+    document.head.appendChild(js);
+  }
+
+  function desenharMapaLojas(el) {
+    carregarLeaflet(function () {
+      if (!window.L || el.getAttribute('data-map-desenhado') !== null) return;
+      el.setAttribute('data-map-desenhado', '');
+
+      // scrollWheelZoom desligado para a roda do rato continuar a percorrer a página
+      var mapa = L.map(el, { scrollWheelZoom: false });
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(mapa);
+
+      // Balão próprio em SVG: o do Leaflet vem de ficheiros PNG na CDN e fica na cor dele
+      var balao = L.divIcon({
+        className: 'mapa-pin',
+        html: '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="40" viewBox="0 0 24 32" aria-hidden="true">'
+          + '<path d="M12 0C5.9 0 1 4.9 1 11c0 8 11 21 11 21s11-13 11-21c0-6.1-4.9-11-11-11z" '
+          + 'fill="#5b8fc7" stroke="#faf6ef" stroke-width="1.5"/>'
+          + '<circle cx="12" cy="11" r="4" fill="#faf6ef"/></svg>',
+        iconSize: [30, 40],
+        iconAnchor: [15, 40],
+        popupAnchor: [0, -36]
+      });
+
+      var balões = LOJAS.map(function (loja) {
+        return L.marker([loja.lat, loja.lng], { icon: balao, title: loja.nome }).bindPopup(loja.nome);
+      });
+      var grupo = L.featureGroup(balões).addTo(mapa);
+      mapa.fitBounds(grupo.getBounds(), { padding: [28, 28] });
+    });
+  }
+
+  window.addEventListener('artvisao:mapa-autorizado', function (e) { desenharMapaLojas(e.detail); });
+
   document.addEventListener('DOMContentLoaded', function () {
     initMenuFadeOnNavigate();
     initAnnouncements();
     initHighlight();
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      var galeria = document.getElementById('lojaCarousel');
+      if (galeria) galeria.removeAttribute('data-bs-ride');
+    }
     document.querySelectorAll('.brand-tile').forEach(loadBrandLogo);
   });
 })();
