@@ -1,0 +1,51 @@
+# Publica o site em GitHub Pages a partir da pasta artvisao/.
+#
+# O Pages só permite escolher a raiz do repositório ou /docs, e o site vive
+# noutra pasta — daí um workflow em vez da opção "deploy from a branch".
+#
+# Publicação de teste, a par de www.artvisao.pt: o preparar-pages.py tira o
+# formulário de contacto (depende de PHP, que o Pages não corre) e marca as
+# páginas com noindex.
+name: Publicar no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Uma publicação de cada vez; corridas a meio são canceladas
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Preparar cópia estática
+        run: |
+          cp -r artvisao _site
+          python3 .github/scripts/preparar-pages.py _site
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  publicar:
+    needs: construir
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4
