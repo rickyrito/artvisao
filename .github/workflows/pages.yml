@@ -34,6 +34,12 @@ jobs:
           cp -r artvisao _site
           python3 .github/scripts/preparar-pages.py _site
 
+      # Sem o secret configurado a galeria fica vazia e a publicação segue na mesma
+      - name: Trazer publicações do Instagram
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: python3 .github/scripts/instagram.py _site
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
