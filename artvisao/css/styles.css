@@ -280,12 +280,6 @@ section[id]{scroll-margin-top:8rem;}
   .highlight-track,.highlight-copy,.highlight-arrow{transition:none;}
 }
 .map-embed{width:100%;height:200px;border:0;display:block;}
-/* Widget de avaliações do Facebook: mesmo padrão bloqueado/consentido dos mapas */
-.social-slot{position:relative;}
-.social-embed{width:100%;height:360px;border:0;display:block;}
-.social-blocked{display:flex;flex-direction:column;align-items:flex-start;gap:.65rem;padding:1.5rem;background:rgba(28,28,26,.05);border:1px solid rgba(28,28,26,.1);}
-.social-blocked[hidden]{display:none;}
-.social-blocked p{font-size:.85rem;color:rgba(28,28,26,.65);}
 /* Cada loja é uma coluna com o seu mapa colado ao fundo do cartão, para que
    mapa e morada se leiam como um bloco só. */
 .visit-shop-name{font-size:1.2rem;color:var(--cream);}

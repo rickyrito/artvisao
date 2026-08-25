@@ -42,12 +42,6 @@ jobs:
           INSTAGRAM_ACCOUNT_ID: ${{ secrets.INSTAGRAM_ACCOUNT_ID }}
         run: python3 .github/scripts/instagram.py _site
 
-      # Sem o secret (ou sem pages_read_user_content) mantêm-se os testemunhos escritos
-      - name: Trazer avaliações do Facebook
-        env:
-          FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
-        run: python3 .github/scripts/facebook-avaliacoes.py _site
-
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
