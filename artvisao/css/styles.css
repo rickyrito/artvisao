@@ -218,8 +218,13 @@ section[id]{scroll-margin-top:8rem;}
 .btn-sky-sm{display:inline-flex;align-items:center;gap:.5rem;background-color:var(--sky);color:var(--cream);padding:.75rem 1.5rem;font-size:.9rem;}
 .btn-sky-sm:hover{opacity:.9;color:var(--cream);}
 .navbar-brand-logo{height:3rem;width:3rem;object-fit:cover;box-shadow:0 0 0 1px rgba(28,28,26,.1);}
-.nav-link-brand{color:rgba(28,28,26,.8);font-size:.9rem;}
+.nav-link-brand{position:relative;color:rgba(28,28,26,.8);font-size:.9rem;transition:color .2s ease;}
 .nav-link-brand:hover{color:var(--ink);}
+/* Underline sweeps in from the left on hover, on the desktop pill nav only */
+@media (min-width:1200px){
+  .nav-pill .nav-link-brand::after{content:'';position:absolute;left:0;right:100%;bottom:-.4rem;height:1px;background:var(--sky);transition:right .2s ease;}
+  .nav-pill .nav-link-brand:hover::after{right:0;}
+}
 /* Artigos: duas colunas de tipos (óculos | lentes) e, por baixo, um carrossel em
    que cada imagem traz a descrição do tipo correspondente. */
 .type-columns{display:grid;grid-template-columns:1fr;gap:2.5rem;}
@@ -480,21 +485,25 @@ body.search-open{overflow:hidden;}
 .nav-drawer-action:hover{color:var(--sky);}
 .nav-drawer-close{display:flex;background:none;border:0;padding:.25rem;color:var(--ink);cursor:pointer;transition:color .2s ease;}
 .nav-drawer-close:hover{color:var(--sky);}
-.nav-drawer-footer{display:flex;justify-content:flex-end;margin-top:auto;padding:1.35rem 1.5rem;border-top:1px solid rgba(28,28,26,.1);}
-.nav-link-chevron{flex-shrink:0;color:rgba(28,28,26,.4);}
+.nav-drawer-footer{display:flex;justify-content:flex-end;padding:1.35rem 1.5rem;border-top:1px solid rgba(28,28,26,.1);}
+.nav-link-chevron{flex-shrink:0;color:rgba(28,28,26,.4);transition:transform .2s ease,color .2s ease;}
 @media (min-width:1200px){.nav-link-chevron{display:none;}}
 @media (max-width:1199.98px){
-  .nav-drawer{background-color:var(--cream);}
+  /* The drawer only opens as tall as its content (nav list + language row), not the full
+     viewport — Bootstrap's .offcanvas-end stretches top:0 to bottom:0 by default. */
+  .nav-drawer{background-color:rgba(250,246,239,.9);backdrop-filter:blur(10px);bottom:auto;height:auto;max-height:100%;}
   .nav-drawer .offcanvas-body{display:flex;flex-direction:column;padding:0;overflow-y:auto;}
-  .nav-drawer .nav-link-brand{display:flex;align-items:center;justify-content:flex-end;text-align:right;gap:.65rem;padding:1.15rem 1.5rem;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid rgba(28,28,26,.08);transition:background-color .15s ease;}
-  .nav-drawer .nav-link-brand:hover,.nav-drawer .nav-link-brand:active{background-color:rgba(28,28,26,.04);}
-  .nav-drawer .nav-link-brand:active .nav-link-chevron{color:var(--sky);}
+  .nav-drawer .nav-link-brand{display:flex;align-items:center;justify-content:flex-end;text-align:right;gap:.65rem;padding:1.15rem 1.5rem;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid rgba(28,28,26,.08);transition:background-color .15s ease,color .15s ease,transform .15s ease;}
+  .nav-drawer .nav-link-brand:hover,.nav-drawer .nav-link-brand:active{background-color:rgba(28,28,26,.04);color:var(--sky);}
+  .nav-drawer .nav-link-brand:hover .nav-link-chevron,.nav-drawer .nav-link-brand:active .nav-link-chevron{color:var(--sky);transform:translateX(4px);}
+  .nav-drawer .nav-link-brand:active{transform:scale(.98);}
+  @media (prefers-reduced-motion:reduce){.nav-drawer .nav-link-brand{transition:background-color .15s ease;}.nav-drawer .nav-link-brand:active{transform:none;}.nav-link-chevron{transition:color .2s ease;}.nav-drawer .nav-link-brand:hover .nav-link-chevron,.nav-drawer .nav-link-brand:active .nav-link-chevron{transform:none;}}
 }
 
 /* Language & region: header trigger + centred preferences dialog */
 .lang-trigger{display:inline-flex;align-items:center;gap:.5rem;background:none;border:0;padding:.25rem 0;font-family:inherit;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(28,28,26,.7);cursor:pointer;transition:color .2s ease;}
 .lang-trigger:hover{color:var(--ink);}
-.lang-trigger-flag{font-size:1.05rem;line-height:1;}
+.lang-trigger-flag{display:inline-flex;width:1.15rem;flex-shrink:0;}
 /* Hairline divider between the flag and the language name */
 .lang-trigger-name{border-left:1px solid rgba(28,28,26,.25);padding-left:.5rem;}
 
@@ -511,7 +520,8 @@ body.search-open{overflow:hidden;}
 .lang-option{display:flex;align-items:center;gap:.85rem;width:100%;padding:.85rem 1.5rem;background:none;border:0;font-family:inherit;font-size:1.05rem;color:var(--ink);text-align:left;cursor:pointer;transition:background-color .2s ease;}
 .lang-option:hover{background:rgba(91,143,199,.09);}
 .lang-option.is-active{background:rgba(91,143,199,.12);font-weight:600;}
-.lang-option-flag{font-size:1.3rem;line-height:1;}
+.lang-option-flag{display:inline-flex;width:1.5rem;flex-shrink:0;}
+.lang-flag-img{display:block;width:100%;height:auto;box-shadow:0 0 0 1px rgba(28,28,26,.14);}
 .lang-option-name{flex:1 1 auto;}
 /* A marca de escolhido ocupa lugar sempre, para as linhas não saltarem ao mudar de idioma */
 .lang-option-check{flex-shrink:0;width:1.1rem;height:1.1rem;color:var(--sky);opacity:0;}

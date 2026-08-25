@@ -569,10 +569,12 @@ window.ArtVisaoI18n = (function(){
 
   // Language names stay in their own language — that is what visitors scan for in a picker.
   // The flag rides along with the language, since the picker no longer asks for a region.
+  // Real flag files instead of Unicode flag emoji: Windows browsers largely don't
+  // render regional-indicator flag emoji, showing the two-letter code (or nothing).
   var LANGUAGES = {
-    pt: { name: 'Portugu\u00eas', flag: '\ud83c\uddf5\ud83c\uddf9' },
-    fr: { name: 'Fran\u00e7ais', flag: '\ud83c\uddeb\ud83c\uddf7' },
-    en: { name: 'English', flag: '\ud83c\uddec\ud83c\udde7' },
+    pt: { name: 'Portugu\u00eas', flagSrc: 'assets/flags/pt.svg' },
+    fr: { name: 'Fran\u00e7ais', flagSrc: 'assets/flags/fr.svg' },
+    en: { name: 'English', flagSrc: 'assets/flags/gb.svg' },
   };
 
   var currentLang = 'pt';
@@ -589,7 +591,14 @@ window.ArtVisaoI18n = (function(){
     document.documentElement.setAttribute('lang', lang);
 
     document.querySelectorAll('[data-lang-name]').forEach(function (el) { el.textContent = LANGUAGES[lang].name; });
-    document.querySelectorAll('[data-lang-flag]').forEach(function (el) { el.textContent = LANGUAGES[lang].flag; });
+    document.querySelectorAll('[data-lang-flag]').forEach(function (el) {
+      el.innerHTML = '';
+      var img = document.createElement('img');
+      img.className = 'lang-flag-img';
+      img.alt = '';
+      img.src = LANGUAGES[lang].flagSrc;
+      el.appendChild(img);
+    });
     document.querySelectorAll('[data-lang-set]').forEach(function (el) {
       var on = el.getAttribute('data-lang-set') === lang;
       el.classList.toggle('is-active', on);

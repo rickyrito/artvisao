@@ -3,6 +3,10 @@
     window.ArtVisaoI18n.init();
   }
 
+  // iOS Safari only evaluates :hover/:active on tap when some touch listener exists on the
+  // page — otherwise it skips straight from touchstart to click with no active state at all.
+  document.addEventListener('touchstart', function () {}, { passive: true });
+
   function slugify(name) {
     return name
       .toLowerCase()
