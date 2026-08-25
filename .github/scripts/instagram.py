@@ -30,24 +30,21 @@ def pedir(caminho: str, token: str, **params) -> dict:
         return json.load(r)
 
 
+# A página do Facebook a que a conta Instagram está ligada. Não é segredo — o id
+# é público — e fica aqui fixo porque /me/accounts devolve vazio: a página
+# pertence ao portfólio de negócio Art'Visão, não à conta pessoal que autoriza.
+PAGINA = '2183263071989329'
+
+
 def conta_instagram(token: str) -> str:
-    """Descobre o id da conta Instagram.
+    """Descobre o id da conta Instagram ligada à página."""
+    pagina = pedir(PAGINA, token, fields='name,instagram_business_account')
+    conta = pagina.get('instagram_business_account')
+    if conta:
+        print('  página "%s" -> conta Instagram %s' % (pagina.get('name'), conta['id']))
+        return conta['id']
 
-    A Meta emite dois tipos de token para este caso de uso e não é evidente à
-    partida qual sai: um token de página do Facebook, em que a conta Instagram
-    se alcança através da página, e um token de login direto do Instagram, em
-    que o token já é da própria conta. Tenta-se o primeiro e cai-se no segundo.
-    """
-    try:
-        paginas = pedir('me/accounts', token, fields='name,instagram_business_account').get('data', [])
-        for pagina in paginas:
-            conta = pagina.get('instagram_business_account')
-            if conta:
-                print('  via página "%s" -> conta Instagram %s' % (pagina.get('name'), conta['id']))
-                return conta['id']
-    except urllib.error.HTTPError as erro:
-        print('  /me/accounts indisponível (%s), a tentar token direto do Instagram' % erro.code)
-
+    # Recurso: token emitido diretamente para a conta Instagram, sem passar pela página
     eu = pedir('me', token, fields='id,username')
     if eu.get('id'):
         print('  token direto da conta Instagram %s (@%s)' % (eu['id'], eu.get('username', '?')))
