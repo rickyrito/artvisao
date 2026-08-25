@@ -738,9 +738,13 @@ Sáb · 10h–13h30</div>
 <h2 class="font-display section-title" data-i18n="ig-title">O dia a dia da loja.</h2>
 <p class="section-copy section-lede mt-3" data-i18n="ig-desc">Novidades, armações acabadas de chegar e bastidores do atendimento. Siga-nos em @art_visao.</p>
 </div>
-<!-- A grelha é preenchida durante a publicação por .github/scripts/instagram.py.
-     Sem token configurado fica vazia e a secção mostra só a chamada ao perfil. -->
-<div class="ig-grid" data-instagram-grid></div>
+<!-- Os slides são preenchidos durante a publicação por .github/scripts/instagram.py.
+     Sem token configurado fica vazio e a secção mostra só a chamada ao perfil. -->
+<div id="igCarousel" class="carousel slide ig-carousel" aria-label="Publicações do Instagram" data-i18n-aria="ig-carousel-label">
+<div class="carousel-inner ig-grid" data-instagram-grid></div>
+<button class="carousel-control-prev ig-carousel-arrow" type="button" data-bs-target="#igCarousel" data-bs-slide="prev" aria-label="Publicação anterior" data-i18n-aria="ig-prev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button>
+<button class="carousel-control-next ig-carousel-arrow" type="button" data-bs-target="#igCarousel" data-bs-slide="next" aria-label="Publicação seguinte" data-i18n-aria="ig-next"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-chevron-right"></use></svg></button>
+</div>
 <a href="https://www.instagram.com/art_visao/" target="_blank" rel="noopener noreferrer" class="service-cta mt-4">
 <span data-i18n="ig-cta">Ver no Instagram</span>
 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>

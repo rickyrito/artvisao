@@ -401,17 +401,24 @@ body.consent-panel-open{overflow:hidden;}
 /* Serviços em fundo claro: grelha de cartões brancos, com o da Unidade Móvel
    a ocupar as duas colunas por levar mapa e chamada à ação. */
 /* Galeria do Instagram: as imagens são descarregadas durante a publicação e
-   servidas do próprio domínio, por isso não há pedidos à Meta nem cookies. */
-.ig-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;}
-@media (min-width:576px){.ig-grid{grid-template-columns:repeat(3,1fr);}}
-@media (min-width:992px){.ig-grid{grid-template-columns:repeat(6,1fr);}}
-.ig-grid:empty{display:none;}
-.ig-item{position:relative;display:block;aspect-ratio:1;overflow:hidden;background:rgba(28,28,26,.06);}
-.ig-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease;}
-.ig-item:hover img{transform:scale(1.05);}
-.ig-item::after{content:'';position:absolute;inset:0;background:rgba(28,28,26,.3);opacity:0;transition:opacity .2s ease;}
-.ig-item:hover::after,.ig-item:focus-visible::after{opacity:1;}
-@media (prefers-reduced-motion:reduce){.ig-item img{transition:none;}}
+   servidas do próprio domínio, por isso não há pedidos à Meta nem cookies.
+   Carrossel Bootstrap: uma publicação de cada vez, com a legenda original. */
+.ig-carousel{position:relative;}
+.ig-carousel:has(.ig-grid:empty){display:none;}
+.ig-slide{display:flex;flex-direction:column;background:var(--card);border:1px solid rgba(28,28,26,.1);}
+.ig-slide-media{position:relative;display:block;aspect-ratio:1;overflow:hidden;background:rgba(28,28,26,.06);flex-shrink:0;}
+.ig-slide-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease;}
+.ig-slide-media:hover img{transform:scale(1.05);}
+.ig-caption{margin:0;padding:1.25rem 1.5rem;font-size:.9rem;line-height:1.65;color:rgba(28,28,26,.75);white-space:pre-line;max-height:12rem;overflow-y:auto;}
+.ig-carousel-arrow{width:auto;padding:0 1rem;opacity:.55;color:var(--ink);transition:opacity .2s ease;}
+.ig-carousel-arrow svg{width:1.75rem;height:1.75rem;}
+.ig-carousel:hover .ig-carousel-arrow,.ig-carousel-arrow:focus-visible{opacity:1;}
+@media (min-width:768px){
+  .ig-slide{flex-direction:row;}
+  .ig-slide-media{width:42%;aspect-ratio:auto;}
+  .ig-caption{flex:1;max-height:none;align-self:center;}
+}
+@media (prefers-reduced-motion:reduce){.ig-slide-media img{transition:none;}}
 .service-grid{display:grid;grid-template-columns:1fr;gap:1rem;}
 @media (min-width:576px){.service-grid{grid-template-columns:1fr 1fr;}}
 .service-card{display:flex;flex-direction:column;padding:1.6rem 1.5rem;background:var(--card);border:1px solid rgba(28,28,26,.1);transition:border-color .2s ease,box-shadow .2s ease;}

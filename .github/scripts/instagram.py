@@ -11,7 +11,6 @@ falha — deixa a grelha vazia e a secção mostra só a chamada ao perfil.
 import html
 import os
 import pathlib
-import re
 import sys
 import urllib.error
 import urllib.request
@@ -52,15 +51,6 @@ def conta_instagram(token: str) -> str:
     raise SystemExit('  não foi possível identificar a conta Instagram a partir do token')
 
 
-def legenda_curta(caption: str) -> str:
-    """A legenda serve de texto alternativo: sem hashtags, sem quebras, curta."""
-    texto = re.sub(r'#\w+', '', caption or '').replace('\n', ' ')
-    texto = re.sub(r'\s+', ' ', texto).strip()
-    if len(texto) > 110:
-        texto = texto[:110].rsplit(' ', 1)[0] + '…'
-    return texto or 'Publicação da Art\'Visão no Instagram'
-
-
 def descarregar(url: str, destino: pathlib.Path) -> bool:
     try:
         pedido = urllib.request.Request(url, headers={'User-Agent': 'artvisao-site/1.0'})
@@ -79,7 +69,7 @@ def galeria(raiz: pathlib.Path, token: str) -> str:
     pasta = raiz / 'assets' / 'instagram'
     pasta.mkdir(parents=True, exist_ok=True)
 
-    tiles = []
+    slides = []
     for item in media:
         # nos vídeos media_url é o ficheiro de vídeo; a miniatura é que serve
         origem = item.get('thumbnail_url') if item.get('media_type') == 'VIDEO' else item.get('media_url')
@@ -88,14 +78,21 @@ def galeria(raiz: pathlib.Path, token: str) -> str:
         nome = '%s.jpg' % item['id']
         if not descarregar(origem, pasta / nome):
             continue
-        tiles.append(
-            '<a class="ig-item" href="%s" target="_blank" rel="noopener noreferrer">'
-            '<img src="assets/instagram/%s" alt="%s" loading="lazy" width="400" height="400"/></a>'
-            % (html.escape(item['permalink']), nome, html.escape(legenda_curta(item.get('caption'))))
+        # Bootstrap exige exatamente um .active — é sempre o primeiro slide que se descarrega
+        ativo = ' active' if not slides else ''
+        legenda = html.escape(item.get('caption') or '')
+        slides.append(
+            '<div class="carousel-item%s">'
+            '<div class="ig-slide">'
+            '<a class="ig-slide-media" href="%s" target="_blank" rel="noopener noreferrer">'
+            '<img src="assets/instagram/%s" alt="Publicação do Instagram Art\'Visão" loading="lazy" width="400" height="400"/></a>'
+            '<p class="ig-caption">%s</p>'
+            '</div></div>'
+            % (ativo, html.escape(item['permalink']), nome, legenda)
         )
 
-    print('  %d publicações prontas' % len(tiles))
-    return '\n'.join(tiles)
+    print('  %d publicações prontas' % len(slides))
+    return '\n'.join(slides)
 
 
 def main() -> None:
@@ -123,8 +120,8 @@ def main() -> None:
 
     for pagina in sorted(raiz.glob('*.html')):
         texto = pagina.read_text(encoding='utf-8')
-        novo = texto.replace('<div class="ig-grid" data-instagram-grid></div>',
-                             '<div class="ig-grid" data-instagram-grid>\n%s\n</div>' % grelha)
+        novo = texto.replace('<div class="carousel-inner ig-grid" data-instagram-grid></div>',
+                             '<div class="carousel-inner ig-grid" data-instagram-grid>\n%s\n</div>' % grelha)
         if novo != texto:
             pagina.write_text(novo, encoding='utf-8')
             print('  %s preenchida' % pagina.name)
