@@ -9,31 +9,17 @@ Precisa da variável de ambiente IG_TOKEN (secret do repositório). Sem ela não
 falha — deixa a grelha vazia e a secção mostra só a chamada ao perfil.
 """
 import html
-import json
 import os
 import pathlib
 import re
 import sys
 import urllib.error
-import urllib.parse
 import urllib.request
 
-API = 'https://graph.facebook.com/v21.0'
+from lib.meta_api import PAGINA, pedir
+
 QUANTOS = 6
 CAMPOS = 'id,caption,media_type,media_url,permalink,thumbnail_url,timestamp'
-
-
-def pedir(caminho: str, token: str, **params) -> dict:
-    params['access_token'] = token
-    url = '%s/%s?%s' % (API, caminho, urllib.parse.urlencode(params))
-    with urllib.request.urlopen(url, timeout=30) as r:
-        return json.load(r)
-
-
-# A página do Facebook a que a conta Instagram está ligada. Não é segredo — o id
-# é público — e fica aqui fixo porque /me/accounts devolve vazio: a página
-# pertence ao portfólio de negócio Art'Visão, não à conta pessoal que autoriza.
-PAGINA = '2183263071989329'
 
 
 def conta_instagram(token: str) -> str:

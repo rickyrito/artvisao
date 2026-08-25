@@ -189,6 +189,8 @@ section[id]{scroll-margin-top:8rem;}
 /* Semantic utility classes to reduce repeated markup classes */
 .testimonial-quote{font-family:'Fraunces',serif;font-size:1.25rem;margin-top:1rem;}
 .testimonial-author{font-weight:500;color:var(--ink);}
+/* Avaliações reais do Facebook: nem todas trazem rating numérico (recomendação sem estrelas) */
+.review-stars{margin-top:.6rem;font-size:.85rem;letter-spacing:.1em;color:#e0a530;}
 .bg-ink{background-color:var(--ink)!important;}
 .bg-cream{background-color:var(--cream)!important;}
 .bg-sky{background-color:var(--sky)!important;}
