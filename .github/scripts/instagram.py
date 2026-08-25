@@ -38,6 +38,11 @@ PAGINA = '2183263071989329'
 
 def conta_instagram(token: str) -> str:
     """Descobre o id da conta Instagram ligada à página."""
+    directo = os.environ.get('INSTAGRAM_ACCOUNT_ID', '').strip()
+    if directo:
+        print('  conta Instagram %s (por INSTAGRAM_ACCOUNT_ID)' % directo)
+        return directo
+
     pagina = pedir(PAGINA, token, fields='name,instagram_business_account')
     conta = pagina.get('instagram_business_account')
     if conta:
@@ -101,9 +106,15 @@ def galeria(raiz: pathlib.Path, token: str) -> str:
 
 def main() -> None:
     raiz = pathlib.Path(sys.argv[1])
-    token = os.environ.get('IG_TOKEN', '').strip()
+    # O token de página não expira; o de utilizador dura 60 dias. Prefere-se o primeiro.
+    token = ''
+    for nome in ('FB_PAGE_ACCESS_TOKEN', 'IG_TOKEN'):
+        token = os.environ.get(nome, '').strip()
+        if token:
+            print('  a usar %s' % nome)
+            break
     if not token:
-        print('  IG_TOKEN não definido: galeria fica vazia')
+        print('  sem token configurado: galeria fica vazia')
         return
 
     try:

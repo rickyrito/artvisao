@@ -37,7 +37,9 @@ jobs:
       # Sem o secret configurado a galeria fica vazia e a publicação segue na mesma
       - name: Trazer publicações do Instagram
         env:
+          FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
+          INSTAGRAM_ACCOUNT_ID: ${{ secrets.INSTAGRAM_ACCOUNT_ID }}
         run: python3 .github/scripts/instagram.py _site
 
       - uses: actions/configure-pages@v5
