@@ -10,6 +10,7 @@
   if (!banner || !panel) return;
 
   var mapsToggle = document.getElementById('consentMaps');
+  var socialToggle = document.getElementById('consentSocial');
   var openers = document.querySelectorAll('[data-consent-open]');
   var lastFocus = null;
 
@@ -56,8 +57,26 @@
     });
   }
 
+  // Mesma lógica dos mapas, aplicada ao widget de avaliações do Facebook.
+  function applySocial(allowed) {
+    document.querySelectorAll('[data-consent-social-src]').forEach(function (frame) {
+      var slot = frame.closest('.social-slot');
+      var blocked = slot && slot.querySelector('.social-blocked');
+      if (allowed) {
+        if (!frame.getAttribute('src')) frame.setAttribute('src', frame.getAttribute('data-consent-social-src'));
+        frame.hidden = false;
+        if (blocked) blocked.hidden = true;
+      } else {
+        frame.removeAttribute('src');
+        frame.hidden = true;
+        if (blocked) blocked.hidden = false;
+      }
+    });
+  }
+
   function apply(choice) {
     applyMaps(!!(choice && choice.maps));
+    applySocial(!!(choice && choice.social));
   }
 
   function save(choice) {
@@ -93,6 +112,7 @@
     lastFocus = document.activeElement;
     var current = read();
     mapsToggle.checked = !!(current && current.maps);
+    socialToggle.checked = !!(current && current.social);
     panel.hidden = false;
     document.body.classList.add('consent-panel-open');
     mapsToggle.focus();
@@ -107,13 +127,13 @@
     if (lastFocus && lastFocus.offsetParent) lastFocus.focus();
   }
 
-  banner.querySelector('[data-consent-accept]').addEventListener('click', function () { save({ maps: true }); });
-  banner.querySelector('[data-consent-reject]').addEventListener('click', function () { save({ maps: false }); });
+  banner.querySelector('[data-consent-accept]').addEventListener('click', function () { save({ maps: true, social: true }); });
+  banner.querySelector('[data-consent-reject]').addEventListener('click', function () { save({ maps: false, social: false }); });
   banner.querySelector('[data-consent-prefs]').addEventListener('click', openPanel);
 
-  panel.querySelector('[data-consent-accept]').addEventListener('click', function () { save({ maps: true }); });
-  panel.querySelector('[data-consent-reject]').addEventListener('click', function () { save({ maps: false }); });
-  panel.querySelector('[data-consent-save]').addEventListener('click', function () { save({ maps: mapsToggle.checked }); });
+  panel.querySelector('[data-consent-accept]').addEventListener('click', function () { save({ maps: true, social: true }); });
+  panel.querySelector('[data-consent-reject]').addEventListener('click', function () { save({ maps: false, social: false }); });
+  panel.querySelector('[data-consent-save]').addEventListener('click', function () { save({ maps: mapsToggle.checked, social: socialToggle.checked }); });
   panel.querySelectorAll('[data-consent-dismiss]').forEach(function (el) {
     el.addEventListener('click', closePanel);
   });
@@ -125,9 +145,20 @@
     });
   });
 
-  // Pedido explícito e específico para aquele mapa — vale como consentimento dessa categoria.
+  // Pedido explícito e específico para aquele mapa — vale como consentimento dessa categoria,
+  // preservando a escolha que já havia para as outras.
   document.querySelectorAll('[data-consent-enable-maps]').forEach(function (btn) {
-    btn.addEventListener('click', function () { save({ maps: true }); });
+    btn.addEventListener('click', function () {
+      var current = read() || {};
+      save({ maps: true, social: !!current.social });
+    });
+  });
+
+  document.querySelectorAll('[data-consent-enable-social]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var current = read() || {};
+      save({ maps: !!current.maps, social: true });
+    });
   });
 
   var saved = read();
