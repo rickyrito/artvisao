@@ -37,17 +37,25 @@ PAGINA = '2183263071989329'
 
 
 def conta_instagram(token: str) -> str:
-    """Descobre o id da conta Instagram ligada à página."""
+    """Descobre o id da conta Instagram ligada à página.
+
+    A descoberta automática pela página vem sempre primeiro: é o caminho testado e fiável.
+    INSTAGRAM_ACCOUNT_ID só serve de reserva manual se esse caminho não resolver — assim um
+    valor errado nesse secret não consegue, sozinho, calar a galeria (como já aconteceu).
+    """
+    try:
+        pagina = pedir(PAGINA, token, fields='name,instagram_business_account')
+        conta = pagina.get('instagram_business_account')
+        if conta:
+            print('  página "%s" -> conta Instagram %s' % (pagina.get('name'), conta['id']))
+            return conta['id']
+    except urllib.error.HTTPError as erro:
+        print('  página indisponível (%s), a tentar alternativas' % erro.code)
+
     directo = os.environ.get('INSTAGRAM_ACCOUNT_ID', '').strip()
     if directo:
         print('  conta Instagram %s (por INSTAGRAM_ACCOUNT_ID)' % directo)
         return directo
-
-    pagina = pedir(PAGINA, token, fields='name,instagram_business_account')
-    conta = pagina.get('instagram_business_account')
-    if conta:
-        print('  página "%s" -> conta Instagram %s' % (pagina.get('name'), conta['id']))
-        return conta['id']
 
     # Recurso: token emitido diretamente para a conta Instagram, sem passar pela página
     eu = pedir('me', token, fields='id,username')
