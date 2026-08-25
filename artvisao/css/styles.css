@@ -140,9 +140,6 @@ section[id]{scroll-margin-top:8rem;}
 /* Fotos verticais em que o enquadramento central corta o essencial */
 .intro-carousel .focus-high{object-position:center 22%;}
 .intro-carousel .focus-low{object-position:center 62%;}
-.intro-carousel-arrow{width:auto;padding:0 1rem;opacity:.55;color:var(--cream);filter:drop-shadow(0 1px 4px rgba(28,28,26,.65));transition:opacity .2s ease;}
-.intro-carousel-arrow svg{width:1.75rem;height:1.75rem;}
-.intro-banner-media:hover .intro-carousel-arrow,.intro-carousel-arrow:focus-visible{opacity:1;}
 .intro-carousel-dots{right:.9rem;bottom:.9rem;left:auto;margin:0;gap:.45rem;align-items:center;}
 /* O seletor leva [data-bs-target] para bater a especificidade de
    .carousel-indicators [data-bs-target] do Bootstrap, que impõe 30x3px */
@@ -263,21 +260,29 @@ section[id]{scroll-margin-top:8rem;}
   .highlight-item{flex:0 0 62%;}
 }
 
-.highlight-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;display:grid;place-items:center;
+/* Setas dos carrosséis: uma só definição para os três (galeria, destaque e
+   Instagram). Os dois primeiros são do Bootstrap, cujo .carousel-control-*
+   impõe 15% de largura e um gradiente — daí os valores explícitos aqui. */
+.carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;display:grid;place-items:center;
   width:2.2rem;height:2.2rem;padding:0;background:rgba(28,28,26,.35);border:0;color:var(--cream);cursor:pointer;
   opacity:0;transition:opacity .2s ease,background-color .2s ease;}
-.highlight-arrow svg{width:1.2rem;height:1.2rem;}
-.highlight-prev{left:.6rem;}
-.highlight-next{right:.6rem;}
-.highlight:hover .highlight-arrow,.highlight-arrow:focus-visible{opacity:1;}
-.highlight-arrow:hover{background:var(--sky);}
+.carousel-arrow svg{width:1.2rem;height:1.2rem;}
+.carousel-arrow:hover{background:var(--sky);}
+.carousel-arrow.carousel-control-prev,.carousel-arrow.carousel-control-next{justify-content:center;}
+.carousel-arrow-prev{left:.6rem;right:auto;}
+.carousel-arrow-next{right:.6rem;left:auto;}
+/* Só aparecem quando o ponteiro está no carrossel, ou quando o teclado lá chega */
+.highlight:hover .carousel-arrow,
+.intro-banner-media:hover .carousel-arrow,
+.ig-carousel:hover .carousel-arrow,
+.carousel-arrow:focus-visible{opacity:1;}
 /* Fundo esbatido por trás: os pontos passam por cima de imagens claras e escuras */
 .highlight-dots{position:absolute;right:.75rem;bottom:.75rem;z-index:2;display:flex;gap:.45rem;
   padding:.5rem .6rem;background:rgba(28,28,26,.42);backdrop-filter:blur(2px);align-items:center;}
 .highlight-dots button{width:.45rem;height:.45rem;padding:0;border:0;border-radius:50%;background:rgba(250,246,239,.55);cursor:pointer;transition:background-color .2s ease,transform .2s ease;}
 .highlight-dots button.active{background:var(--cream);transform:scale(1.25);}
 @media (prefers-reduced-motion:reduce){
-  .highlight-track,.highlight-copy,.highlight-arrow{transition:none;}
+  .highlight-track,.highlight-copy,.carousel-arrow{transition:none;}
 }
 .map-embed{width:100%;height:200px;border:0;display:block;}
 /* Cada loja é uma coluna com o seu mapa colado ao fundo do cartão, para que
@@ -410,9 +415,6 @@ body.consent-panel-open{overflow:hidden;}
 .ig-slide-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease;}
 .ig-slide-media:hover img{transform:scale(1.05);}
 .ig-caption{margin:0;padding:1.25rem 1.5rem;font-size:.9rem;line-height:1.65;color:rgba(28,28,26,.75);white-space:pre-line;max-height:12rem;overflow-y:auto;}
-.ig-carousel-arrow{width:auto;padding:0 1rem;opacity:.55;color:var(--ink);transition:opacity .2s ease;}
-.ig-carousel-arrow svg{width:1.75rem;height:1.75rem;}
-.ig-carousel:hover .ig-carousel-arrow,.ig-carousel-arrow:focus-visible{opacity:1;}
 @media (min-width:768px){
   .ig-slide{flex-direction:row;}
   .ig-slide-media{width:42%;aspect-ratio:auto;}
