@@ -411,16 +411,19 @@ body.consent-panel-open{overflow:hidden;}
 .ig-carousel{position:relative;}
 .ig-carousel:has(.ig-grid:empty){display:none;}
 .ig-slide{display:flex;flex-direction:column;background:var(--card);border:1px solid rgba(28,28,26,.1);}
-.ig-slide-media{position:relative;display:block;aspect-ratio:5/4;overflow:hidden;background:rgba(28,28,26,.06);flex-shrink:0;}
-.ig-slide-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease;}
-.ig-slide-media:hover img{transform:scale(1.05);}
+/* 4:5 é o formato das publicações; a caixa acompanha para não haver recorte */
+.ig-slide-media{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:rgba(28,28,26,.06);flex-shrink:0;}
+/* contain e não cover: muitas publicações trazem texto junto às margens e o
+   recorte cortava a mensagem. O fundo esbatido cobre as sobras. */
+.ig-slide-media img{width:100%;height:100%;object-fit:contain;display:block;}
 .ig-caption{margin:0;padding:1.25rem 1.5rem;font-size:.9rem;line-height:1.65;color:rgba(28,28,26,.75);white-space:pre-line;max-height:12rem;overflow-y:auto;}
 @media (min-width:768px){
-  .ig-slide{flex-direction:row;}
-  .ig-slide-media{width:42%;}
-  .ig-caption{flex:1;max-height:none;align-self:center;}
+  /* Altura fixa no slide, para a media ter altura definida contra a qual o
+     height:100% da imagem resolva. Sem isto a foto vertical manda na altura. */
+  .ig-slide{flex-direction:row;height:26rem;}
+  .ig-slide-media{width:38%;aspect-ratio:auto;height:100%;}
+  .ig-caption{flex:1;max-height:100%;overflow-y:auto;align-self:stretch;display:flex;flex-direction:column;justify-content:center;}
 }
-@media (prefers-reduced-motion:reduce){.ig-slide-media img{transition:none;}}
 .service-grid{display:grid;grid-template-columns:1fr;gap:1rem;}
 @media (min-width:576px){.service-grid{grid-template-columns:1fr 1fr;}}
 .service-card{display:flex;flex-direction:column;padding:1.6rem 1.5rem;background:var(--card);border:1px solid rgba(28,28,26,.1);transition:border-color .2s ease,box-shadow .2s ease;}
