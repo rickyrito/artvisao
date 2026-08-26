@@ -51,6 +51,28 @@ def conta_instagram(token: str) -> str:
     raise SystemExit('  não foi possível identificar a conta Instagram a partir do token')
 
 
+LIMITE = 320
+
+
+def legenda_ajustada(caption: str) -> str:
+    """Corta a legenda ao que cabe no slide.
+
+    As legendas do Instagram não têm limite prático: as compridas empurravam o
+    texto para fora do cartão. Corta-se preferindo o fim de um parágrafo
+    inteiro e, na falta dele, uma fronteira de palavra. A publicação completa
+    fica a um clique, porque a imagem liga ao Instagram.
+    """
+    texto = (caption or '').strip()
+    if len(texto) <= LIMITE:
+        return texto
+
+    corte = texto[:LIMITE]
+    paragrafo = corte.rfind('\n\n')
+    if paragrafo > LIMITE * 0.55:
+        return corte[:paragrafo].rstrip() + ' […]'
+    return corte.rsplit(' ', 1)[0].rstrip(' ,.;:–—') + ' […]'
+
+
 def descarregar(url: str, destino: pathlib.Path) -> bool:
     try:
         pedido = urllib.request.Request(url, headers={'User-Agent': 'artvisao-site/1.0'})
@@ -80,7 +102,7 @@ def galeria(raiz: pathlib.Path, token: str) -> str:
             continue
         # Bootstrap exige exatamente um .active — é sempre o primeiro slide que se descarrega
         ativo = ' active' if not slides else ''
-        legenda = html.escape(item.get('caption') or '')
+        legenda = html.escape(legenda_ajustada(item.get('caption')))
         slides.append(
             '<div class="carousel-item%s">'
             '<div class="ig-slide">'

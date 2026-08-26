@@ -128,7 +128,6 @@ section[id]{scroll-margin-top:8rem;}
 /* Descrição por baixo do título: limita-se a medida para a linha não ficar longa demais */
 .section-lede{max-width:46rem;}
 .card-caption{font-size:.75rem;color:rgba(28,28,26,.65);}
-.testimonial-caption{font-size:.9rem;}
 /* Secção de apresentação, em duas linhas: uma faixa a toda a largura (foto + painel
    com o título) e, por baixo, dois blocos lado a lado. */
 .intro-banner{display:grid;grid-template-columns:1fr;background:var(--ink);color:var(--cream);overflow:hidden;box-shadow:0 20px 60px -15px rgba(28,28,26,.25);}
@@ -184,8 +183,6 @@ section[id]{scroll-margin-top:8rem;}
 .footer-brand-img{height:2rem;width:2rem;object-fit:cover;}
 
 /* Semantic utility classes to reduce repeated markup classes */
-.testimonial-quote{font-family:'Fraunces',serif;font-size:1.25rem;margin-top:1rem;}
-.testimonial-author{font-weight:500;color:var(--ink);}
 /* Avaliações reais do Facebook: nem todas trazem rating numérico (recomendação sem estrelas) */
 .review-stars{margin-top:.6rem;font-size:.85rem;letter-spacing:.1em;color:#e0a530;}
 .bg-ink{background-color:var(--ink)!important;}

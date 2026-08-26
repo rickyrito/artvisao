@@ -78,7 +78,7 @@
       if (!heading) return;
 
       var own = Array.prototype.filter.call(
-        section.querySelectorAll('.section-copy, .brand-copy, .tech-lead, .hero-description, .testimonial-quote, .visit-value, .visit-label'),
+        section.querySelectorAll('.section-copy, .brand-copy, .tech-lead, .hero-description, .visit-value, .visit-label'),
         function (el) { return !el.closest('.service-card, .type-card, .brand-tile'); }
       );
       var ownText = own.map(text).join(' ');
