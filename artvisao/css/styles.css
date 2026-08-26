@@ -411,13 +411,13 @@ body.consent-panel-open{overflow:hidden;}
 .ig-carousel{position:relative;}
 .ig-carousel:has(.ig-grid:empty){display:none;}
 .ig-slide{display:flex;flex-direction:column;background:var(--card);border:1px solid rgba(28,28,26,.1);}
-.ig-slide-media{position:relative;display:block;aspect-ratio:1;overflow:hidden;background:rgba(28,28,26,.06);flex-shrink:0;}
+.ig-slide-media{position:relative;display:block;aspect-ratio:5/4;overflow:hidden;background:rgba(28,28,26,.06);flex-shrink:0;}
 .ig-slide-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s ease;}
 .ig-slide-media:hover img{transform:scale(1.05);}
 .ig-caption{margin:0;padding:1.25rem 1.5rem;font-size:.9rem;line-height:1.65;color:rgba(28,28,26,.75);white-space:pre-line;max-height:12rem;overflow-y:auto;}
 @media (min-width:768px){
   .ig-slide{flex-direction:row;}
-  .ig-slide-media{width:42%;aspect-ratio:auto;}
+  .ig-slide-media{width:42%;}
   .ig-caption{flex:1;max-height:none;align-self:center;}
 }
 @media (prefers-reduced-motion:reduce){.ig-slide-media img{transition:none;}}
