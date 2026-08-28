@@ -61,7 +61,8 @@ a{text-decoration:none;}
 .object-cover{object-fit:cover;}
 /* Pré-menu: faixa marinha acima da barra, com contacto, avisos rotativos e
    redes. A letra aqui é pequena (.78rem), por isso os brancos são sólidos em
-   vez de esbatidos, e o realce faz-se com o azul da marca. */
+   vez de esbatidos, e o realce faz-se com o azul claro — o #5689c7 sobre o
+   marinho fica em 3.87 e não chega para letra deste tamanho. */
 .pre-menu{background:var(--navy);color:#fff;font-size:.78rem;}
 /* As colunas laterais têm de caber no seu conteúdo: com 1fr puro ficavam mais
    estreitas do que as redes sociais, que não encolhem, e o bloco transbordava
@@ -70,23 +71,23 @@ a{text-decoration:none;}
 .pre-menu-side{display:flex;align-items:center;gap:1.1rem;min-width:0;}
 .pre-menu-side-end{justify-content:flex-end;}
 .pre-menu-link{white-space:nowrap;color:#fff;transition:color .2s ease;}
-.pre-menu-link:hover,.pre-menu-link.is-current{color:var(--sky-brand);}
+.pre-menu-link:hover,.pre-menu-link.is-current{color:var(--sky-light);}
 .pre-menu-link.is-current{text-decoration:underline;text-underline-offset:.25rem;}
 .pre-menu-announce{display:flex;align-items:center;gap:.35rem;min-width:0;justify-content:center;}
 .pre-menu-arrow{display:flex;background:none;border:0;padding:.25rem;color:rgba(255,255,255,.85);cursor:pointer;flex-shrink:0;transition:color .2s ease;}
-.pre-menu-arrow:hover{color:var(--sky-brand);}
+.pre-menu-arrow:hover{color:var(--sky-light);}
 /* Os avisos ocupam a mesma célula da grelha para que a faixa não salte de altura ao trocar */
 .pre-menu-track{display:grid;flex:1 1 auto;min-width:0;list-style:none;margin:0;padding:0;}
 .pre-menu-track > li{grid-area:1/1;justify-self:center;min-width:0;max-width:100%;}
 .pre-menu-item{display:block;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;color:#fff;opacity:0;visibility:hidden;transition:opacity .35s ease;}
 .pre-menu-item.is-current{opacity:1;visibility:visible;}
-.pre-menu-item:hover{color:var(--sky-brand);text-decoration:underline;}
+.pre-menu-item:hover{color:var(--sky-light);text-decoration:underline;}
 .pre-menu-social{display:flex;align-items:center;flex-shrink:0;list-style:none;margin:0;padding:0;}
 .pre-menu-social a{display:inline-flex;align-items:center;gap:.4rem;padding-inline:.75rem;white-space:nowrap;color:#fff;transition:color .2s ease;}
 .pre-menu-social li:first-child a{padding-left:0;}
 .pre-menu-social li:last-child a{padding-right:0;}
 .pre-menu-social li + li a{border-left:1px solid rgba(255,255,255,.4);}
-.pre-menu-social a:hover{color:var(--sky-brand);}
+.pre-menu-social a:hover{color:var(--sky-light);}
 @media (prefers-reduced-motion:reduce){.pre-menu-item{transition:none;}}
 
 /* Floating pill header: the bar detaches from the top edge and rides over the content,
@@ -519,7 +520,7 @@ body.consent-panel-open{overflow:hidden;}
 .search-close:hover{color:var(--sky);}
 .search-results{overflow-y:auto;padding:.5rem 0 1rem;}
 .search-hint{margin:0;padding:1.35rem 1.5rem;font-size:.9rem;color:rgba(42,42,42,.72);}
-.search-group{margin:0;padding:1rem 1.5rem .5rem;font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(42,42,42,.6);}
+.search-group{margin:0;padding:1rem 1.5rem .5rem;font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(42,42,42,.72);}
 .search-result{display:flex;align-items:center;gap:.9rem;width:100%;padding:.75rem 1.5rem;background:none;border:0;font-family:inherit;text-align:left;cursor:pointer;transition:background-color .15s ease;}
 .search-result:hover,.search-result:focus-visible{background:rgba(86,137,199,.1);outline:none;}
 .search-thumb{width:44px;height:44px;flex-shrink:0;object-fit:cover;}
@@ -602,16 +603,16 @@ body.lang-modal-open{overflow:hidden;}
 .footer-social{display:flex;align-items:center;gap:1rem;list-style:none;margin:0;padding:0;}
 .footer-social a{display:flex;color:rgba(42,42,42,.72);transition:color .2s ease;}
 .footer-social a:hover{color:var(--sky);}
-.wa-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:1040;display:flex;align-items:center;gap:.75rem;background-color:#25D366;color:#fff;padding:.625rem 1.25rem .625rem .625rem;box-shadow:0 10px 30px -8px rgba(42,42,42,.35);transition:transform .2s ease;}
-.wa-float:hover{transform:scale(1.05);color:#fff;}
-.wa-float-badge{display:flex;height:2.25rem;width:2.25rem;flex-shrink:0;align-items:center;justify-content:center;background-color:#fff;color:#25D366;}
+.wa-float{position:fixed;bottom:1.5rem;right:1.5rem;z-index:1040;display:flex;align-items:center;gap:.75rem;background-color:#25D366;color:var(--night);padding:.625rem 1.25rem .625rem .625rem;box-shadow:0 10px 30px -8px rgba(42,42,42,.35);transition:transform .2s ease;}
+.wa-float:hover{transform:scale(1.05);color:var(--night);}
+.wa-float-badge{display:flex;height:2.25rem;width:2.25rem;flex-shrink:0;align-items:center;justify-content:center;background-color:#fff;color:#075E54;}
 .wa-float-text{font-size:.875rem;font-weight:500;white-space:nowrap;}
 
 /* Responsável técnico — credenciais transcritas da placa da loja */
 .tech-lead-name{font-size:1.25rem;color:var(--ink);}
 .tech-lead-role{font-size:.9rem;color:rgba(42,42,42,.75);}
 .tech-lead-cv{margin:0;}
-.tech-lead-cv dt{margin-top:.9rem;font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(42,42,42,.6);}
+.tech-lead-cv dt{margin-top:.9rem;font-size:.7rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(42,42,42,.72);}
 .tech-lead-cv dt:first-of-type{margin-top:0;}
 .tech-lead-cv dd{margin:.3rem 0 0;font-size:.85rem;line-height:1.55;color:rgba(42,42,42,.72);}
 
