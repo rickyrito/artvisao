@@ -206,6 +206,9 @@ section[id]{scroll-margin-top:8rem;}
 .visit-value{font-size:.9rem;white-space:pre-line;}
 .footer-meta{font-size:.9rem;color:rgba(42,42,42,.65);}
 .footer-brand-img{height:2rem;width:auto;object-fit:contain;}
+/* Mesma proporção da barra de topo: a assinatura fica em três quartos da
+   altura do símbolo, aqui 1.5rem para os 2rem do olho. */
+.footer-brand-wordmark{font-size:1.5rem;line-height:1;color:var(--sky-brand);}
 
 /* Semantic utility classes to reduce repeated markup classes */
 /* Avaliações reais do Facebook: nem todas trazem rating numérico (recomendação sem estrelas) */
