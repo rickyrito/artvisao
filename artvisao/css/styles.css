@@ -12,8 +12,8 @@
      o #5689c7 sobre #122c4f fica em 3.84 e não chega para texto pequeno (6.6 assim). */
   --sky-light:#8fb6dd;
   /* O azul da identidade tal e qual, para os botões que o cliente quis com
-     esta cor exata. Nota: o rótulo creme por cima dele fica em 2.74 de
-     contraste, abaixo do mínimo AA — foi uma escolha assumida. */
+     esta cor exata. Nota: mesmo com o rótulo a branco puro só chega a 3.6 de
+     contraste, abaixo do mínimo AA para este corpo — escolha assumida. */
   --sky-brand:#5689c7;
   --card:#ffffff;
   --bs-body-font-family:'Poppins',sans-serif;
@@ -467,7 +467,7 @@ body.consent-panel-open{overflow:hidden;}
 @media (min-width:768px){.service-card-foot{grid-template-columns:1fr minmax(0,22rem);align-items:center;}}
 /* Sem estado de hover, por decisão do cliente: o botão fica igual ao passar
    o rato e a seta deixou de se afastar. */
-.service-cta{display:inline-flex;justify-self:start;align-self:start;align-items:center;gap:.5rem;padding:.7rem 1.4rem;background:var(--sky-brand);color:var(--cream);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;}
+.service-cta{display:inline-flex;justify-self:start;align-self:start;align-items:center;gap:.5rem;padding:.7rem 1.4rem;background:var(--sky-brand);color:#fff;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;}
 /* Marca da rede à frente do rótulo, no lugar da seta: já diz para onde leva */
 .cta-marca{width:1.05rem;height:1.05rem;flex-shrink:0;}
 
