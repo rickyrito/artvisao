@@ -96,9 +96,9 @@ a{text-decoration:none;}
 .site-header-inner{display:flex;align-items:center;gap:.75rem;}
 .nav-pill{flex:1 1 auto;min-width:0;display:flex;flex-wrap:nowrap;align-items:center;gap:1rem;padding:.7rem 0;background:none;}
 .nav-pill-brand{display:flex;align-items:center;gap:.55rem;flex-shrink:0;}
-/* Dois terços da altura do símbolo (3rem). A MuseoModerno tem altura-x baixa,
-   por isso a 1.5rem lia-se muito mais pequena do que era face ao olho. */
-.nav-pill-wordmark{font-size:2rem;line-height:1;color:var(--sky-brand);}
+/* Três quartos da altura do símbolo (3rem). A MuseoModerno tem altura-x baixa,
+   por isso pede mais corpo do que parece para equilibrar com o olho. */
+.nav-pill-wordmark{font-size:2.25rem;line-height:1;color:var(--sky-brand);}
 .nav-pill-end{align-items:center;gap:.85rem;flex-shrink:0;margin-right:.35rem;}
 .nav-pill-divider{width:1px;height:1.5rem;background:rgba(42,42,42,.15);}
 .nav-pill-toggler{padding:.35rem .5rem;}
@@ -124,7 +124,7 @@ a{text-decoration:none;}
 }
 @media (max-width:560px){
   .nav-pill{gap:.5rem;}
-  .nav-pill-wordmark{font-size:1.6rem;}
+  .nav-pill-wordmark{font-size:1.8rem;}
 }
 section[id]{scroll-margin-top:8rem;}
 /* First section on the page has to clear the fixed header */
