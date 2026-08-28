@@ -209,6 +209,10 @@ section[id]{scroll-margin-top:8rem;}
 .text-ink{color:var(--ink)!important;}
 .text-cream{color:var(--cream)!important;}
 .text-sky{color:var(--sky)!important;}
+/* Recurso do manual: uma parte do título sai a azul. <em> por ser ênfase real,
+   sem itálico, e o innerHTML do i18n preserva-o ao trocar de língua. */
+.title-accent{font-style:normal;color:var(--sky);}
+.bg-ink .title-accent,.visit-panel .title-accent,.intro-banner-panel .title-accent{color:var(--sky-light);}
 /* Sobre os painéis marinhos o azul da marca tem de subir de luminosidade */
 .bg-ink .text-sky,.visit-panel .text-sky,.intro-banner-panel .text-sky,
 .intro-banner-panel .brand-eyebrow{color:var(--sky-light)!important;}
