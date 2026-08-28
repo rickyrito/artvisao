@@ -51,7 +51,10 @@ a{text-decoration:none;}
 .object-cover{object-fit:cover;}
 /* Pré-menu: faixa escura acima da barra, com contacto, avisos rotativos e redes */
 .pre-menu{background:var(--ink);color:rgba(250,246,239,.75);font-size:.78rem;}
-.pre-menu-inner{display:grid;grid-template-columns:1fr minmax(0,44rem) 1fr;align-items:center;gap:1rem;min-height:2.4rem;}
+/* As colunas laterais têm de caber no seu conteúdo: com 1fr puro ficavam mais
+   estreitas do que as redes sociais, que não encolhem, e o bloco transbordava
+   para cima da seta seguinte, tapando-a e tornando-a inclicável. */
+.pre-menu-inner{display:grid;grid-template-columns:minmax(max-content,1fr) minmax(0,44rem) minmax(max-content,1fr);align-items:center;gap:1rem;min-height:2.4rem;}
 .pre-menu-side{display:flex;align-items:center;gap:1.1rem;min-width:0;}
 .pre-menu-side-end{justify-content:flex-end;}
 .pre-menu-link{white-space:nowrap;color:rgba(250,246,239,.75);transition:color .2s ease;}
