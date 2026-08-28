@@ -59,10 +59,10 @@ a{text-decoration:none;}
 .text-soft-cream-muted{color:rgba(247,243,235,.72)!important;}
 .aspect-4x5{aspect-ratio:4/5;}
 .object-cover{object-fit:cover;}
-/* Pré-menu: faixa no azul da marca, acima da barra, com contacto, avisos
-   rotativos e redes. A letra aqui é pequena (.78rem), por isso os brancos são
-   sólidos em vez de esbatidos, e o realce faz-se com o marinho. */
-.pre-menu{background:var(--sky-brand);color:#fff;font-size:.78rem;}
+/* Pré-menu: faixa marinha acima da barra, com contacto, avisos rotativos e
+   redes. A letra aqui é pequena (.78rem), por isso os brancos são sólidos em
+   vez de esbatidos, e o realce faz-se com o azul da marca. */
+.pre-menu{background:var(--navy);color:#fff;font-size:.78rem;}
 /* As colunas laterais têm de caber no seu conteúdo: com 1fr puro ficavam mais
    estreitas do que as redes sociais, que não encolhem, e o bloco transbordava
    para cima da seta seguinte, tapando-a e tornando-a inclicável. */
@@ -70,22 +70,22 @@ a{text-decoration:none;}
 .pre-menu-side{display:flex;align-items:center;gap:1.1rem;min-width:0;}
 .pre-menu-side-end{justify-content:flex-end;}
 .pre-menu-link{white-space:nowrap;color:#fff;transition:color .2s ease;}
-.pre-menu-link:hover,.pre-menu-link.is-current{color:var(--navy);}
+.pre-menu-link:hover,.pre-menu-link.is-current{color:var(--sky-brand);}
 .pre-menu-link.is-current{text-decoration:underline;text-underline-offset:.25rem;}
 .pre-menu-announce{display:flex;align-items:center;gap:.35rem;min-width:0;justify-content:center;}
 .pre-menu-arrow{display:flex;background:none;border:0;padding:.25rem;color:rgba(255,255,255,.85);cursor:pointer;flex-shrink:0;transition:color .2s ease;}
-.pre-menu-arrow:hover{color:var(--navy);}
+.pre-menu-arrow:hover{color:var(--sky-brand);}
 /* Os avisos ocupam a mesma célula da grelha para que a faixa não salte de altura ao trocar */
 .pre-menu-track{display:grid;flex:1 1 auto;min-width:0;}
 .pre-menu-item{grid-area:1/1;justify-self:center;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;color:#fff;opacity:0;visibility:hidden;transition:opacity .35s ease;}
 .pre-menu-item.is-current{opacity:1;visibility:visible;}
-.pre-menu-item:hover{color:var(--navy);text-decoration:underline;}
+.pre-menu-item:hover{color:var(--sky-brand);text-decoration:underline;}
 .pre-menu-social{display:flex;align-items:center;flex-shrink:0;}
 .pre-menu-social a{display:inline-flex;align-items:center;gap:.4rem;padding-inline:.75rem;white-space:nowrap;color:#fff;transition:color .2s ease;}
 .pre-menu-social a:first-child{padding-left:0;}
 .pre-menu-social a:last-child{padding-right:0;}
 .pre-menu-social a + a{border-left:1px solid rgba(255,255,255,.4);}
-.pre-menu-social a:hover{color:var(--navy);}
+.pre-menu-social a:hover{color:var(--sky-brand);}
 @media (prefers-reduced-motion:reduce){.pre-menu-item{transition:none;}}
 
 /* Floating pill header: the bar detaches from the top edge and rides over the content,
