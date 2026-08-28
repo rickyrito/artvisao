@@ -11,8 +11,9 @@
   /* O mesmo azul aclarado, para quando é o marinho que está por baixo:
      o #5689c7 sobre #122c4f fica em 3.84 e não chega para texto pequeno (6.6 assim). */
   --sky-light:#8fb6dd;
-  /* O azul da identidade tal e qual. Só serve de fundo, e com texto escuro:
-     texto creme por cima dele fica em 2.74 e não se lê. */
+  /* O azul da identidade tal e qual, para os botões que o cliente quis com
+     esta cor exata. Nota: o rótulo creme por cima dele fica em 2.74 de
+     contraste, abaixo do mínimo AA — foi uma escolha assumida. */
   --sky-brand:#5689c7;
   --card:#ffffff;
   --bs-body-font-family:'Poppins',sans-serif;
@@ -464,11 +465,12 @@ body.consent-panel-open{overflow:hidden;}
 /* No cartão largo, texto à esquerda e mapa à direita */
 .service-card-foot{display:grid;grid-template-columns:1fr;gap:1.1rem;margin-top:1.1rem;align-items:start;}
 @media (min-width:768px){.service-card-foot{grid-template-columns:1fr minmax(0,22rem);align-items:center;}}
-.service-cta{display:inline-flex;justify-self:start;align-self:start;align-items:center;gap:.5rem;padding:.7rem 1.4rem;background:var(--sky-brand);color:var(--night);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transition:background-color .2s ease,gap .2s ease;}
+/* Sem estado de hover, por decisão do cliente: o botão fica igual ao passar
+   o rato e a seta deixou de se afastar. */
+.service-cta{display:inline-flex;justify-self:start;align-self:start;align-items:center;gap:.5rem;padding:.7rem 1.4rem;background:var(--sky-brand);color:var(--cream);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;}
 /* Marca da rede à frente do rótulo, no lugar da seta: já diz para onde leva */
 .cta-marca{width:1.05rem;height:1.05rem;flex-shrink:0;}
-/* Ao passar o rato só a seta se afasta: o azul é o da marca e mantém-se. */
-.service-cta:hover{background:var(--sky-brand);color:var(--night);gap:.75rem;}
+
 /* As duas lojas num só mapa, desenhado com Leaflet (ver main.js) */
 .service-map-canvas{height:11rem;background:rgba(42,42,42,.05);}
 .service-map-canvas[hidden]{display:none;}
