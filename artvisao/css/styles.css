@@ -170,9 +170,9 @@ section[id]{scroll-margin-top:8rem;}
 .intro-banner-title{font-size:2.1rem;line-height:1.08;margin:0;}
 .intro-banner-copy{max-width:34rem;margin:1.25rem 0 0;font-size:.98rem;line-height:1.7;color:rgba(247,243,235,.72);}
 /* Botão em creme: sobre o painel escuro é o inverso do .btn-ink usado no resto da página */
-.intro-banner-cta{align-self:flex-start;display:inline-flex;align-items:center;gap:.6rem;margin-top:1.75rem;padding:.9rem 1.9rem;background:var(--cream);color:var(--ink);font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;transition:background-color .2s ease,color .2s ease;}
-.intro-banner-cta:hover{background:var(--sky);color:var(--cream);}
-.intro-banner-cta svg{width:1rem;height:1rem;transition:transform .2s ease;}
+.intro-banner-cta,.visit-cta{align-self:flex-start;display:inline-flex;align-items:center;gap:.6rem;margin-top:1.75rem;padding:.9rem 1.9rem;background:var(--cream);color:var(--ink);font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;transition:background-color .2s ease,color .2s ease;}
+.intro-banner-cta:hover,.visit-cta:hover{background:var(--sky);color:var(--cream);}
+.intro-banner-cta svg,.visit-cta svg{width:1rem;height:1rem;transition:transform .2s ease;}
 .intro-banner-cta:hover svg{transform:translateX(3px);}
 @media (min-width:768px){
   .intro-banner{grid-template-columns:1fr 1fr;}
