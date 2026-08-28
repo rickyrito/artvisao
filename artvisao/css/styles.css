@@ -94,7 +94,7 @@ a{text-decoration:none;}
 .site-header-inner{display:flex;align-items:center;gap:.75rem;}
 .nav-pill{flex:1 1 auto;min-width:0;display:flex;flex-wrap:nowrap;align-items:center;gap:1rem;padding:.7rem 0;background:none;}
 .nav-pill-brand{display:flex;align-items:center;gap:.55rem;flex-shrink:0;}
-.nav-pill-wordmark{font-size:1.3rem;line-height:1;color:var(--ink);}
+.nav-pill-wordmark{font-size:1.5rem;line-height:1;color:var(--sky-brand);}
 .nav-pill-end{align-items:center;gap:.85rem;flex-shrink:0;margin-right:.35rem;}
 .nav-pill-divider{width:1px;height:1.5rem;background:rgba(42,42,42,.15);}
 .nav-pill-toggler{padding:.35rem .5rem;}
@@ -120,7 +120,7 @@ a{text-decoration:none;}
 }
 @media (max-width:560px){
   .nav-pill{gap:.5rem;}
-  .nav-pill-wordmark{font-size:1.1rem;}
+  .nav-pill-wordmark{font-size:1.25rem;}
 }
 section[id]{scroll-margin-top:8rem;}
 /* First section on the page has to clear the fixed header */
@@ -465,9 +465,9 @@ body.consent-panel-open{overflow:hidden;}
 /* No cartão largo, texto à esquerda e mapa à direita */
 .service-card-foot{display:grid;grid-template-columns:1fr;gap:1.1rem;margin-top:1.1rem;align-items:start;}
 @media (min-width:768px){.service-card-foot{grid-template-columns:1fr minmax(0,22rem);align-items:center;}}
-/* Marinho com o rótulo no azul da marca; ao passar o rato trocam de papel.
-   Só mudam as cores — a seta não se afasta. */
-.service-cta{display:inline-flex;justify-self:start;align-self:start;align-items:center;gap:.5rem;padding:.7rem 1.4rem;background:var(--navy);color:var(--sky-brand);font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transition:background-color .2s ease,color .2s ease;}
+/* Marinho que passa ao azul da marca ao receber o rato; o rótulo é sempre
+   branco e a seta não se afasta. */
+.service-cta{display:inline-flex;justify-self:start;align-self:start;align-items:center;gap:.5rem;padding:.7rem 1.4rem;background:var(--navy);color:#fff;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;transition:background-color .2s ease,color .2s ease;}
 .service-cta:hover{background:var(--sky-brand);color:#fff;}
 /* Marca da rede à frente do rótulo, no lugar da seta: já diz para onde leva */
 .cta-marca{width:1.05rem;height:1.05rem;flex-shrink:0;}
