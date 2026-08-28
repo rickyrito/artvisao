@@ -192,7 +192,7 @@ section[id]{scroll-margin-top:8rem;}
 .visit-label{font-size:.7rem;letter-spacing:.1em;color:rgba(250,246,239,.72);}
 .visit-value{font-size:.9rem;white-space:pre-line;}
 .footer-meta{font-size:.9rem;color:rgba(28,28,26,.65);}
-.footer-brand-img{height:2rem;width:2rem;object-fit:cover;}
+.footer-brand-img{height:2rem;width:auto;object-fit:contain;}
 
 /* Semantic utility classes to reduce repeated markup classes */
 /* Avaliações reais do Facebook: nem todas trazem rating numérico (recomendação sem estrelas) */
@@ -225,7 +225,7 @@ section[id]{scroll-margin-top:8rem;}
 .btn-outline-ink:hover{background-color:rgba(28,28,26,.05);color:var(--ink);}
 .btn-sky-sm{display:inline-flex;align-items:center;gap:.5rem;background-color:var(--sky);color:var(--cream);padding:.75rem 1.5rem;font-size:.9rem;}
 .btn-sky-sm:hover{opacity:.9;color:var(--cream);}
-.navbar-brand-logo{height:3rem;width:3rem;object-fit:cover;box-shadow:0 0 0 1px rgba(28,28,26,.1);}
+.navbar-brand-logo{height:3rem;width:auto;object-fit:contain;}
 .nav-link-brand{position:relative;color:rgba(28,28,26,.8);font-size:.9rem;transition:color .2s ease;}
 .nav-link-brand:hover{color:var(--ink);}
 /* Underline sweeps in from the left on hover, on the desktop pill nav only */
@@ -617,3 +617,7 @@ body.lang-modal-open{overflow:hidden;}
 /* Menu selection fade-in */
 .menu-fade{animation:menuFadeIn .32s ease both}
 @keyframes menuFadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* As avaliações passaram a viver dentro da secção do Instagram; o traço
+   separa-as do carrossel sem precisar de outro fundo. */
+.reviews-inline{padding-top:2.25rem;border-top:1px solid rgba(28,28,26,.1);}
