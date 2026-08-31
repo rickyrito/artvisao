@@ -623,65 +623,74 @@ window.ArtVisaoI18n = (function(){
     writeStorage(STORAGE_KEY, lang);
   }
 
-  // Wires the header trigger to the language dialog. Picking a language applies it at once,
-  // so dismissing the dialog leaves the current language untouched.
-  function initModal(apply) {
-    var triggers = document.querySelectorAll('[data-lang-trigger]');
-    var modal = document.getElementById('langModal');
-    if (!triggers.length || !modal) return;
+  // O idioma escolhe-se num painel ancorado ao botão. Há um par botão+painel na
+  // barra e outro no menu lateral; cada um funciona por si, e abrir um fecha o outro.
+  function initDropdown(apply) {
+    var selects = [].slice.call(document.querySelectorAll('.lang-select'))
+      .map(function (root) {
+        return {
+          trigger: root.querySelector('[data-lang-trigger]'),
+          menu: root.querySelector('[data-lang-menu]'),
+          root: root
+        };
+      })
+      .filter(function (s) { return s.trigger && s.menu; });
+    if (!selects.length) return;
 
-    // Whichever trigger opened the dialog is the one focus goes back to on close.
-    var opener = triggers[0];
+    function close(s) {
+      if (s.menu.hidden) return;
+      s.menu.hidden = true;
+      s.trigger.setAttribute('aria-expanded', 'false');
+    }
 
-    var options = modal.querySelectorAll('[data-lang-set]');
-    var focusables = modal.querySelectorAll('button');
+    function closeAll(except) {
+      selects.forEach(function (s) { if (s !== except) close(s); });
+    }
 
-    function onKeydown(e) {
-      if (e.key === 'Escape') { close(); return; }
-      if (e.key !== 'Tab' || !focusables.length) return;
+    function open(s) {
+      closeAll(s);
+      s.menu.hidden = false;
+      s.trigger.setAttribute('aria-expanded', 'true');
+      (s.menu.querySelector('[data-lang-set].is-active') || s.menu.querySelector('button')).focus();
+    }
 
-      var first = focusables[0];
-      var last = focusables[focusables.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
+    selects.forEach(function (s) {
+      s.trigger.addEventListener('click', function () {
+        if (s.menu.hidden) open(s); else close(s);
+      });
+
+      s.menu.querySelectorAll('[data-lang-set]').forEach(function (el) {
+        el.addEventListener('click', function () {
+          apply(el.getAttribute('data-lang-set'));
+          close(s);
+          s.trigger.focus();
+        });
+      });
+
+      // Setas percorrem as opções; Escape devolve o foco ao botão que abriu.
+      s.root.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          if (s.menu.hidden) return;
+          close(s);
+          s.trigger.focus();
+          return;
+        }
+        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+        if (s.menu.hidden) { if (e.key === 'ArrowDown') { e.preventDefault(); open(s); } return; }
+        var items = [].slice.call(s.menu.querySelectorAll('button'));
+        var i = items.indexOf(document.activeElement);
+        if (i < 0) return;
         e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    }
-
-    function open() {
-      modal.hidden = false;
-      document.body.classList.add('lang-modal-open');
-      opener.setAttribute('aria-expanded', 'true');
-      (modal.querySelector('[data-lang-set].is-active') || focusables[0]).focus();
-      document.addEventListener('keydown', onKeydown);
-    }
-
-    function close() {
-      modal.hidden = true;
-      document.body.classList.remove('lang-modal-open');
-      opener.setAttribute('aria-expanded', 'false');
-      opener.focus();
-      document.removeEventListener('keydown', onKeydown);
-    }
-
-    triggers.forEach(function (el) {
-      el.addEventListener('click', function () {
-        opener = el;
-        open();
+        items[(i + (e.key === 'ArrowDown' ? 1 : items.length - 1)) % items.length].focus();
       });
     });
-    modal.querySelectorAll('[data-lang-dismiss]').forEach(function (el) {
-      el.addEventListener('click', close);
-    });
 
-    options.forEach(function (el) {
-      el.addEventListener('click', function () {
-        apply(el.getAttribute('data-lang-set'));
-        close();
-      });
+    // Clicar ou tabular para fora fecha o painel aberto.
+    document.addEventListener('click', function (e) {
+      selects.forEach(function (s) { if (!s.root.contains(e.target)) close(s); });
+    });
+    document.addEventListener('focusin', function (e) {
+      selects.forEach(function (s) { if (!s.root.contains(e.target)) close(s); });
     });
   }
 
@@ -696,7 +705,7 @@ window.ArtVisaoI18n = (function(){
     var savedLang = readStorage(STORAGE_KEY);
     apply(LANGUAGES[savedLang] ? savedLang : 'pt');
 
-    initModal(apply);
+    initDropdown(apply);
   }
 
   return {

@@ -215,19 +215,33 @@
 <li class="nav-item d-xl-none"><a class="nav-link nav-link-brand" href="unidade-movel.html"><span data-i18n="nav-unidade">Unidade móvel</span><svg xmlns="http://www.w3.org/2000/svg" class="nav-link-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-chevron-right"></use></svg></a></li>
 </ul>
 <div class="nav-drawer-footer d-xl-none">
-<button type="button" class="lang-trigger" data-lang-trigger aria-haspopup="dialog" aria-expanded="false" aria-controls="langModal"><span class="visually-hidden" data-i18n="lang-trigger-label">Escolher idioma:</span>
+<div class="lang-select">
+<button type="button" class="lang-trigger" data-lang-trigger aria-expanded="false" aria-controls="langMenu1"><span class="visually-hidden" data-i18n="lang-trigger-label">Escolher idioma:</span>
 <span class="lang-trigger-flag" data-lang-flag aria-hidden="true"><img src="assets/flags/pt.svg" alt="" class="lang-flag-img"/></span>
 <span class="lang-trigger-name" data-lang-name>Português</span>
 </button>
+<ul class="lang-menu" id="langMenu1" data-lang-menu hidden aria-label="Idioma" data-i18n-aria="lang-modal-title">
+<li><button type="button" class="lang-option" data-lang-set="pt"><span class="lang-option-flag" aria-hidden="true"><img src="assets/flags/pt.svg" alt="" class="lang-flag-img"/></span><span class="lang-option-name">Português</span><svg xmlns="http://www.w3.org/2000/svg" class="lang-option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></button></li>
+<li><button type="button" class="lang-option" data-lang-set="fr"><span class="lang-option-flag" aria-hidden="true"><img src="assets/flags/fr.svg" alt="" class="lang-flag-img"/></span><span class="lang-option-name">Français</span><svg xmlns="http://www.w3.org/2000/svg" class="lang-option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></button></li>
+<li><button type="button" class="lang-option" data-lang-set="en"><span class="lang-option-flag" aria-hidden="true"><img src="assets/flags/gb.svg" alt="" class="lang-flag-img"/></span><span class="lang-option-name">English</span><svg xmlns="http://www.w3.org/2000/svg" class="lang-option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></button></li>
+</ul>
+</div>
 </div>
 </div>
 </div>
 <div class="nav-pill-end d-none d-xl-flex">
 <span class="nav-pill-divider" aria-hidden="true"></span>
-<button type="button" class="lang-trigger" data-lang-trigger aria-haspopup="dialog" aria-expanded="false" aria-controls="langModal"><span class="visually-hidden" data-i18n="lang-trigger-label">Escolher idioma:</span>
+<div class="lang-select">
+<button type="button" class="lang-trigger" data-lang-trigger aria-expanded="false" aria-controls="langMenu2"><span class="visually-hidden" data-i18n="lang-trigger-label">Escolher idioma:</span>
 <span class="lang-trigger-flag" data-lang-flag aria-hidden="true"><img src="assets/flags/pt.svg" alt="" class="lang-flag-img"/></span>
 <span class="lang-trigger-name" data-lang-name>Português</span>
 </button>
+<ul class="lang-menu" id="langMenu2" data-lang-menu hidden aria-label="Idioma" data-i18n-aria="lang-modal-title">
+<li><button type="button" class="lang-option" data-lang-set="pt"><span class="lang-option-flag" aria-hidden="true"><img src="assets/flags/pt.svg" alt="" class="lang-flag-img"/></span><span class="lang-option-name">Português</span><svg xmlns="http://www.w3.org/2000/svg" class="lang-option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></button></li>
+<li><button type="button" class="lang-option" data-lang-set="fr"><span class="lang-option-flag" aria-hidden="true"><img src="assets/flags/fr.svg" alt="" class="lang-flag-img"/></span><span class="lang-option-name">Français</span><svg xmlns="http://www.w3.org/2000/svg" class="lang-option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></button></li>
+<li><button type="button" class="lang-option" data-lang-set="en"><span class="lang-option-flag" aria-hidden="true"><img src="assets/flags/gb.svg" alt="" class="lang-flag-img"/></span><span class="lang-option-name">English</span><svg xmlns="http://www.w3.org/2000/svg" class="lang-option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></button></li>
+</ul>
+</div>
 </div>
 <button type="button" class="nav-pill-search" data-search-trigger aria-haspopup="dialog" aria-expanded="false" aria-controls="searchOverlay" aria-label="Pesquisar no site" title="Pesquisar no site" data-i18n-aria="search-aria">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -852,24 +866,6 @@ Sáb · 10h–13h30</div>
 </div>
 
 <!-- Language / region preferences dialog, opened from the header trigger -->
-<div class="lang-modal" id="langModal" hidden>
-<div class="lang-modal-backdrop" data-lang-dismiss></div>
-<div class="lang-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="langModalTitle">
-<div class="lang-modal-header">
-<h2 class="lang-modal-title font-display" id="langModalTitle" data-i18n="lang-modal-title">Idioma</h2>
-<button type="button" class="lang-modal-close" data-lang-dismiss aria-label="Fechar" title="Fechar" data-i18n-aria="lang-modal-close">
-<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
-</button>
-</div>
-<div class="lang-modal-body">
-<ul class="lang-options">
-<li><button type="button" class="lang-option" data-lang-set="pt"><span class="lang-option-flag" aria-hidden="true"><img src="assets/flags/pt.svg" alt="" class="lang-flag-img"/></span><span class="lang-option-name">Português</span><svg xmlns="http://www.w3.org/2000/svg" class="lang-option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></button></li>
-<li><button type="button" class="lang-option" data-lang-set="fr"><span class="lang-option-flag" aria-hidden="true"><img src="assets/flags/fr.svg" alt="" class="lang-flag-img"/></span><span class="lang-option-name">Français</span><svg xmlns="http://www.w3.org/2000/svg" class="lang-option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></button></li>
-<li><button type="button" class="lang-option" data-lang-set="en"><span class="lang-option-flag" aria-hidden="true"><img src="assets/flags/gb.svg" alt="" class="lang-flag-img"/></span><span class="lang-option-name">English</span><svg xmlns="http://www.w3.org/2000/svg" class="lang-option-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg></button></li>
-</ul>
-</div>
-</div>
-</div>
 
 </main>
 <footer class="border-top border-ink-10 bg-cream py-4">

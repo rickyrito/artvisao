@@ -116,8 +116,9 @@ a{text-decoration:none;}
   .site-header{background:rgba(255,255,255,.94);backdrop-filter:blur(10px);}
   .nav-pill #navMain{flex:1 1 auto;min-width:0;}
   .nav-pill .offcanvas-body{flex-grow:1;justify-content:center;}
-  /* Guard: if the labels ever outgrow the pill, clip rather than let them overlap the brand */
-  .nav-pill{overflow:hidden;}
+  /* Guard: if the labels ever outgrow the pill, clip rather than let them overlap
+     the brand. Só a lista: no pill inteiro, cortava o painel do idioma. */
+  .nav-pill #navMain{overflow:hidden;}
   .nav-pill .navbar-nav{flex-wrap:nowrap;gap:1.1rem;}
   .nav-pill .nav-link-brand{font-size:.75rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}
 }
@@ -567,17 +568,14 @@ body.search-open{overflow:hidden;}
 /* Hairline divider between the flag and the language name */
 .lang-trigger-name{border-left:1px solid rgba(42,42,42,.25);padding-left:.5rem;}
 
-.lang-modal{position:fixed;inset:0;z-index:1080;display:flex;align-items:center;justify-content:center;padding:1.5rem;}
-.lang-modal[hidden]{display:none;}
-.lang-modal-backdrop{position:absolute;inset:0;background:rgba(42,42,42,.65);backdrop-filter:blur(3px);animation:langFade .2s ease both;}
-.lang-modal-dialog{position:relative;width:100%;max-width:24rem;max-height:100%;overflow-y:auto;background:var(--card);box-shadow:0 40px 90px -30px rgba(42,42,42,.65);animation:langRise .24s ease both;}
-.lang-modal-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.15rem 1.5rem;border-bottom:1px solid rgba(42,42,42,.12);}
-.lang-modal-title{font-size:1.5rem;margin:0;}
-.lang-modal-close{display:flex;background:none;border:0;padding:.25rem;color:var(--ink);cursor:pointer;transition:color .2s ease;}
-.lang-modal-close:hover{color:var(--sky);}
-.lang-modal-body{padding:.4rem 0 .6rem;}
-.lang-options{list-style:none;margin:0;padding:0;}
-.lang-option{display:flex;align-items:center;gap:.85rem;width:100%;padding:.85rem 1.5rem;background:none;border:0;font-family:inherit;font-size:1.05rem;color:var(--ink);text-align:left;cursor:pointer;transition:background-color .2s ease;}
+/* O idioma escolhe-se num painel ancorado ao botão, não num diálogo: são três
+   opções e não justificam tapar a página nem prender o foco. */
+.lang-select{position:relative;}
+.lang-menu{position:absolute;top:calc(100% + .6rem);right:0;z-index:1090;min-width:12.5rem;list-style:none;margin:0;padding:.3rem 0;background:var(--card);border:1px solid rgba(42,42,42,.12);box-shadow:0 18px 40px -18px rgba(42,42,42,.5);animation:langRise .16s ease both;}
+.lang-menu[hidden]{display:none;}
+/* No painel lateral o botão vive no fundo, por isso o menu abre para cima */
+.nav-drawer-footer .lang-menu{top:auto;bottom:calc(100% + .6rem);}
+.lang-option{display:flex;align-items:center;gap:.85rem;width:100%;padding:.7rem 1.1rem;background:none;border:0;font-family:inherit;font-size:1.05rem;color:var(--ink);text-align:left;cursor:pointer;transition:background-color .2s ease;}
 .lang-option:hover{background:rgba(86,137,199,.09);}
 .lang-option.is-active{background:rgba(86,137,199,.12);font-weight:600;}
 .lang-option-flag{display:inline-flex;width:1.5rem;flex-shrink:0;}
@@ -586,17 +584,10 @@ body.search-open{overflow:hidden;}
 /* A marca de escolhido ocupa lugar sempre, para as linhas não saltarem ao mudar de idioma */
 .lang-option-check{flex-shrink:0;width:1.1rem;height:1.1rem;color:var(--sky);opacity:0;}
 .lang-option.is-active .lang-option-check{opacity:1;}
-body.lang-modal-open{overflow:hidden;}
 @keyframes langFade{from{opacity:0}to{opacity:1}}
 @keyframes langRise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-@media (max-width:560px){
-  .lang-modal{padding:1rem;}
-  .lang-modal-header{padding:1rem 1.25rem;}
-  .lang-modal-title{font-size:1.3rem;}
-  .lang-modal-body{padding:.4rem 0 .6rem;}
-}
 @media (prefers-reduced-motion:reduce){
-  .lang-modal-backdrop,.lang-modal-dialog{animation:none;}
+  .lang-menu{animation:none;}
 }
 .footer-consent-link{margin-left:.6rem;color:rgba(42,42,42,.72);text-decoration:underline;}
 .footer-consent-link:hover{color:var(--sky);}
