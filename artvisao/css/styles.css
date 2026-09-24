@@ -251,6 +251,11 @@ section[id]{scroll-margin-top:8rem;}
 /* Sem o título entre eles, o logótipo precisa de mais folga até à descrição */
 .accord-logo-link{display:inline-block;margin-bottom:1.6rem;}
 .accord-logo-img{display:block;width:10rem;height:2.75rem;object-fit:contain;object-position:left center;}
+/* Logótipos SAD, com escudo, que ficariam pequenos na altura dos outros: ganham 1rem de altura e perdem-no na margem, para a descrição continuar alinhada com a dos vizinhos */
+.accord-logo-tall{margin-bottom:.6rem;}
+.accord-logo-tall .accord-logo-img{height:3.75rem;}
+/* Logótipos muito largos (ADBB): mesma altura, mais largura, para o texto miúdo se ler */
+.accord-logo-wide .accord-logo-img{width:14rem;max-width:100%;}
 .bg-sky-20{background-color:rgba(86,137,199,.2)!important;}
 .btn-ink{display:inline-flex;align-items:center;gap:.5rem;background-color:var(--navy);color:var(--cream);padding:.9rem 1.75rem;font-size:.9rem;font-weight:500;border:0;transition:background-color .2s ease;}
 .btn-ink:hover{background-color:var(--sky);color:var(--cream);}
@@ -277,6 +282,17 @@ section[id]{scroll-margin-top:8rem;}
 .type-group{font-family:'MuseoModerno',sans-serif;font-size:1.3rem;color:var(--ink);margin:0 0 1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(42,42,42,.14);}
 .type-group-wide{margin-top:3rem;}
 .type-list{display:grid;gap:.8rem;}
+/* Lado a lado, as duas colunas partilham as filas (subgrid): cada cartão fica com a altura
+   do vizinho, e as colunas acabam juntas mesmo quando uma descrição ocupa duas linhas.
+   O span conta o título + 4 cartões por coluna; se uma coluna ganhar cartões, subir o número. */
+@supports (grid-template-rows:subgrid){
+  @media (min-width:992px){
+    .type-columns{row-gap:.8rem;}
+    .type-column{display:grid;grid-row:span 5;grid-template-rows:subgrid;}
+    .type-column > .type-group{margin-bottom:.2rem;}
+    .type-column > .type-list{display:contents;}
+  }
+}
 .type-card{display:flex;align-items:flex-start;gap:.95rem;padding:1rem 1.15rem;background:var(--card);border:1px solid rgba(42,42,42,.1);transition:border-color .2s ease,box-shadow .2s ease;}
 .type-card:hover{border-color:rgba(86,137,199,.45);box-shadow:0 10px 24px -14px rgba(42,42,42,.35);}
 .type-icon{flex-shrink:0;display:grid;place-items:center;width:2.4rem;height:2.4rem;background:rgba(86,137,199,.1);color:var(--sky);}
@@ -649,6 +665,7 @@ body.search-open{overflow:hidden;}
 /* Logótipo quadrado: com a altura dos outros ficava minúsculo */
 .brand-tile[data-logo="enrico-coveri"] img.brand-tile-logo{max-height:3.6rem;}
 .brand-tile[data-logo="essilor"] img.brand-tile-logo{max-height:3.6rem;}
+.brand-tile[data-logo="zeiss"] img.brand-tile-logo{max-height:3.2rem;}
 .brand-tile[data-logo="superbike"] img.brand-tile-logo{max-height:2.6rem;}
 
 @media (max-width:900px){.brand-grid{grid-template-columns:repeat(4,1fr);}}
