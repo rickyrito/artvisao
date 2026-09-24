@@ -648,8 +648,8 @@ body.search-open{overflow:hidden;}
 .brand-tile:hover img.brand-tile-logo{transform:scale(1.04);}
 /* Logótipo quadrado: com a altura dos outros ficava minúsculo */
 .brand-tile[data-logo="enrico-coveri"] img.brand-tile-logo{max-height:3.6rem;}
-.brand-tile[data-logo="superbike"] img.brand-tile-logo{max-height:3.2rem;}
-.brand-tile[data-logo="optiestojo"] img.brand-tile-logo{max-height:2.8rem;}
+.brand-tile[data-logo="essilor"] img.brand-tile-logo{max-height:3.6rem;}
+.brand-tile[data-logo="superbike"] img.brand-tile-logo{max-height:2.6rem;}
 
 @media (max-width:900px){.brand-grid{grid-template-columns:repeat(4,1fr);}}
 @media (max-width:560px){.brand-grid{grid-template-columns:repeat(2,1fr);gap:.85rem;}.brands-card{padding:2.5rem 1.25rem;}}
