@@ -47,6 +47,8 @@ body{background-color:var(--cream);color:var(--ink);}
 /* Primeira paragem do teclado: fora do ecrã até receber foco */
 .skip-link{position:absolute;left:.75rem;top:-4rem;z-index:1100;padding:.7rem 1.2rem;background:var(--navy);color:var(--cream);font-size:.85rem;transition:top .15s ease;}
 .skip-link:focus{top:.75rem;color:var(--cream);}
+/* O main recebe o foco do link acima (tabindex="-1"); o contorno à volta da página inteira só distrairia */
+#conteudo:focus{outline:none;}
 /* Foco visível uniforme: o contorno do browser perdia-se sobre os fundos escuros */
 :focus-visible{outline:2px solid var(--sky);outline-offset:2px;}
 .bg-ink :focus-visible,.intro-banner-panel :focus-visible,.visit-panel :focus-visible{outline-color:var(--cream);}
@@ -168,11 +170,13 @@ section[id]{scroll-margin-top:8rem;}
 /* Fotos verticais em que o enquadramento central corta o essencial */
 .intro-carousel .focus-high{object-position:center 22%;}
 .intro-carousel .focus-low{object-position:center 62%;}
-.intro-carousel-dots{right:.9rem;bottom:.9rem;left:auto;margin:0;gap:.45rem;align-items:center;}
+.intro-carousel-dots{right:.5rem;bottom:.5rem;left:auto;margin:0;gap:0;align-items:center;}
 /* O seletor leva [data-bs-target] para bater a especificidade de
-   .carousel-indicators [data-bs-target] do Bootstrap, que impõe 30x3px */
-.intro-carousel-dots button[data-bs-target]{width:.45rem;height:.45rem;margin:0;border:0;border-radius:50%;background:rgba(247,243,235,.55);opacity:1;box-shadow:0 1px 3px rgba(42,42,42,.4);transition:background-color .2s ease,transform .2s ease;}
-.intro-carousel-dots button[data-bs-target].active{background:var(--cream);transform:scale(1.25);}
+   .carousel-indicators [data-bs-target] do Bootstrap, que impõe 30x3px.
+   O botão tem 24x24px de área de toque (WCAG 2.5.8); o ponto é só o ::before. */
+.intro-carousel-dots button[data-bs-target]{position:relative;width:1.5rem;height:1.5rem;margin:0;padding:0;border:0;background:none;opacity:1;}
+.intro-carousel-dots button[data-bs-target]::before{content:"";position:absolute;top:50%;left:50%;width:.45rem;height:.45rem;margin:-.225rem 0 0 -.225rem;border-radius:50%;background:rgba(247,243,235,.55);box-shadow:0 1px 3px rgba(42,42,42,.4);transition:background-color .2s ease,transform .2s ease;}
+.intro-carousel-dots button[data-bs-target].active::before{background:var(--cream);transform:scale(1.25);}
 /* z-index mantém a tarja do ano acima do carrossel */
 .intro-banner-since{position:absolute;z-index:2;left:0;bottom:0;display:flex;align-items:baseline;gap:.55rem;margin:0;padding:.6rem 1.1rem;background:var(--sky);color:var(--cream);}
 .intro-banner-since strong{font-family:'MuseoModerno',sans-serif;font-size:1.3rem;font-weight:500;line-height:1;}
@@ -184,6 +188,9 @@ section[id]{scroll-margin-top:8rem;}
 .intro-banner-cta,.visit-cta{align-self:flex-start;display:inline-flex;align-items:center;gap:.6rem;margin-top:1.75rem;padding:.9rem 1.9rem;background:var(--cream);color:var(--ink);font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;transition:background-color .2s ease,color .2s ease;}
 .intro-banner-cta:hover,.visit-cta:hover{background:var(--sky);color:var(--cream);}
 .intro-banner-cta svg,.visit-cta svg{width:1rem;height:1rem;transition:transform .2s ease;}
+.visit-phones{display:flex;flex-direction:column;align-items:flex-start;gap:1rem;margin-top:1.75rem;}
+.visit-phones .visit-cta{margin-top:0;}
+.visit-call-note{margin:.4rem 0 0;font-size:.72rem;line-height:1.5;color:rgba(247,243,235,.7);}
 .intro-banner-cta:hover svg{transform:translateX(3px);}
 @media (min-width:768px){
   .intro-banner{grid-template-columns:1fr 1fr;}
@@ -276,7 +283,6 @@ section[id]{scroll-margin-top:8rem;}
 .type-body{display:flex;flex-direction:column;gap:.2rem;min-width:0;}
 .type-title{font-family:'MuseoModerno',sans-serif;font-size:1.05rem;line-height:1.25;color:var(--ink);}
 .type-desc{font-size:.84rem;line-height:1.5;color:rgba(42,42,42,.72);}
-
 /* Destaque: o painel de texto está parado e faz cross-fade no lugar, enquanto a fita de
    imagens desliza por baixo. São dois movimentos independentes, de propósito. */
 .highlight{display:grid;grid-template-columns:1fr;background:var(--card);border:1px solid rgba(42,42,42,.1);overflow:hidden;}
@@ -315,11 +321,15 @@ section[id]{scroll-margin-top:8rem;}
 .intro-banner-media:hover .carousel-arrow,
 .ig-carousel:hover .carousel-arrow,
 .carousel-arrow:focus-visible{opacity:1;}
+/* Em ecrãs táteis não há "passar por cima": as setas ficavam invisíveis mas tocáveis */
+@media (hover:none){.carousel-arrow{opacity:1;}}
 /* Fundo esbatido por trás: os pontos passam por cima de imagens claras e escuras */
-.highlight-dots{position:absolute;right:.75rem;bottom:.75rem;z-index:2;display:flex;gap:.45rem;
-  padding:.5rem .6rem;background:rgba(42,42,42,.42);backdrop-filter:blur(2px);align-items:center;}
-.highlight-dots button{width:.45rem;height:.45rem;padding:0;border:0;border-radius:50%;background:rgba(247,243,235,.55);cursor:pointer;transition:background-color .2s ease,transform .2s ease;}
-.highlight-dots button.active{background:var(--cream);transform:scale(1.25);}
+.highlight-dots{position:absolute;right:.75rem;bottom:.75rem;z-index:2;display:flex;gap:0;
+  padding:0 .15rem;background:rgba(42,42,42,.42);backdrop-filter:blur(2px);align-items:center;}
+/* Área de toque de 24x24px (WCAG 2.5.8); o ponto visível é o ::before */
+.highlight-dots button{position:relative;width:1.5rem;height:1.5rem;padding:0;border:0;background:none;cursor:pointer;}
+.highlight-dots button::before{content:"";position:absolute;top:50%;left:50%;width:.45rem;height:.45rem;margin:-.225rem 0 0 -.225rem;border-radius:50%;background:rgba(247,243,235,.55);transition:background-color .2s ease,transform .2s ease;}
+.highlight-dots button.active::before{background:var(--cream);transform:scale(1.25);}
 @media (prefers-reduced-motion:reduce){
   .highlight-track,.highlight-copy,.carousel-arrow{transition:none;}
 }
@@ -370,10 +380,11 @@ section[id]{scroll-margin-top:8rem;}
 .contact-intro{font-size:.95rem;}
 .contact-privacy{font-size:.8rem;line-height:1.55;color:rgba(42,42,42,.72);}
 .contact-form{display:flex;flex-direction:column;gap:.85rem;}
-.contact-input{width:100%;padding:.9rem 1.1rem;background:var(--card);border:1px solid rgba(42,42,42,.15);font-family:inherit;font-size:.95rem;color:var(--ink);transition:border-color .2s ease;}
+/* Contorno a 3:1 do fundo (WCAG 1.4.11): com .15 os campos quase não se distinguiam */
+.contact-input{width:100%;padding:.9rem 1.1rem;background:var(--card);border:1px solid rgba(42,42,42,.55);font-family:inherit;font-size:.95rem;color:var(--ink);transition:border-color .2s ease;}
 .contact-input::placeholder{color:rgba(42,42,42,.7);letter-spacing:.02em;}
-.contact-input:focus{outline:none;border-color:var(--sky);}
-.contact-input:user-invalid{border-color:#b4483c;}
+.contact-input:focus{outline:none;border-color:var(--sky);box-shadow:0 0 0 1px var(--sky);}
+.contact-input:user-invalid,.contact-input[aria-invalid="true"]{border-color:#b4483c;}
 textarea.contact-input{resize:vertical;min-height:9rem;}
 /* Armadilha para robôs: fora do ecrã, sem display:none (alguns robôs ignoram campos ocultos) */
 .contact-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
@@ -631,12 +642,14 @@ body.search-open{overflow:hidden;}
 .brand-grid > li{display:flex;}
 .brand-tile{flex:1 1 auto;position:relative;background:rgba(248,248,248,1);border:1px solid rgba(42,42,42,.08);padding:1.25rem;min-height:6.5rem;display:flex;align-items:center;justify-content:center;font-weight:600;color:var(--ink);text-align:center;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;}
 .brand-tile:hover{transform:translateY(-3px);box-shadow:0 14px 30px -12px rgba(42,42,42,.2);border-color:rgba(86,137,199,.35);}
-.brand-tile.has-logo .brand-tile-text,
-.brand-tile.has-fallback .brand-tile-text{display:none !important}
+/* O nome fica no DOM para a pesquisa; quem o lê em voz alta é o alt do logótipo */
+.brand-tile.has-logo .brand-tile-text{display:none !important}
 .brand-tile img.brand-tile-logo{max-height:2.1rem;max-width:80%;height:auto;width:auto;transition:transform .2s ease;}
 .brand-tile:hover img.brand-tile-logo{transform:scale(1.04);}
-.brand-tile-svg{height:2.1rem;width:2.1rem;display:inline-block}
-.brand-tile-svg svg{height:100%;width:100%;display:block;}
+/* Logótipo quadrado: com a altura dos outros ficava minúsculo */
+.brand-tile[data-logo="enrico-coveri"] img.brand-tile-logo{max-height:3.6rem;}
+.brand-tile[data-logo="superbike"] img.brand-tile-logo{max-height:3.2rem;}
+.brand-tile[data-logo="optiestojo"] img.brand-tile-logo{max-height:2.8rem;}
 
 @media (max-width:900px){.brand-grid{grid-template-columns:repeat(4,1fr);}}
 @media (max-width:560px){.brand-grid{grid-template-columns:repeat(2,1fr);gap:.85rem;}.brands-card{padding:2.5rem 1.25rem;}}

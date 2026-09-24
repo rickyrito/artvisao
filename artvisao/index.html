@@ -8,8 +8,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"/>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"/>
 <link rel="stylesheet" href="css/styles.css"/>
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"/>
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png"/>
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png"/>
 <link rel="canonical" href="https://www.artvisao.pt/"/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Art'Visão"/>
@@ -35,6 +38,8 @@
       "email": "geral@artvisao.pt",
       "address": {
         "@type": "PostalAddress",
+        "streetAddress": "R. Dr. Simplício Magro, lote 107, Loja 2",
+        "postalCode": "6000-332",
         "addressLocality": "Castelo Branco",
         "addressRegion": "Castelo Branco",
         "addressCountry": "PT"
@@ -48,26 +53,26 @@
         {
           "@type": "OpeningHoursSpecification",
           "dayOfWeek": [
+            "Monday",
             "Tuesday",
             "Wednesday",
             "Thursday",
-            "Friday",
-            "Saturday"
+            "Friday"
           ],
-          "opens": "10:00",
+          "opens": "09:00",
           "closes": "13:00"
         },
         {
           "@type": "OpeningHoursSpecification",
           "dayOfWeek": [
+            "Monday",
             "Tuesday",
             "Wednesday",
             "Thursday",
-            "Friday",
-            "Saturday"
+            "Friday"
           ],
-          "opens": "14:00",
-          "closes": "17:30"
+          "opens": "15:00",
+          "closes": "19:00"
         }
       ],
       "currenciesAccepted": "EUR",
@@ -156,7 +161,6 @@
   <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></symbol>
 </svg>
 <a class="skip-link" href="#conteudo" data-i18n="skip-link">Saltar para o conteúdo</a>
-<main id="conteudo">
 
 <header class="fixed-top site-header">
 <div class="pre-menu">
@@ -187,7 +191,7 @@
 <div class="container-brand site-header-inner">
 <nav class="navbar navbar-expand-xl nav-pill" aria-labelledby="navMainLabel">
 <a href="#apresentacao" class="nav-pill-brand text-decoration-none">
-<img src="assets/logoprincipal.png" alt="Art'Visão" class="navbar-brand-logo"/>
+<img src="assets/logo-artvisao.png" alt="" class="navbar-brand-logo"/>
 <span class="font-display nav-pill-wordmark">art'visão</span>
 </a>
 <!-- Full-screen drawer below xl; Bootstrap flattens .offcanvas-xl back to the inline nav at xl+ -->
@@ -252,6 +256,7 @@
 </nav>
 </div>
 </header>
+<main id="conteudo" tabindex="-1">
 
 <section id="apresentacao" class="container-brand pb-5 pb-md-6 section-first">
 <!-- Linha 1: faixa a toda a largura — foto da loja à esquerda, painel com o título à direita -->
@@ -307,9 +312,9 @@
 <p class="tech-lead-role mb-3" data-i18n="rt-role">Optometrista · Contactologista</p>
 <dl class="tech-lead-cv mb-0">
 <dt data-i18n="rt-hab-label">Habilitações académicas</dt>
-<dd data-i18n="rt-hab">Licenciatura em Optometria - Ciências da Visão pela Universidade da Beira Interior (UBI), uma instituição de referência nacional sediada na Covilhã e pioneira no ensino e investigação desta vertente da saúde visual em Portugal.</dd>
+<dd data-i18n="rt-hab">Licenciatura em Optometria - Ciências da Visão pela Universidade da Beira Interior (UBI).</dd>
 <dt data-i18n="rt-esp-label">Especialidades técnicas</dt>
-<dd data-i18n="rt-esp">Atuação focada em Optometria (avaliação primária da saúde visual, refração e prescrição de lentes) e Contactologia (especialização na adaptação de lentes de contacto para a correção de diferentes problemas oculares, como miopia, astigmatismo ou presbiopia).</dd>
+<dd data-i18n="rt-esp">Atuação focada em Optometria (avaliação primária da saúde visual binocular, refração e prescrição de lentes) e Contactologia (especialização na adaptação de lentes de contacto para a correção de diferentes problemas oculares, como miopia, astigmatismo ou presbiopia).</dd>
 </dl>
 </div>
 </div>
@@ -323,18 +328,22 @@
       <h2 class="brand-headline" data-i18n="marcas-title">Parceiros que inspiram a nossa seleção de armações</h2>
       <p class="brand-copy" data-i18n="marcas-desc">Uma curadoria de marcas de referência em estilo e tecnologia óptica, escolhidas para oferecer uma experiência premium em Portugal.</p>
       <ul class="brand-grid">
-        <li><a class="brand-tile" data-logo="eschenbach" href="https://www.eschenbach-eyewear.com/" target="_blank" rel="noopener noreferrer"><span class="brand-tile-text">Eschenbach</span></a></li>
-        <li><a class="brand-tile" data-logo="titanflex" href="https://www.titanflex-eyewear.com/" target="_blank" rel="noopener noreferrer"><span class="brand-tile-text">TitanFlex</span></a></li>
-        <li><a class="brand-tile" data-logo="hoya" href="https://www.hoyavision.com/pt/" target="_blank" rel="noopener noreferrer"><span class="brand-tile-text">Hoya</span></a></li>
-        <li><a class="brand-tile" data-logo="prada" href="https://www.prada.com/" target="_blank" rel="noopener noreferrer"><span class="brand-tile-text">Prada</span></a></li>
-        <li><a class="brand-tile" data-logo="persol" href="https://www.persol.com/" target="_blank" rel="noopener noreferrer"><span class="brand-tile-text">Persol</span></a></li>
-        <li><a class="brand-tile" data-logo="ray-ban" href="https://www.ray-ban.com/portugal" target="_blank" rel="noopener noreferrer"><span class="brand-tile-text">Ray-Ban</span></a></li>
-        <li><a class="brand-tile" data-logo="police" href="https://www.policelifestyle.com/" target="_blank" rel="noopener noreferrer"><span class="brand-tile-text">Police</span></a></li>
-        <li><a class="brand-tile" data-logo="carolina-herrera" href="https://www.carolinaherrera.com/" target="_blank" rel="noopener noreferrer"><span class="brand-tile-text">Carolina Herrera</span></a></li>
-        <li><a class="brand-tile" data-logo="new-balance" href="https://www.newbalance.pt/" target="_blank" rel="noopener noreferrer"><span class="brand-tile-text">New Balance</span></a></li>
-        <li><a class="brand-tile" data-logo="converse" href="https://www.converse.com/" target="_blank" rel="noopener noreferrer"><span class="brand-tile-text">Converse</span></a></li>
-        <li><a class="brand-tile" data-logo="maui-jim" href="https://www.mauijim.com/" target="_blank" rel="noopener noreferrer"><span class="brand-tile-text">Maui Jim</span></a></li>
-        <li><a class="brand-tile" data-logo="oakley" href="https://www.oakley.com/" target="_blank" rel="noopener noreferrer"><span class="brand-tile-text">Oakley</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="eschenbach" href="https://www.eschenbach-eyewear.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/eschenbach.png" alt="Eschenbach" loading="lazy" decoding="async"/><span class="brand-tile-text">Eschenbach</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="titanflex" href="https://www.titanflex-eyewear.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/titanflex.svg" alt="TitanFlex" loading="lazy" decoding="async"/><span class="brand-tile-text">TitanFlex</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="hoya" href="https://www.hoyavision.com/pt/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/hoya.png" alt="Hoya" loading="lazy" decoding="async"/><span class="brand-tile-text">Hoya</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="ray-ban" href="https://www.ray-ban.com/portugal" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/ray-ban.svg" alt="Ray-Ban" loading="lazy" decoding="async"/><span class="brand-tile-text">Ray-Ban</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="police" href="https://www.policelifestyle.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/police.svg" alt="Police" loading="lazy" decoding="async"/><span class="brand-tile-text">Police</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="carolina-herrera" href="https://www.carolinaherrera.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/carolina-herrera.svg" alt="Carolina Herrera" loading="lazy" decoding="async"/><span class="brand-tile-text">Carolina Herrera</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="new-balance" href="https://www.newbalance.pt/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/new-balance.svg" alt="New Balance" loading="lazy" decoding="async"/><span class="brand-tile-text">New Balance</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="converse" href="https://www.converse.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/converse.svg" alt="Converse" loading="lazy" decoding="async"/><span class="brand-tile-text">Converse</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="polaroid" href="https://www.polaroideyewear.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/polaroid.svg" alt="Polaroid" loading="lazy" decoding="async"/><span class="brand-tile-text">Polaroid</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="enrico-coveri" href="https://www.enricocoveri.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/enrico-coveri.jpg" alt="Enrico Coveri" loading="lazy" decoding="async"/><span class="brand-tile-text">Enrico Coveri</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="belutti" href="https://belutti.com/en" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/belutti.svg" alt="Belutti" loading="lazy" decoding="async"/><span class="brand-tile-text">Belutti</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="lois" href="https://loisjeans.es/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/lois.png" alt="Lois" loading="lazy" decoding="async"/><span class="brand-tile-text">Lois</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="optiestojo" href="https://www.optiestojo.pt/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/optiestojo.png" alt="Optiestojo" loading="lazy" decoding="async"/><span class="brand-tile-text">Optiestojo</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="superbike" href="https://www.demenego.it/en/brand/superbike/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/superbike.svg" alt="Superbike" loading="lazy" decoding="async"/><span class="brand-tile-text">Superbike</span></a></li>
+        <li><span class="brand-tile" data-logo="new-wave"><span class="brand-tile-text">New Wave</span></span></li>
+        <li><a class="brand-tile has-logo" data-logo="rodenstock" href="https://www.rodenstock.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/rodenstock.svg" alt="Rodenstock" loading="lazy" decoding="async"/><span class="brand-tile-text">Rodenstock</span></a></li>
       </ul>
     </div>
   </div>
@@ -408,67 +417,60 @@
 <div class="type-column">
 <h3 class="type-group" data-i18n="tipo-oculos">Óculos</h3>
 <div class="type-list">
-<article class="type-card">
+<div class="type-card">
 <span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-glasses"></use></svg></span>
 <span class="type-body">
 <span class="type-title" data-i18n="t1-title">Óculos graduados</span>
 <span class="type-desc" data-i18n="t1-desc">Lentes monofocais para corrigir a visão ao perto ou ao longe.</span>
 </span>
-</article>
-<article class="type-card">
+</div>
+<div class="type-card">
 <span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m6.08 9.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"></path><path d="m6.08 14.5-3.5 1.6a1 1 0 0 0 0 1.81l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9a1 1 0 0 0 0-1.83l-3.5-1.59"></path></svg></span>
 <span class="type-body">
 <span class="type-title" data-i18n="t2-title">Progressivos e bifocais</span>
 <span class="type-desc" data-i18n="t2-desc">Longe, intermédio e perto na mesma lente, sem trocar de óculos.</span>
 </span>
-</article>
-<article class="type-card">
+</div>
+<div class="type-card">
 <span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg></span>
 <span class="type-body">
 <span class="type-title" data-i18n="t3-title">Óculos de sol</span>
 <span class="type-desc" data-i18n="t3-desc">Com ou sem graduação, com proteção UV e opção polarizada.</span>
 </span>
-</article>
-<article class="type-card">
+</div>
+<div class="type-card">
 <span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line></svg></span>
 <span class="type-body">
 <span class="type-title" data-i18n="t4-title">Óculos para crianças</span>
 <span class="type-desc" data-i18n="t4-desc">Armações leves e resistentes, dimensionadas para o rosto infantil.</span>
 </span>
-</article>
+</div>
 </div>
 </div>
 <div class="type-column">
 <h3 class="type-group" data-i18n="tipo-lentes">Lentes de contacto</h3>
 <div class="type-list">
-<article class="type-card">
+<div class="type-card">
 <span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg></span>
 <span class="type-body">
 <span class="type-title" data-i18n="t5-title">Lentes diárias</span>
-<span class="type-desc" data-i18n="t5-desc">Um par novo por dia, sem manutenção. Práticas para uso ocasional e desporto.</span>
+<span class="type-desc" data-i18n="t5-desc">Um par novo por dia, sem manutenção. Práticas é a melhor opção para a sua saúde ocular.</span>
 </span>
-</article>
-<article class="type-card">
-<span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg></span>
-<span class="type-body">
-<span class="type-title" data-i18n="t6-title">Mensais e quinzenais</span>
-<span class="type-desc" data-i18n="t6-desc">Reutilizáveis, com limpeza diária. A opção mais económica para uso contínuo.</span>
-</span>
-</article>
-<article class="type-card">
+</div>
+<div class="type-card">
 <span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="12" rx="10" ry="6"></ellipse><circle cx="12" cy="12" r="3"></circle></svg></span>
 <span class="type-body">
 <span class="type-title" data-i18n="t7-title">Lentes tóricas</span>
 <span class="type-desc" data-i18n="t7-desc">Desenhadas para corrigir astigmatismo, com estabilização no olho.</span>
 </span>
-</article>
-<article class="type-card">
+</div>
+<div class="type-card">
 <span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="2"></circle><circle cx="12" cy="12" r="6"></circle></svg></span>
 <span class="type-body">
 <span class="type-title" data-i18n="t8-title">Lentes multifocais</span>
 <span class="type-desc" data-i18n="t8-desc">Perto e longe na mesma lente, para quem quer dispensar os óculos.</span>
 </span>
-</article>
+</div>
 </div>
 </div>
 </div>
@@ -493,11 +495,7 @@
 </div>
 <div class="highlight-copy">
 <h4 class="highlight-title" data-i18n="t5-title">Lentes diárias</h4>
-<p class="highlight-desc" data-i18n="t5-desc">Um par novo por dia, sem manutenção. Práticas para uso ocasional e desporto.</p>
-</div>
-<div class="highlight-copy">
-<h4 class="highlight-title" data-i18n="t6-title">Mensais e quinzenais</h4>
-<p class="highlight-desc" data-i18n="t6-desc">Reutilizáveis, com limpeza diária. A opção mais económica para uso contínuo.</p>
+<p class="highlight-desc" data-i18n="t5-desc">Um par novo por dia, sem manutenção. Práticas é a melhor opção para a sua saúde ocular.</p>
 </div>
 <div class="highlight-copy">
 <h4 class="highlight-title" data-i18n="t7-title">Lentes tóricas</h4>
@@ -515,7 +513,6 @@
 <li class="highlight-item"><img src="assets/artigos/sunglasses_woman.avif" alt="Mulher com óculos de sol" data-i18n-alt="t3-alt" loading="lazy"/></li>
 <li class="highlight-item"><img src="assets/artigos/child.jpg" alt="Criança com óculos graduados" data-i18n-alt="t4-alt" loading="lazy"/></li>
 <li class="highlight-item"><img src="assets/artigos/lente_contacto_pinca.avif" alt="Lente de contacto diária a ser retirada do blister" data-i18n-alt="t5-alt" loading="lazy"/></li>
-<li class="highlight-item"><img src="assets/artigos/lentes_contacto_caixa.avif" alt="Estojos de lentes de contacto reutilizáveis" data-i18n-alt="t6-alt" loading="lazy"/></li>
 <li class="highlight-item"><img src="assets/artigos/lente_contacto.avif" alt="Grande plano de um olho com lente de contacto" data-i18n-alt="t7-alt" loading="lazy"/></li>
 <li class="highlight-item"><img src="assets/artigos/lente-contacto-mesa.avif" alt="Colocação de lentes de contacto ao espelho" data-i18n-alt="t8-alt" loading="lazy"/></li>
 <li class="highlight-item" aria-hidden="true"><img src="assets/artigos/graduados.avif" alt="" loading="lazy"/></li>
@@ -530,7 +527,6 @@
 <button type="button" data-highlight-go="4" aria-label="5"></button>
 <button type="button" data-highlight-go="5" aria-label="6"></button>
 <button type="button" data-highlight-go="6" aria-label="7"></button>
-<button type="button" data-highlight-go="7" aria-label="8"></button>
 </div>
 </div>
 </div>
@@ -611,40 +607,40 @@
 </div>
 <div class="row g-3">
 <div class="col-md-6">
-<article class="type-card h-100">
+<div class="type-card h-100">
 <span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"></path></svg></span>
 <span class="type-body">
 <span class="type-title" data-i18n="d1-title">Lavar</span>
 <span class="type-desc" data-i18n="d1-desc">Lave as lentes com água fria e sabão neutro e seque com um pano de microfibras. O papel e a roupa arranham o tratamento anti-reflexo.</span>
 </span>
-</article>
+</div>
 </div>
 <div class="col-md-6">
-<article class="type-card h-100">
+<div class="type-card h-100">
 <span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg></span>
 <span class="type-body">
 <span class="type-title" data-i18n="d2-title">Guardar</span>
 <span class="type-desc" data-i18n="d2-desc">Guarde-os na caixa, com as lentes viradas para cima. Pousados sobre as lentes, os riscos aparecem logo no centro do campo de visão.</span>
 </span>
-</article>
+</div>
 </div>
 <div class="col-md-6">
-<article class="type-card h-100">
+<div class="type-card h-100">
 <span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"></path></svg></span>
 <span class="type-body">
 <span class="type-title" data-i18n="d3-title">Fugir do calor</span>
 <span class="type-desc" data-i18n="d3-desc">Não os deixe no carro ao sol nem sobre o tabliê. O calor empena a armação e faz descolar os tratamentos das lentes.</span>
 </span>
-</article>
+</div>
 </div>
 <div class="col-md-6">
-<article class="type-card h-100">
+<div class="type-card h-100">
 <span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4"></rect><path d="M3 10h18"></path><path d="m9 16 2 2 4-4"></path></svg></span>
 <span class="type-body">
 <span class="type-title" data-i18n="d4-title">Voltar a tempo</span>
 <span class="type-desc" data-i18n="d4-desc">Faça um exame de dois em dois anos. Não espere por ele se tiver dores de cabeça ao fim do dia, visão turva ou se começar a afastar o telemóvel.</span>
 </span>
-</article>
+</div>
 </div>
 </div>
 </section>
@@ -655,12 +651,25 @@
 <div class="row g-4">
 <div class="col-12 col-lg-4">
 <p class="text-sky text-uppercase mb-2 section-eyebrow" data-i18n="nav-visita">Visite-nos</p>
-<h2 class="font-display section-title-lg" data-i18n="visita-title">Passe por cá. <em class="title-accent">Trazemos o café</em>.</h2>
+<h2 class="font-display section-title-lg" data-i18n="visita-title">Aqui há sempre <em class="title-accent">tempo para si</em>.</h2>
 <p class="mt-3 text-soft-cream" data-i18n="visita-desc">Marque o seu exame visual ou venha simplesmente experimentar. Estamos prontos para o receber.</p>
-<a href="tel:+351926002095" class="visit-cta">
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-phone"></use></svg>
+<!-- Obrigatório (DL 59/2021): indicar o custo da chamada junto de cada número -->
+<div class="visit-phones">
+<div class="visit-phone">
+<a href="tel:+351926002095" class="visit-cta" aria-label="Telemóvel +351 926 002 095" data-i18n-aria="visita-tel-movel-aria" aria-describedby="notaTelMovel">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect><path d="M12 18h.01"></path></svg>
 +351 926 002 095
 </a>
+<p class="visit-call-note" id="notaTelMovel" data-i18n="visita-tel-movel-nota">Chamada para a rede móvel nacional</p>
+</div>
+<div class="visit-phone">
+<a href="tel:+351272105432" class="visit-cta" aria-label="Telefone +351 272 105 432" data-i18n-aria="visita-tel-fixo-aria" aria-describedby="notaTelFixo">
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-phone"></use></svg>
++351 272 105 432
+</a>
+<p class="visit-call-note" id="notaTelFixo" data-i18n="visita-tel-fixo-nota">Chamada para a rede fixa nacional</p>
+</div>
+</div>
 <!-- Contactos comuns às duas lojas, fora das colunas para não parecerem de uma delas -->
 <div class="mt-4 pt-4 border-top border-cream-10">
 <div class="text-uppercase visit-label">E-mail</div>
@@ -674,12 +683,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-sky flex-shrink-0" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
 <h3 class="font-display visit-shop-name mb-0">Castelo Branco</h3>
 </div>
-<div class="visit-value mt-3"><a href="https://www.google.com/maps/place/Art'Vis%C3%A3o/@39.8164797,-7.4868901,17z/data=!3m1!4b1!4m6!3m5!1s0xd3d5f6b8c904e03:0x7376081cd4caddb4!8m2!3d39.8164797!4d-7.4843152!16s%2Fg%2F11hdx9h9cx" target="_blank" rel="noopener noreferrer" class="text-cream">R. Dr. Simplício Magro, lote 107
+<div class="visit-value mt-3"><a href="https://www.google.com/maps/place/Art'Vis%C3%A3o/@39.8164797,-7.4868901,17z/data=!3m1!4b1!4m6!3m5!1s0xd3d5f6b8c904e03:0x7376081cd4caddb4!8m2!3d39.8164797!4d-7.4843152!16s%2Fg%2F11hdx9h9cx" target="_blank" rel="noopener noreferrer" class="text-cream">R. Dr. Simplício Magro, lote 107, Loja 2
 6000-332 Castelo Branco</a></div>
-<div class="visit-value mt-2"><a href="tel:+351272105432" class="text-cream">272 105 432</a></div>
 <div class="text-uppercase mt-3 visit-label" data-i18n="visita-label-horario">Horário</div>
-<div class="visit-value" data-i18n="visita-horario-value">Ter–Sáb · 10h–17h30
-Almoço 13h–14h</div>
+<div class="visit-value" data-i18n="visita-horario-value">Segunda–Sexta · 9h–19h
+Almoço 13h–15h</div>
 </div>
 <div class="map-slot mt-auto">
 <iframe class="map-embed" hidden data-consent-src="https://maps.google.com/maps?q=39.8164797,-7.4843152&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Localização da loja de Castelo Branco no Google Maps"></iframe>
@@ -865,13 +873,12 @@ Sáb · 10h–13h30</div>
 </div>
 </div>
 
-<!-- Language / region preferences dialog, opened from the header trigger -->
 
 </main>
 <footer class="border-top border-ink-10 bg-cream py-4">
 <div class="container-brand d-flex flex-column flex-md-row align-items-center justify-content-between gap-3 footer-meta">
 <div class="d-flex align-items-center gap-2">
-<img src="assets/logoprincipal.png" alt="Art'Visão" class="footer-brand-img"/>
+<img src="assets/logo-artvisao.png" alt="" class="footer-brand-img"/>
 <span class="font-display footer-brand-wordmark">art'visão</span>
 </div>
 <ul class="footer-social">
@@ -887,7 +894,7 @@ Sáb · 10h–13h30</div>
 </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="js/i18n.js"></script>
 <script src="js/main.js"></script>
 <script src="js/search.js"></script>

@@ -7,16 +7,6 @@
   // page — otherwise it skips straight from touchstart to click with no active state at all.
   document.addEventListener('touchstart', function () {}, { passive: true });
 
-  function slugify(name) {
-    return name
-      .toLowerCase()
-      .normalize('NFD')
-      .replace(/\p{Diacritic}/gu, '')
-      .replace(/[^a-z0-9\s-]/g, '')
-      .trim()
-      .replace(/\s+/g, '-');
-  }
-
   // The mobile nav is a Bootstrap offcanvas; returns it only while it is actually open.
   function openMobileNav() {
     var navMain = document.getElementById('navMain');
@@ -97,9 +87,17 @@
       timer = null;
     }
 
+    // A rotação automática não é anunciada (o leitor de ecrã repetia um aviso a cada 6s);
+    // só a troca pedida pelo visitante nas setas.
+    track.setAttribute('aria-live', 'off');
+    function byUser(step) {
+      track.setAttribute('aria-live', 'polite');
+      show(index + step); stop(); start();
+    }
+
     var announce = track.closest('.pre-menu-announce');
-    announce.querySelector('[data-announce-prev]').addEventListener('click', function () { show(index - 1); stop(); start(); });
-    announce.querySelector('[data-announce-next]').addEventListener('click', function () { show(index + 1); stop(); start(); });
+    announce.querySelector('[data-announce-prev]').addEventListener('click', function () { byUser(-1); });
+    announce.querySelector('[data-announce-next]').addEventListener('click', function () { byUser(1); });
 
     // Não roda por baixo do cursor nem enquanto o teclado lá está
     announce.addEventListener('mouseenter', stop);
@@ -110,81 +108,6 @@
     show(0);
     start();
   }
-
-  function showInitialsFallback(tile, name) {
-    var words = name.split(/\s+/).filter(Boolean).slice(0, 2);
-    var initials = words.map(function (w) { return w[0]; }).join('').toUpperCase() || name.charAt(0).toUpperCase();
-
-    var xmlns = 'http://www.w3.org/2000/svg';
-    var svg = document.createElementNS(xmlns, 'svg');
-    svg.setAttribute('viewBox', '0 0 100 100');
-    svg.setAttribute('role', 'img');
-
-    var rect = document.createElementNS(xmlns, 'rect');
-    rect.setAttribute('width', '100');
-    rect.setAttribute('height', '100');
-    rect.setAttribute('rx', '14');
-    rect.setAttribute('fill', '#3f6f9e');
-
-    var text = document.createElementNS(xmlns, 'text');
-    text.setAttribute('x', '50');
-    text.setAttribute('y', '59');
-    text.setAttribute('text-anchor', 'middle');
-    text.setAttribute('fill', '#fff');
-    text.setAttribute('font-family', 'Fraunces, Poppins, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue"');
-    text.setAttribute('font-size', '52');
-    text.setAttribute('font-weight', '700');
-    text.textContent = initials;
-
-    svg.appendChild(rect);
-    svg.appendChild(text);
-
-    var svgWrap = document.createElement('span');
-    svgWrap.className = 'brand-tile-svg';
-    svgWrap.appendChild(svg);
-
-    tile.insertBefore(svgWrap, tile.firstChild);
-    tile.classList.add('has-fallback');
-  }
-
-  function loadBrandLogo(tile) {
-    var name = tile.textContent.trim();
-    if (!name) return;
-
-    // Manual data-logo mapping takes priority; otherwise derive a slug from the visible name
-    var dataSlug = tile.getAttribute('data-logo');
-    var slug = (dataSlug && dataSlug.trim()) || slugify(name);
-
-    // Preferred order: freshly fetched logos, then the project's curated ones
-    var candidates = [
-      'assets/brands/fetched/' + slug + '.svg',
-      'assets/brands/fetched/' + slug + '.png',
-      'assets/brands/fetched/' + slug + '.jpg',
-      'assets/brands/' + slug + '.svg',
-      'assets/brands/' + slug + '.png',
-    ];
-
-    var img = document.createElement('img');
-    img.className = 'brand-tile-logo';
-    img.alt = name + ' logo';
-
-    var idx = 0;
-    function tryNextCandidate() {
-      if (idx >= candidates.length) {
-        showInitialsFallback(tile, name);
-        return;
-      }
-      img.src = candidates[idx++];
-    }
-
-    img.onload = function () {
-      tile.insertBefore(img, tile.firstChild);
-      tile.classList.add('has-logo');
-    };
-    img.onerror = tryNextCandidate;
-    tryNextCandidate();
-  }
-
 
   // Destaque dos artigos: a fita de imagens desliza e o painel de texto faz cross-fade
   // no lugar — dois movimentos separados, para a mudança não acontecer toda de uma vez.
@@ -224,19 +147,26 @@
     // as setas e os pontos continuam a funcionar.
     var menosMovimento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+    // Só se anuncia o texto novo quando foi o visitante a mudar de artigo;
+    // a passagem automática fica calada para não interromper a leitura.
+    var live = root.querySelector('.highlight-text');
+    function anunciar(sim) { if (live) live.setAttribute('aria-live', sim ? 'polite' : 'off'); }
+    anunciar(false);
+
     function start() {
       stop();
       if (menosMovimento) return;
-      timer = setInterval(function () { go(index + 1); }, 6000);
+      timer = setInterval(function () { anunciar(false); go(index + 1); }, 6000);
     }
     function stop() {
       if (timer) { clearInterval(timer); timer = null; }
     }
+    function byUser(i) { anunciar(true); go(i); start(); }
 
-    root.querySelector('[data-highlight-prev]').addEventListener('click', function () { go(index - 1); start(); });
-    root.querySelector('[data-highlight-next]').addEventListener('click', function () { go(index + 1); start(); });
+    root.querySelector('[data-highlight-prev]').addEventListener('click', function () { byUser(index - 1); });
+    root.querySelector('[data-highlight-next]').addEventListener('click', function () { byUser(index + 1); });
     dots.forEach(function (el, i) {
-      el.addEventListener('click', function () { go(i); start(); });
+      el.addEventListener('click', function () { byUser(i); });
     });
 
     // Parar enquanto o visitante lá está, para não lhe fugir o que está a ler
@@ -268,13 +198,18 @@
   function carregarLeaflet(pronto) {
     if (window.L) { pronto(); return; }
 
+    // Com integrity, o browser recusa os ficheiros se a CDN alguma vez os servir alterados
     var css = document.createElement('link');
     css.rel = 'stylesheet';
     css.href = 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css';
+    css.integrity = 'sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H';
+    css.crossOrigin = 'anonymous';
     document.head.appendChild(css);
 
     var js = document.createElement('script');
     js.src = 'https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js';
+    js.integrity = 'sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH';
+    js.crossOrigin = 'anonymous';
     js.onload = pronto;
     document.head.appendChild(js);
   }
@@ -317,10 +252,20 @@
     initMenuFadeOnNavigate();
     initAnnouncements();
     initHighlight();
-    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      var galeria = document.getElementById('lojaCarousel');
-      if (galeria) galeria.removeAttribute('data-bs-ride');
+    var galeria = document.getElementById('lojaCarousel');
+    if (galeria && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      galeria.removeAttribute('data-bs-ride');
     }
-    document.querySelectorAll('.brand-tile').forEach(loadBrandLogo);
+    // O Bootstrap só pára o carrossel com o rato por cima; aqui pára também enquanto
+    // o foco do teclado está nas setas ou nos pontos, para quem navega sem rato.
+    if (galeria && window.bootstrap && window.bootstrap.Carousel) {
+      galeria.addEventListener('focusin', function () {
+        window.bootstrap.Carousel.getOrCreateInstance(galeria).pause();
+      });
+      galeria.addEventListener('focusout', function (e) {
+        if (galeria.contains(e.relatedTarget) || !galeria.hasAttribute('data-bs-ride')) return;
+        window.bootstrap.Carousel.getOrCreateInstance(galeria).cycle();
+      });
+    }
   });
 })();

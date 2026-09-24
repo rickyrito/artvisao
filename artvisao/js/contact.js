@@ -22,15 +22,22 @@
     status.hidden = false;
   }
 
+  // Assinala os campos com erro para o leitor de ecrã e leva o foco ao primeiro
+  function marcar(campos) {
+    [form.name, form.email, form.message].forEach(function (el) {
+      if (campos.indexOf(el) !== -1) el.setAttribute('aria-invalid', 'true');
+      else el.removeAttribute('aria-invalid');
+    });
+    if (campos.length) campos[0].focus();
+  }
+
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    var nome = form.name.value.trim();
-    var email = form.email.value.trim();
-    var texto = form.message.value.trim();
-
-    if (!nome || !email || !texto) { show('incomplete', false); return; }
-    if (!form.email.checkValidity()) { show('bademail', false); return; }
+    var vazios = [form.name, form.email, form.message].filter(function (el) { return !el.value.trim(); });
+    if (vazios.length) { marcar(vazios); show('incomplete', false); return; }
+    if (!form.email.checkValidity()) { marcar([form.email]); show('bademail', false); return; }
+    marcar([]);
 
     button.disabled = true;
     show('sending');

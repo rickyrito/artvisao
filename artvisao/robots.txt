@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /contact.php
+
+Sitemap: https://www.artvisao.pt/sitemap.xml

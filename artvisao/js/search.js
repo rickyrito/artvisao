@@ -117,10 +117,14 @@
   }
 
   function goTo(item) {
-    closeSearch();
+    closeSearch(false);
     if (item.section) item.section.scrollIntoView();
     var flash = item.focus || item.section;
     if (!flash) return;
+    // O foco segue o resultado: quem navega por teclado ou leitor de ecrã continua a ler
+    // dali, em vez de voltar ao botão da lupa no topo da página.
+    if (!flash.hasAttribute('tabindex')) flash.setAttribute('tabindex', '-1');
+    flash.focus({ preventScroll: true });
     flash.classList.remove('menu-fade');
     void flash.offsetWidth;
     flash.classList.add('menu-fade');
@@ -239,11 +243,11 @@
     document.addEventListener('keydown', onKeydown);
   }
 
-  function closeSearch() {
+  function closeSearch(returnFocus) {
     overlay.classList.remove('is-open');
     document.body.classList.remove('search-open');
     opener.setAttribute('aria-expanded', 'false');
-    opener.focus();
+    if (returnFocus !== false) opener.focus();
     document.removeEventListener('keydown', onKeydown);
   }
 
