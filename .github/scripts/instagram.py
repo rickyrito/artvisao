@@ -6,8 +6,8 @@ ser servidas pelo próprio site. Assim o visitante não faz um único pedido à
 Meta, não recebe cookies de terceiros e a galeria não precisa de consentimento.
 
 Usa os secrets do repositório: de preferência FB_USER_TOKEN, com o qual procura
-entre as páginas geridas a que tem a conta Instagram ligada; na falta dele,
-FB_PAGE_ACCESS_TOKEN ou IG_TOKEN. Sem nenhum não falha — deixa a grelha vazia e
+entre as páginas geridas a que tem a conta Instagram ligada; na falta dele (ou se
+falhar), FB_PAGE_ACCESS_TOKEN ou IG_TOKEN. Sem nenhum não falha — deixa a grelha vazia e
 a secção mostra só a chamada ao perfil.
 
 Se a Meta falhar (token invalidado, imagens recusadas...), reutiliza a galeria
@@ -54,14 +54,17 @@ def detalhe(erro: Exception) -> str:
 
 
 def conta_instagram(token: str) -> str:
-    """Descobre o id da conta Instagram ligada à página.
+    """Descobre o id da conta Instagram ligada à página do token.
 
-    A descoberta automática pela página vem sempre primeiro: é o caminho testado e fiável.
-    INSTAGRAM_ACCOUNT_ID só serve de reserva manual se esse caminho não resolver — assim um
-    valor errado nesse secret não consegue, sozinho, calar a galeria (como já aconteceu).
+    Com um token de página, /me é a própria página — seja ela qual for, porque a conta
+    Instagram já mudou de página uma vez. A descoberta automática pela página vem sempre
+    primeiro: é o caminho testado e fiável. INSTAGRAM_ACCOUNT_ID só serve de reserva manual
+    se esse caminho não resolver — assim um valor errado nesse secret não consegue, sozinho,
+    calar a galeria (como já aconteceu).
     """
+    pagina = {}
     try:
-        pagina = pedir(PAGINA, token, fields='name,instagram_business_account')
+        pagina = pedir('me', token, fields='id,name,instagram_business_account')
         conta = pagina.get('instagram_business_account')
         if conta:
             nota('  página "%s" -> conta Instagram %s' % (pagina.get('name'), conta['id']))
@@ -69,6 +72,7 @@ def conta_instagram(token: str) -> str:
         # A Meta respondeu, mas a página deixou de ter uma conta Instagram profissional ligada
         nota('  a página "%s" não tem nenhuma conta Instagram profissional ligada' % pagina.get('name'))
     except urllib.error.HTTPError as erro:
+        # também acontece com um token que não é de página: o campo não existe
         nota('  página indisponível (%s), a tentar alternativas' % detalhe(erro))
 
     directo = os.environ.get('INSTAGRAM_ACCOUNT_ID', '').strip()
@@ -77,11 +81,12 @@ def conta_instagram(token: str) -> str:
         return directo
 
     # Recurso: token emitido diretamente para a conta Instagram, sem passar pela página.
-    # Com um token de página, /me é a própria página e não serve.
-    eu = pedir('me', token, fields='id,username')
-    if eu.get('id') and eu['id'] != PAGINA:
-        nota('  token direto da conta Instagram %s (@%s)' % (eu['id'], eu.get('username', '?')))
-        return eu['id']
+    # Se /me já respondeu como página, não é esse o caso.
+    if not pagina:
+        eu = pedir('me', token, fields='id,username')
+        if eu.get('id'):
+            nota('  token direto da conta Instagram %s (@%s)' % (eu['id'], eu.get('username', '?')))
+            return eu['id']
 
     raise ValueError('não foi possível identificar a conta Instagram a partir do token')
 

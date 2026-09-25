@@ -15,6 +15,7 @@ usando o GH_PAT como credencial.
 import json
 import os
 import subprocess
+import sys
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -45,7 +46,14 @@ def main() -> None:
     app_secret = os.environ['META_APP_SECRET']
     token_atual = os.environ['FB_USER_TOKEN']
 
-    novo_token = trocar_por_novo(app_id, app_secret, token_atual)
+    try:
+        novo_token = trocar_por_novo(app_id, app_secret, token_atual)
+    except urllib.error.URLError as erro:
+        # A mensagem da Meta diz porquê (expirou, sessão terminada, password mudada...). O
+        # URL do pedido, que leva o token e o secret da app, fica de fora.
+        sys.exit('  não foi possível renovar o token: %s\n'
+                 '  é preciso gerar um novo no Graph API Explorer e guardá-lo em FB_USER_TOKEN'
+                 % instagram.detalhe(erro))
     # Guarda-se já: é o token que não pode expirar. O resto é secundário.
     definir_secret('FB_USER_TOKEN', novo_token)
     print('  token de utilizador renovado e guardado')

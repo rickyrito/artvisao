@@ -33,6 +33,19 @@ secrets do repositório. A Action `renovar-token.yml` renova-o no dia 1 de cada
 mês. Secrets usados: `FB_USER_TOKEN`, `FB_PAGE_ACCESS_TOKEN`, `META_APP_ID`,
 `META_APP_SECRET` e `GH_PAT`.
 
+O resultado de cada publicação fica em `instagram-estado.txt`, na raiz do site
+publicado. Se o token deixar de funcionar (a renovação falha e o GitHub avisa
+por email):
+
+1. No [Graph API Explorer](https://developers.facebook.com/tools/explorer/),
+   escolher a app «Art'Visão Site» (2126039054658315) e gerar um token de
+   utilizador com `pages_show_list`, `pages_read_engagement`,
+   `instagram_basic` e `business_management`.
+2. Guardá-lo no secret `FB_USER_TOKEN` e correr a Action **Renovar token da
+   Meta**, que o troca por um de 60 dias. Não sair do Facebook antes de ela
+   terminar: o token acabado de gerar deixa de valer quando a sessão termina.
+3. Correr **Publicar no GitHub Pages**.
+
 ## Acrescentar uma marca
 
 1. Guardar o logótipo em `artvisao/assets/brands/` (SVG de preferência;
