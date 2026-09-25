@@ -5,8 +5,10 @@ Corre durante o build, não no browser: as imagens são descarregadas e passam a
 ser servidas pelo próprio site. Assim o visitante não faz um único pedido à
 Meta, não recebe cookies de terceiros e a galeria não precisa de consentimento.
 
-Precisa da variável de ambiente IG_TOKEN (secret do repositório). Sem ela não
-falha — deixa a grelha vazia e a secção mostra só a chamada ao perfil.
+Usa os secrets do repositório: de preferência FB_USER_TOKEN, com o qual procura
+entre as páginas geridas a que tem a conta Instagram ligada; na falta dele,
+FB_PAGE_ACCESS_TOKEN ou IG_TOKEN. Sem nenhum não falha — deixa a grelha vazia e
+a secção mostra só a chamada ao perfil.
 
 Se a Meta falhar (token invalidado, imagens recusadas...), reutiliza a galeria
 da última publicação que funcionou, guardada na pasta IG_CACHE pela cache do
@@ -24,7 +26,7 @@ import sys
 import urllib.error
 import urllib.request
 
-from lib.meta_api import PAGINA, pedir
+from lib.meta_api import NEGOCIO, PAGINA, pedir
 
 QUANTOS = 6
 CAMPOS = 'id,caption,media_type,media_url,permalink,thumbnail_url,timestamp'
@@ -117,8 +119,39 @@ def descarregar(url: str, destino: pathlib.Path) -> bool:
         return False
 
 
-def galeria(raiz: pathlib.Path, token: str) -> str:
-    conta = conta_instagram(token)
+def paginas(token_utilizador: str) -> list:
+    """As páginas a que o token de utilizador dá acesso, cada uma com o seu token e a conta
+    Instagram que tiver ligada.
+
+    /me/accounts lista as páginas do perfil; as do portfólio empresarial só aparecem em
+    /{portfólio}/owned_pages. Juntam-se as duas listas, sem repetidos. Os tokens das
+    páginas ficam só em memória — nunca vão para o relatório.
+    """
+    campos = 'id,name,access_token,instagram_business_account{id,username}'
+    vistas = {}
+    for caminho in ('me/accounts', '%s/owned_pages' % NEGOCIO):
+        try:
+            for pagina in pedir(caminho, token_utilizador, fields=campos, limit=50).get('data', []):
+                vistas.setdefault(pagina['id'], pagina)
+        except urllib.error.HTTPError as erro:
+            nota('  %s indisponível (%s)' % (caminho, detalhe(erro)))
+    return list(vistas.values())
+
+
+def escolher_pagina(lista: list):
+    """A página com conta Instagram ligada: a do costume (PAGINA) se ainda a tiver, senão
+    a primeira que a tiver. Regista todas, para se perceber o que mudou do lado da Meta."""
+    for pagina in lista:
+        conta = pagina.get('instagram_business_account')
+        ligacao = '@%s' % conta.get('username', '?') if conta else 'sem Instagram'
+        nota('  página "%s" (%s): %s' % (pagina.get('name'), pagina['id'], ligacao))
+    com_instagram = [p for p in lista if p.get('instagram_business_account') and p.get('access_token')]
+    habitual = [p for p in com_instagram if p['id'] == PAGINA]
+    return (habitual or com_instagram or [None])[0]
+
+
+def galeria(raiz: pathlib.Path, token: str, conta: str = '') -> str:
+    conta = conta or conta_instagram(token)
     media = pedir('%s/media' % conta, token, fields=CAMPOS, limit=QUANTOS).get('data', [])
 
     pasta = raiz / 'assets' / 'instagram'
@@ -151,6 +184,27 @@ def galeria(raiz: pathlib.Path, token: str) -> str:
 
 
 def obter(raiz: pathlib.Path) -> str:
+    # Com o token de utilizador (renovado todos os meses pela Action renovar-token), procura-se
+    # a página que tem o Instagram ligado, em vez de depender de uma página fixa.
+    utilizador = os.environ.get('FB_USER_TOKEN', '').strip()
+    if utilizador:
+        nota('  a procurar a página com Instagram (FB_USER_TOKEN)')
+        try:
+            pagina = escolher_pagina(paginas(utilizador))
+        except (urllib.error.URLError, KeyError, ValueError) as erro:
+            nota('  não foi possível listar as páginas: %s' % detalhe(erro))
+            pagina = None
+        if pagina:
+            conta = pagina['instagram_business_account']
+            nota('  a usar a página "%s" -> @%s' % (pagina.get('name'), conta.get('username', '?')))
+            try:
+                return galeria(raiz, pagina['access_token'], conta['id'])
+            except (urllib.error.URLError, KeyError, ValueError) as erro:
+                nota('  Instagram indisponível: %s' % detalhe(erro))
+                return ''
+        nota('  nenhuma das páginas tem uma conta Instagram ligada')
+
+    # Sem token de utilizador (ou sem resultado com ele): os tokens diretos, como antes.
     # O token de página não expira; o de utilizador dura 60 dias. Prefere-se o primeiro.
     token = ''
     for nome in ('FB_PAGE_ACCESS_TOKEN', 'IG_TOKEN'):

@@ -8,10 +8,14 @@ import urllib.request
 
 API = 'https://graph.facebook.com/v21.0'
 
-# A Página do Facebook a que a conta Instagram está ligada. Não é segredo — o id
-# é público — e fica aqui fixo para não depender de /me/accounts, que só lista
-# Páginas geridas por Business Manager quando o token tem business_management.
+# A Página do Facebook a que a conta Instagram estava ligada quando isto foi montado.
+# Não é segredo — o id é público. O instagram.py prefere-a, mas procura noutras páginas
+# se ela deixar de ter a conta Instagram (já aconteceu: ficou sem ligação em 2026-09-24).
 PAGINA = '2183263071989329'
+
+# O portfólio empresarial (Business Manager) da Art'Visão. As páginas que lhe pertencem
+# só aparecem em /{portfólio}/owned_pages, não em /me/accounts.
+NEGOCIO = '149338662736129'
 
 
 def pedir(caminho: str, token: str, **params) -> dict:

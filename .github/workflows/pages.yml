@@ -48,6 +48,7 @@ jobs:
       # O resultado fica publicado em instagram-estado.txt (sem tokens).
       - name: Trazer publicações do Instagram
         env:
+          FB_USER_TOKEN: ${{ secrets.FB_USER_TOKEN }}
           FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
           INSTAGRAM_ACCOUNT_ID: ${{ secrets.INSTAGRAM_ACCOUNT_ID }}
