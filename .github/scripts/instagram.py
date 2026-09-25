@@ -7,10 +7,19 @@ Meta, não recebe cookies de terceiros e a galeria não precisa de consentimento
 
 Precisa da variável de ambiente IG_TOKEN (secret do repositório). Sem ela não
 falha — deixa a grelha vazia e a secção mostra só a chamada ao perfil.
+
+Se a Meta falhar (token invalidado, imagens recusadas...), reutiliza a galeria
+da última publicação que funcionou, guardada na pasta IG_CACHE pela cache do
+GitHub Actions. O resultado de cada corrida fica em instagram-estado.txt, na
+raiz da cópia publicada, para se ver o que aconteceu sem entrar no GitHub — o
+ficheiro nunca leva tokens nem URLs de pedidos.
 """
+import datetime
 import html
+import json
 import os
 import pathlib
+import shutil
 import sys
 import urllib.error
 import urllib.request
@@ -19,6 +28,27 @@ from lib.meta_api import PAGINA, pedir
 
 QUANTOS = 6
 CAMPOS = 'id,caption,media_type,media_url,permalink,thumbnail_url,timestamp'
+ALVO = '<div class="carousel-inner ig-grid" data-instagram-grid></div>'
+
+relatorio = []
+
+
+def nota(msg: str) -> None:
+    print(msg)
+    relatorio.append(msg.strip())
+
+
+def detalhe(erro: Exception) -> str:
+    """Descreve um erro sem expor o pedido: o URL leva o token."""
+    if isinstance(erro, urllib.error.HTTPError):
+        try:
+            meta = json.loads(erro.read().decode('utf-8', 'replace')).get('error', {})
+            return 'HTTP %s: %s' % (erro.code, meta.get('message', erro.reason))
+        except (ValueError, OSError, AttributeError):
+            return 'HTTP %s: %s' % (erro.code, erro.reason)
+    if isinstance(erro, urllib.error.URLError):
+        return 'rede: %s' % erro.reason
+    return '%s: %s' % (type(erro).__name__, erro)
 
 
 def conta_instagram(token: str) -> str:
@@ -32,23 +62,23 @@ def conta_instagram(token: str) -> str:
         pagina = pedir(PAGINA, token, fields='name,instagram_business_account')
         conta = pagina.get('instagram_business_account')
         if conta:
-            print('  página "%s" -> conta Instagram %s' % (pagina.get('name'), conta['id']))
+            nota('  página "%s" -> conta Instagram %s' % (pagina.get('name'), conta['id']))
             return conta['id']
     except urllib.error.HTTPError as erro:
-        print('  página indisponível (%s), a tentar alternativas' % erro.code)
+        nota('  página indisponível (%s), a tentar alternativas' % detalhe(erro))
 
     directo = os.environ.get('INSTAGRAM_ACCOUNT_ID', '').strip()
     if directo:
-        print('  conta Instagram %s (por INSTAGRAM_ACCOUNT_ID)' % directo)
+        nota('  conta Instagram %s (por INSTAGRAM_ACCOUNT_ID)' % directo)
         return directo
 
     # Recurso: token emitido diretamente para a conta Instagram, sem passar pela página
     eu = pedir('me', token, fields='id,username')
     if eu.get('id'):
-        print('  token direto da conta Instagram %s (@%s)' % (eu['id'], eu.get('username', '?')))
+        nota('  token direto da conta Instagram %s (@%s)' % (eu['id'], eu.get('username', '?')))
         return eu['id']
 
-    raise SystemExit('  não foi possível identificar a conta Instagram a partir do token')
+    raise ValueError('não foi possível identificar a conta Instagram a partir do token')
 
 
 LIMITE = 320
@@ -80,7 +110,7 @@ def descarregar(url: str, destino: pathlib.Path) -> bool:
             destino.write_bytes(r.read())
         return True
     except (urllib.error.URLError, OSError) as erro:
-        print('  falhou a imagem %s: %s' % (destino.name, erro))
+        nota('  falhou a imagem %s: %s' % (destino.name, detalhe(erro)))
         return False
 
 
@@ -113,40 +143,84 @@ def galeria(raiz: pathlib.Path, token: str) -> str:
             % (ativo, html.escape(item['permalink']), nome, legenda)
         )
 
-    print('  %d publicações prontas' % len(slides))
+    nota('  %d publicações prontas' % len(slides))
     return '\n'.join(slides)
 
 
-def main() -> None:
-    raiz = pathlib.Path(sys.argv[1])
+def obter(raiz: pathlib.Path) -> str:
     # O token de página não expira; o de utilizador dura 60 dias. Prefere-se o primeiro.
     token = ''
     for nome in ('FB_PAGE_ACCESS_TOKEN', 'IG_TOKEN'):
         token = os.environ.get(nome, '').strip()
         if token:
-            print('  a usar %s' % nome)
+            nota('  a usar %s' % nome)
             break
     if not token:
-        print('  sem token configurado: galeria fica vazia')
-        return
+        nota('  sem token configurado')
+        return ''
 
     try:
-        grelha = galeria(raiz, token)
+        return galeria(raiz, token)
     except (urllib.error.URLError, KeyError, ValueError) as erro:
         # uma falha da API não pode deitar abaixo a publicação do site
-        print('  Instagram indisponível, galeria fica vazia: %s' % erro)
-        return
+        nota('  Instagram indisponível: %s' % detalhe(erro))
+        return ''
 
-    if not grelha:
-        return
 
+def guardar_cache(cache: pathlib.Path, raiz: pathlib.Path, grelha: str) -> None:
+    """Guarda a galeria que funcionou, para uma publicação futura a poder reutilizar."""
+    shutil.rmtree(cache, ignore_errors=True)
+    (cache / 'instagram').mkdir(parents=True)
+    for imagem in (raiz / 'assets' / 'instagram').glob('*.jpg'):
+        shutil.copy2(imagem, cache / 'instagram' / imagem.name)
+    (cache / 'galeria.html').write_text(grelha, encoding='utf-8')
+
+
+def ler_cache(cache: pathlib.Path, raiz: pathlib.Path) -> str:
+    """Repõe a última galeria que funcionou; devolve '' se ainda não houver nenhuma."""
+    guardada = cache / 'galeria.html'
+    if not guardada.is_file():
+        return ''
+    pasta = raiz / 'assets' / 'instagram'
+    pasta.mkdir(parents=True, exist_ok=True)
+    for imagem in (cache / 'instagram').glob('*.jpg'):
+        shutil.copy2(imagem, pasta / imagem.name)
+    return guardada.read_text(encoding='utf-8')
+
+
+def injetar(raiz: pathlib.Path, grelha: str) -> None:
     for pagina in sorted(raiz.glob('*.html')):
         texto = pagina.read_text(encoding='utf-8')
-        novo = texto.replace('<div class="carousel-inner ig-grid" data-instagram-grid></div>',
-                             '<div class="carousel-inner ig-grid" data-instagram-grid>\n%s\n</div>' % grelha)
+        novo = texto.replace(ALVO, '<div class="carousel-inner ig-grid" data-instagram-grid>\n%s\n</div>' % grelha)
         if novo != texto:
             pagina.write_text(novo, encoding='utf-8')
-            print('  %s preenchida' % pagina.name)
+            nota('  %s preenchida' % pagina.name)
+
+
+def escrever_estado(raiz: pathlib.Path) -> None:
+    quando = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
+    (raiz / 'instagram-estado.txt').write_text(
+        'Galeria do Instagram, publicação de %s\n%s\n' % (quando, '\n'.join(relatorio)),
+        encoding='utf-8')
+
+
+def main() -> None:
+    raiz = pathlib.Path(sys.argv[1])
+    cache = pathlib.Path(os.environ['IG_CACHE']) if os.environ.get('IG_CACHE') else None
+    try:
+        grelha = obter(raiz)
+        if grelha and cache:
+            guardar_cache(cache, raiz, grelha)
+        elif not grelha and cache:
+            grelha = ler_cache(cache, raiz)
+            if grelha:
+                nota('  reutilizada a galeria da última publicação que funcionou')
+        if grelha:
+            injetar(raiz, grelha)
+        else:
+            nota('  galeria fica vazia')
+    finally:
+        escrever_estado(raiz)
 
 
 if __name__ == '__main__':

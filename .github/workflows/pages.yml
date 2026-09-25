@@ -34,12 +34,24 @@ jobs:
           cp -r artvisao _site
           python3 .github/scripts/preparar-pages.py _site
 
-      # Sem o secret configurado a galeria fica vazia e a publicação segue na mesma
+      # A última galeria que funcionou, para o caso de a Meta falhar nesta corrida.
+      # A chave muda a cada corrida, por isso guarda sempre a mais recente; o
+      # restore-keys vai buscar a última guardada.
+      - name: Recuperar a última galeria do Instagram
+        uses: actions/cache@v4
+        with:
+          path: .ig-cache
+          key: instagram-${{ github.run_id }}
+          restore-keys: instagram-
+
+      # Sem o secret configurado a galeria fica vazia e a publicação segue na mesma.
+      # O resultado fica publicado em instagram-estado.txt (sem tokens).
       - name: Trazer publicações do Instagram
         env:
           FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
           IG_TOKEN: ${{ secrets.IG_TOKEN }}
           INSTAGRAM_ACCOUNT_ID: ${{ secrets.INSTAGRAM_ACCOUNT_ID }}
+          IG_CACHE: .ig-cache
         run: python3 .github/scripts/instagram.py _site
 
       - uses: actions/configure-pages@v5
