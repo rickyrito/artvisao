@@ -64,6 +64,8 @@ def conta_instagram(token: str) -> str:
         if conta:
             nota('  página "%s" -> conta Instagram %s' % (pagina.get('name'), conta['id']))
             return conta['id']
+        # A Meta respondeu, mas a página deixou de ter uma conta Instagram profissional ligada
+        nota('  a página "%s" não tem nenhuma conta Instagram profissional ligada' % pagina.get('name'))
     except urllib.error.HTTPError as erro:
         nota('  página indisponível (%s), a tentar alternativas' % detalhe(erro))
 
@@ -72,9 +74,10 @@ def conta_instagram(token: str) -> str:
         nota('  conta Instagram %s (por INSTAGRAM_ACCOUNT_ID)' % directo)
         return directo
 
-    # Recurso: token emitido diretamente para a conta Instagram, sem passar pela página
+    # Recurso: token emitido diretamente para a conta Instagram, sem passar pela página.
+    # Com um token de página, /me é a própria página e não serve.
     eu = pedir('me', token, fields='id,username')
-    if eu.get('id'):
+    if eu.get('id') and eu['id'] != PAGINA:
         nota('  token direto da conta Instagram %s (@%s)' % (eu['id'], eu.get('username', '?')))
         return eu['id']
 
