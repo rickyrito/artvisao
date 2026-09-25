@@ -21,7 +21,14 @@ import urllib.parse
 import urllib.request
 
 import instagram  # reutiliza a procura da página que tem o Instagram ligado
-from lib.meta_api import API
+from lib.meta_api import API, pedir
+
+
+def falhar(mensagem: str) -> None:
+    """Termina com erro. A linha ::error:: aparece como anotação no resumo da corrida, sem ser
+    preciso abrir o registo."""
+    print('::error::' + mensagem.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A'))
+    sys.exit(1)
 
 
 def trocar_por_novo(app_id: str, app_secret: str, token_atual: str) -> str:
@@ -38,7 +45,10 @@ def trocar_por_novo(app_id: str, app_secret: str, token_atual: str) -> str:
 
 
 def definir_secret(nome: str, valor: str) -> None:
-    subprocess.run(['gh', 'secret', 'set', nome, '--body', valor], check=True)
+    try:
+        subprocess.run(['gh', 'secret', 'set', nome, '--body', valor], check=True)
+    except subprocess.CalledProcessError:
+        falhar('não foi possível guardar o secret %s: confirmar que o GH_PAT ainda é válido' % nome)
 
 
 def main() -> None:
@@ -47,13 +57,18 @@ def main() -> None:
     token_atual = os.environ['FB_USER_TOKEN']
 
     try:
+        # Há duas apps com o mesmo nome, uma por cada conta do Facebook: um token gerado com a
+        # conta errada vem da outra app, e a troca falharia com uma mensagem pouco clara
+        app_do_token = pedir('app', token_atual, fields='id').get('id')
+        if app_do_token != app_id:
+            falhar('o token é da app %s, não da que está em META_APP_ID: '
+                   'é preciso gerá-lo com a conta que administra essa app' % app_do_token)
         novo_token = trocar_por_novo(app_id, app_secret, token_atual)
     except urllib.error.URLError as erro:
         # A mensagem da Meta diz porquê (expirou, sessão terminada, password mudada...). O
         # URL do pedido, que leva o token e o secret da app, fica de fora.
-        sys.exit('  não foi possível renovar o token: %s\n'
-                 '  é preciso gerar um novo no Graph API Explorer e guardá-lo em FB_USER_TOKEN'
-                 % instagram.detalhe(erro))
+        falhar('não foi possível renovar o token: %s. É preciso gerar um novo no Graph API '
+               'Explorer e guardá-lo em FB_USER_TOKEN' % instagram.detalhe(erro).rstrip('.'))
     # Guarda-se já: é o token que não pode expirar. O resto é secundário.
     definir_secret('FB_USER_TOKEN', novo_token)
     print('  token de utilizador renovado e guardado')

@@ -205,6 +205,12 @@ def obter(raiz: pathlib.Path) -> str:
     if utilizador:
         nota('  a procurar a página com Instagram (FB_USER_TOKEN)')
         try:
+            # há duas apps com o mesmo nome, uma por cada conta do Facebook: o id distingue-as
+            app = pedir('app', utilizador, fields='id,name')
+            nota('  token da app "%s" (%s)' % (app.get('name'), app.get('id')))
+        except urllib.error.URLError:
+            pass  # um token inválido falha também nos pedidos seguintes, que o registam
+        try:
             pagina = escolher_pagina(paginas(utilizador))
         except (urllib.error.URLError, KeyError, ValueError) as erro:
             nota('  não foi possível listar as páginas: %s' % detalhe(erro))
