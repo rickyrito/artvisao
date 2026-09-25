@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Renova o token de utilizador de longa duração da Meta antes que expire, e
-volta a derivar dele o token de Página — o que a galeria do Instagram usa.
+"""Renova o token de utilizador de longa duração da Meta antes que expire — é com
+ele que a galeria do Instagram encontra a página e a conta Instagram.
 
 O token de utilizador dura 60 dias, mas pode trocar-se por um novo de 60 dias
 enquanto ainda for válido. Corre uma vez por mês via
@@ -8,17 +8,19 @@ enquanto ainda for válido. Corre uma vez por mês via
 token expira sozinho ao fim de dois meses e a galeria fica vazia sem aviso
 (foi o que aconteceu em 2026-08).
 
-Atualiza os secrets FB_USER_TOKEN e FB_PAGE_ACCESS_TOKEN no próprio
-repositório, através do GitHub CLI (já vem instalado nos runners), usando o
-GH_PAT como credencial.
+Atualiza os secrets FB_USER_TOKEN e, como reserva, FB_PAGE_ACCESS_TOKEN no
+próprio repositório, através do GitHub CLI (já vem instalado nos runners),
+usando o GH_PAT como credencial.
 """
 import json
 import os
 import subprocess
+import urllib.error
 import urllib.parse
 import urllib.request
 
-from lib.meta_api import API, PAGINA, pedir
+import instagram  # reutiliza a procura da página que tem o Instagram ligado
+from lib.meta_api import API
 
 
 def trocar_por_novo(app_id: str, app_secret: str, token_atual: str) -> str:
@@ -44,14 +46,23 @@ def main() -> None:
     token_atual = os.environ['FB_USER_TOKEN']
 
     novo_token = trocar_por_novo(app_id, app_secret, token_atual)
-    print('  token de utilizador renovado')
-
-    token_pagina = pedir(PAGINA, novo_token, fields='access_token')['access_token']
-    print('  token de página derivado de novo')
-
+    # Guarda-se já: é o token que não pode expirar. O resto é secundário.
     definir_secret('FB_USER_TOKEN', novo_token)
-    definir_secret('FB_PAGE_ACCESS_TOKEN', token_pagina)
-    print('  secrets atualizados')
+    print('  token de utilizador renovado e guardado')
+
+    # O token de página é só uma reserva (o instagram.py encontra a página sozinho com o
+    # token de utilizador). Atualiza-se se houver página com Instagram, sem deixar que uma
+    # falha aqui estrague a renovação.
+    try:
+        pagina = instagram.escolher_pagina(instagram.paginas(novo_token))
+    except (urllib.error.URLError, KeyError, ValueError) as erro:
+        print('  não foi possível listar as páginas: %s' % instagram.detalhe(erro))
+        pagina = None
+    if pagina:
+        definir_secret('FB_PAGE_ACCESS_TOKEN', pagina['access_token'])
+        print('  token de página atualizado ("%s")' % pagina.get('name'))
+    else:
+        print('  nenhuma página com Instagram: FB_PAGE_ACCESS_TOKEN fica como estava')
 
 
 if __name__ == '__main__':

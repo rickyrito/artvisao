@@ -123,13 +123,23 @@ def paginas(token_utilizador: str) -> list:
     """As páginas a que o token de utilizador dá acesso, cada uma com o seu token e a conta
     Instagram que tiver ligada.
 
-    /me/accounts lista as páginas do perfil; as do portfólio empresarial só aparecem em
-    /{portfólio}/owned_pages. Juntam-se as duas listas, sem repetidos. Os tokens das
+    /me/accounts lista as páginas do perfil; as dos portfólios empresariais só aparecem em
+    /{portfólio}/owned_pages ou client_pages. Consulta-se cada portfólio a que o utilizador
+    pertence (mais o NEGOCIO conhecido) e juntam-se as listas, sem repetidos. Os tokens das
     páginas ficam só em memória — nunca vão para o relatório.
     """
     campos = 'id,name,access_token,instagram_business_account{id,username}'
+    try:
+        negocios = [n['id'] for n in pedir('me/businesses', token_utilizador, fields='id', limit=50).get('data', [])]
+    except urllib.error.HTTPError as erro:
+        nota('  me/businesses indisponível (%s)' % detalhe(erro))
+        negocios = []
+    fontes = ['me/accounts']
+    for negocio in dict.fromkeys(negocios + [NEGOCIO]):
+        fontes += ['%s/owned_pages' % negocio, '%s/client_pages' % negocio]
+
     vistas = {}
-    for caminho in ('me/accounts', '%s/owned_pages' % NEGOCIO):
+    for caminho in fontes:
         try:
             for pagina in pedir(caminho, token_utilizador, fields=campos, limit=50).get('data', []):
                 vistas.setdefault(pagina['id'], pagina)
