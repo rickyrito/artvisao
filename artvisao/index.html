@@ -3,13 +3,15 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- O site só tem versão clara: impede o "modo escuro forçado" dos telemóveis de recolorir tudo -->
+<meta name="color-scheme" content="only light"/>
 <title>Uma óptica que conhece cada cliente pelo nome — Art'Visão</title>
 <meta name="description" content="Art'Visão. Óculos graduados, óculos de sol e exames visuais com o cuidado de uma óptica de bairro. Marcas Ray-Ban, Police, Carolina Herrera, Furla, Lozza, Hoya, Essilor, ZEISS e mais."/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=MuseoModerno:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"/>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"/>
-<link rel="stylesheet" href="css/styles.css"/>
+<link rel="stylesheet" href="css/styles.css?v=20260925"/>
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png"/>
 <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon-64.png"/>
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png"/>
@@ -116,18 +118,11 @@
         {
           "@type": "OpeningHoursSpecification",
           "dayOfWeek": [
-            "Tuesday"
-          ],
-          "opens": "10:00",
-          "closes": "17:30"
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
+            "Tuesday",
             "Saturday"
           ],
           "opens": "10:00",
-          "closes": "13:30"
+          "closes": "17:30"
         }
       ],
       "currenciesAccepted": "EUR",
@@ -328,11 +323,16 @@
       <h2 class="brand-headline" data-i18n="marcas-title">Parceiros que inspiram a nossa seleção de armações</h2>
       <p class="brand-copy" data-i18n="marcas-desc">Uma curadoria de marcas de referência em estilo e tecnologia óptica, escolhidas para oferecer uma experiência premium em Portugal.</p>
       <ul class="brand-grid">
-        <li><a class="brand-tile has-logo" data-logo="eschenbach" href="https://www.eschenbach-eyewear.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/eschenbach.png" alt="Eschenbach" loading="lazy" decoding="async"/><span class="brand-tile-text">Eschenbach</span></a></li>
-        <li><a class="brand-tile has-logo" data-logo="titanflex" href="https://www.titanflex-eyewear.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/titanflex.svg" alt="TitanFlex" loading="lazy" decoding="async"/><span class="brand-tile-text">TitanFlex</span></a></li>
         <li><a class="brand-tile has-logo" data-logo="hoya" href="https://www.hoyavision.com/pt/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/hoya.png" alt="Hoya" loading="lazy" decoding="async"/><span class="brand-tile-text">Hoya</span></a></li>
         <li><a class="brand-tile has-logo" data-logo="essilor" href="https://www.essilor.com/pt-pt/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/essilor.png" alt="Essilor" loading="lazy" decoding="async"/><span class="brand-tile-text">Essilor</span></a></li>
         <li><a class="brand-tile has-logo" data-logo="zeiss" href="https://www.zeiss.pt/vision-care/home.html" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/zeiss.svg" alt="ZEISS" loading="lazy" decoding="async"/><span class="brand-tile-text">ZEISS</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="rodenstock" href="https://www.rodenstock.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/rodenstock.svg" alt="Rodenstock" loading="lazy" decoding="async"/><span class="brand-tile-text">Rodenstock</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="coopervision" href="https://coopervision.pt/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/coopervision.png" alt="CooperVision" loading="lazy" decoding="async"/><span class="brand-tile-text">CooperVision</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="bausch-lomb" href="https://www.bausch.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/bausch-lomb.svg" alt="Bausch + Lomb" loading="lazy" decoding="async"/><span class="brand-tile-text">Bausch + Lomb</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="alcon" href="https://www.myalcon.com/pt/contact-lenses/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/alcon.svg" alt="Alcon" loading="lazy" decoding="async"/><span class="brand-tile-text">Alcon</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="avizor" href="https://www.avizor.com/fr/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/avizor.png" alt="Avizor" loading="lazy" decoding="async"/><span class="brand-tile-text">Avizor</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="eschenbach" href="https://www.eschenbach-eyewear.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/eschenbach.png" alt="Eschenbach" loading="lazy" decoding="async"/><span class="brand-tile-text">Eschenbach</span></a></li>
+        <li><a class="brand-tile has-logo" data-logo="titanflex" href="https://www.titanflex-eyewear.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/titanflex.svg" alt="TitanFlex" loading="lazy" decoding="async"/><span class="brand-tile-text">TitanFlex</span></a></li>
         <li><a class="brand-tile has-logo" data-logo="ray-ban" href="https://www.ray-ban.com/portugal" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/ray-ban.svg" alt="Ray-Ban" loading="lazy" decoding="async"/><span class="brand-tile-text">Ray-Ban</span></a></li>
         <li><a class="brand-tile has-logo" data-logo="police" href="https://www.policelifestyle.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/police.svg" alt="Police" loading="lazy" decoding="async"/><span class="brand-tile-text">Police</span></a></li>
         <li><a class="brand-tile has-logo" data-logo="carolina-herrera" href="https://www.carolinaherrera.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/carolina-herrera.svg" alt="Carolina Herrera" loading="lazy" decoding="async"/><span class="brand-tile-text">Carolina Herrera</span></a></li>
@@ -346,7 +346,6 @@
         <li><a class="brand-tile has-logo" data-logo="lois" href="https://loisjeans.es/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/lois.png" alt="Lois" loading="lazy" decoding="async"/><span class="brand-tile-text">Lois</span></a></li>
         <li><a class="brand-tile has-logo" data-logo="superbike" href="https://www.demenego.it/en/brand/superbike/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/superbike.png" alt="Superbike" loading="lazy" decoding="async"/><span class="brand-tile-text">Superbike</span></a></li>
         <li><span class="brand-tile has-logo" data-logo="newave"><img class="brand-tile-logo" src="assets/brands/newave.png" alt="Newave" loading="lazy" decoding="async"/><span class="brand-tile-text">Newave</span></span></li>
-        <li><a class="brand-tile has-logo" data-logo="rodenstock" href="https://www.rodenstock.com/" target="_blank" rel="noopener noreferrer"><img class="brand-tile-logo" src="assets/brands/rodenstock.svg" alt="Rodenstock" loading="lazy" decoding="async"/><span class="brand-tile-text">Rodenstock</span></a></li>
       </ul>
     </div>
   </div>
@@ -363,72 +362,72 @@
 <p class="section-copy" data-i18n="acordos-desc">Trabalhamos com os principais seguros e programas de benefícios em Portugal para tornar os seus óculos mais acessíveis.</p>
 </div>
 </div>
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 accord-grid">
 <div class="col">
-<div class="bg-card border border-ink-10 rounded-4 p-4 h-100 shadow-sm">
+<div class="bg-card border border-ink-10 rounded-4 h-100 shadow-sm accord-card">
 <a class="accord-logo-link" href="https://www.medicare.pt/" target="_blank" rel="noopener noreferrer"><img class="accord-logo-img" src="assets/acordos/medicare.svg" alt="Medicare" width="160" height="44" loading="lazy"/></a>
 <h3 class="visually-hidden" data-i18n="acord1-title">Medicare</h3>
 <p class="section-copy text-soft-ink" data-i18n="acord1-desc">Beneficie dos descontos Medicare em armações e lentes. Apresente o seu cartão na loja e aproveite de imediato.</p>
 </div>
 </div>
 <div class="col">
-<div class="bg-card border border-ink-10 rounded-4 p-4 h-100 shadow-sm">
+<div class="bg-card border border-ink-10 rounded-4 h-100 shadow-sm accord-card">
 <a class="accord-logo-link" href="https://future-healthcare.pt/" target="_blank" rel="noopener noreferrer"><img class="accord-logo-img" src="assets/acordos/future-healthcare.png" alt="Future Healthcare" width="160" height="44" loading="lazy"/></a>
 <h3 class="visually-hidden" data-i18n="acord2-title">Future Healthcare</h3>
 <p class="section-copy text-soft-ink" data-i18n="acord2-desc">Aceda aos benefícios especiais Future Healthcare. Exames, armações e lentes com vantagens exclusivas para os seus clientes.</p>
 </div>
 </div>
 <div class="col">
-<div class="bg-card border border-ink-10 rounded-4 p-4 h-100 shadow-sm">
+<div class="bg-card border border-ink-10 rounded-4 h-100 shadow-sm accord-card">
 <a class="accord-logo-link" href="https://www.multicare.pt/" target="_blank" rel="noopener noreferrer"><img class="accord-logo-img" src="assets/acordos/multicare.svg" alt="Multicare" width="160" height="44" loading="lazy"/></a>
 <h3 class="visually-hidden" data-i18n="acord4-title">Multicare</h3>
 <p class="section-copy text-soft-ink" data-i18n="acord4-desc">Aderente à rede Multicare. A comparticipação é aplicada no momento, sem processos a seu cargo.</p>
 </div>
 </div>
 <div class="col">
-<div class="bg-card border border-ink-10 rounded-4 p-4 h-100 shadow-sm">
+<div class="bg-card border border-ink-10 rounded-4 h-100 shadow-sm accord-card">
 <a class="accord-logo-link" href="https://www.advancecare.pt/" target="_blank" rel="noopener noreferrer"><img class="accord-logo-img" src="assets/acordos/advancecare.png" alt="AdvanceCare" width="160" height="44" loading="lazy"/></a>
 <h3 class="visually-hidden" data-i18n="acord5-title">AdvanceCare</h3>
 <p class="section-copy text-soft-ink" data-i18n="acord5-desc">Rede AdvanceCare, que gere os planos de saúde de várias seguradoras. Basta identificar-se na loja.</p>
 </div>
 </div>
 <div class="col">
-<div class="bg-card border border-ink-10 rounded-4 p-4 h-100 shadow-sm">
+<div class="bg-card border border-ink-10 rounded-4 h-100 shadow-sm accord-card">
 <a class="accord-logo-link" href="https://www.adse.pt/" target="_blank" rel="noopener noreferrer"><img class="accord-logo-img" src="assets/acordos/adse.svg" alt="ADSE" width="160" height="44" loading="lazy"/></a>
 <h3 class="visually-hidden" data-i18n="acord6-title">ADSE</h3>
-<p class="section-copy text-soft-ink" data-i18n="acord6-desc">Prestador convencionado com a ADSE, com condições próprias para beneficiários e agregado familiar.</p>
+<p class="section-copy text-soft-ink" data-i18n="acord6-desc">Prescrição aceite pelo sistema.</p>
 </div>
 </div>
 <div class="col">
-<div class="bg-card border border-ink-10 rounded-4 p-4 h-100 shadow-sm">
+<div class="bg-card border border-ink-10 rounded-4 h-100 shadow-sm accord-card">
 <a class="accord-logo-link accord-logo-tall" href="https://portalsocial.gnr.pt/" target="_blank" rel="noopener noreferrer"><img class="accord-logo-img" src="assets/acordos/sad-gnr.png" alt="SAD-GNR" width="160" height="44" loading="lazy"/></a>
 <h3 class="visually-hidden">SAD-GNR</h3>
 <p class="section-copy text-soft-ink" data-i18n="acord7-desc">Prescrição aceite pelo sistema.</p>
 </div>
 </div>
 <div class="col">
-<div class="bg-card border border-ink-10 rounded-4 p-4 h-100 shadow-sm">
+<div class="bg-card border border-ink-10 rounded-4 h-100 shadow-sm accord-card">
 <a class="accord-logo-link accord-logo-tall" href="https://portalsocial.psp.pt/DirectorioSAD.aspx" target="_blank" rel="noopener noreferrer"><img class="accord-logo-img" src="assets/acordos/sad-psp.png" alt="SAD-PSP" width="160" height="44" loading="lazy"/></a>
 <h3 class="visually-hidden">SAD-PSP</h3>
 <p class="section-copy text-soft-ink" data-i18n="acord8-desc">Prescrição aceite pelo sistema.</p>
 </div>
 </div>
 <div class="col">
-<div class="bg-card border border-ink-10 rounded-4 p-4 h-100 shadow-sm">
+<div class="bg-card border border-ink-10 rounded-4 h-100 shadow-sm accord-card">
 <a class="accord-logo-link" href="https://www.iasfa.pt/portfolio/beneficiarios-adm/" target="_blank" rel="noopener noreferrer"><img class="accord-logo-img" src="assets/acordos/adm-iasfa.png" alt="ADM — Assistência na Doença aos Militares (IASFA)" width="160" height="44" loading="lazy"/></a>
 <h3 class="visually-hidden">ADM</h3>
 <p class="section-copy text-soft-ink" data-i18n="acord9-desc">Prescrição aceite pelo sistema.</p>
 </div>
 </div>
 <div class="col">
-<div class="bg-card border border-ink-10 rounded-4 p-4 h-100 shadow-sm">
+<div class="bg-card border border-ink-10 rounded-4 h-100 shadow-sm accord-card">
 <a class="accord-logo-link accord-logo-wide" href="https://www.facebook.com/diabeticos.beirabaixa/" target="_blank" rel="noopener noreferrer"><img class="accord-logo-img" src="assets/acordos/adbb.png" alt="ADBB — Associação de Diabéticos da Beira Baixa" width="160" height="44" loading="lazy"/></a>
 <h3 class="visually-hidden">Associação de Diabéticos da Beira Baixa</h3>
 <p class="section-copy text-soft-ink" data-i18n="acord10-desc">Parceria com a Associação de Diabéticos da Beira Baixa. Informe-se na loja sobre as condições para associados.</p>
 </div>
 </div>
 <div class="col">
-<div class="bg-card border border-ink-10 rounded-4 p-4 h-100 shadow-sm">
+<div class="bg-card border border-ink-10 rounded-4 h-100 shadow-sm accord-card">
 <a class="accord-logo-link accord-logo-tall" href="https://www.facebook.com/associacaodacarapalha" target="_blank" rel="noopener noreferrer"><img class="accord-logo-img" src="assets/acordos/acdc-carapalha.png" alt="ACDC — Associação Cultural e Desportiva da Carapalha" width="160" height="44" loading="lazy"/></a>
 <h3 class="visually-hidden">Associação Cultural e Desportiva da Carapalha</h3>
 <p class="section-copy text-soft-ink" data-i18n="acord11-desc">Parceria com a Associação Cultural e Desportiva da Carapalha. Informe-se na loja sobre as condições para associados.</p>
@@ -444,15 +443,15 @@
 <h2 class="font-display section-title" data-i18n="artigos-title">Óculos e lentes para <em class="title-accent">cada necessidade</em>.</h2>
 <p class="section-copy section-lede mt-3" data-i18n="artigos-desc">Trabalhamos com marcas portuguesas e internacionais de armações e com as principais marcas de lentes de contacto. O tipo certo para si decide-se depois do exame, nunca antes.</p>
 </div>
-<div class="type-columns">
-<div class="type-column">
+<div class="type-rows">
+<div class="type-row">
 <h3 class="type-group" data-i18n="tipo-oculos">Lentes oftálmicas</h3>
 <div class="type-list">
 <div class="type-card">
 <span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-glasses"></use></svg></span>
 <span class="type-body">
-<span class="type-title" data-i18n="t1-title">Óculos graduados</span>
-<span class="type-desc" data-i18n="t1-desc">Lentes monofocais para corrigir a visão ao perto ou ao longe.</span>
+<span class="type-title" data-i18n="t1-title">Lentes monofocais</span>
+<span class="type-desc" data-i18n="t1-desc">Para corrigir a visão ao perto ou ao longe.</span>
 </span>
 </div>
 <div class="type-card">
@@ -463,22 +462,15 @@
 </span>
 </div>
 <div class="type-card">
-<span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg></span>
+<span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 17 13.5 8.5 8.5 13.5 2 7"></polyline><polyline points="16 17 22 17 22 11"></polyline></svg></span>
 <span class="type-body">
-<span class="type-title" data-i18n="t3-title">Óculos de sol</span>
-<span class="type-desc" data-i18n="t3-desc">Com ou sem graduação, com proteção UV e opção polarizada.</span>
-</span>
-</div>
-<div class="type-card">
-<span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line></svg></span>
-<span class="type-body">
-<span class="type-title" data-i18n="t4-title">Óculos para crianças</span>
-<span class="type-desc" data-i18n="t4-desc">Armações leves e resistentes, dimensionadas para o rosto infantil.</span>
+<span class="type-title" data-i18n="t9-title">Lentes para controlo da miopia</span>
+<span class="type-desc" data-i18n="t9-desc">Ajudam a travar a progressão da miopia em crianças e jovens, enquanto corrigem a visão.</span>
 </span>
 </div>
 </div>
 </div>
-<div class="type-column">
+<div class="type-row">
 <h3 class="type-group" data-i18n="tipo-lentes">Lentes de contacto</h3>
 <div class="type-list">
 <div class="type-card">
@@ -511,25 +503,40 @@
 </div>
 </div>
 </div>
+<div class="type-row">
+<h3 class="type-group" data-i18n="tipo-armacoes">Armações</h3>
+<div class="type-list">
+<div class="type-card">
+<span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg></span>
+<span class="type-body">
+<span class="type-title" data-i18n="t3-title">Óculos de sol</span>
+<span class="type-desc" data-i18n="t3-desc">Com ou sem graduação, com proteção UV e opção polarizada.</span>
+</span>
+</div>
+<div class="type-card">
+<span class="type-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" x2="9.01" y1="9" y2="9"></line><line x1="15" x2="15.01" y1="9" y2="9"></line></svg></span>
+<span class="type-body">
+<span class="type-title" data-i18n="t4-title">Óculos para crianças</span>
+<span class="type-desc" data-i18n="t4-desc">Armações leves e resistentes, dimensionadas para o rosto infantil.</span>
+</span>
+</div>
+</div>
+</div>
 </div>
 <h3 class="type-group type-group-wide" data-i18n="destaque-title">Em destaque</h3>
 <div class="highlight" data-highlight role="group" aria-roledescription="carrossel" aria-label="Artigos em destaque" data-i18n-aria="destaque-label">
 <div class="highlight-text" aria-live="polite">
 <div class="highlight-copy is-current">
-<h4 class="highlight-title" data-i18n="t1-title">Óculos graduados</h4>
-<p class="highlight-desc" data-i18n="t1-desc">Lentes monofocais para corrigir a visão ao perto ou ao longe.</p>
+<h4 class="highlight-title" data-i18n="t1-title">Lentes monofocais</h4>
+<p class="highlight-desc" data-i18n="t1-desc">Para corrigir a visão ao perto ou ao longe.</p>
 </div>
 <div class="highlight-copy">
 <h4 class="highlight-title" data-i18n="t2-title">Progressivos e bifocais</h4>
 <p class="highlight-desc" data-i18n="t2-desc">Longe, intermédio e perto na mesma lente, sem trocar de óculos.</p>
 </div>
 <div class="highlight-copy">
-<h4 class="highlight-title" data-i18n="t3-title">Óculos de sol</h4>
-<p class="highlight-desc" data-i18n="t3-desc">Com ou sem graduação, com proteção UV e opção polarizada.</p>
-</div>
-<div class="highlight-copy">
-<h4 class="highlight-title" data-i18n="t4-title">Óculos para crianças</h4>
-<p class="highlight-desc" data-i18n="t4-desc">Armações leves e resistentes, dimensionadas para o rosto infantil.</p>
+<h4 class="highlight-title" data-i18n="t9-title">Lentes para controlo da miopia</h4>
+<p class="highlight-desc" data-i18n="t9-desc">Ajudam a travar a progressão da miopia em crianças e jovens, enquanto corrigem a visão.</p>
 </div>
 <div class="highlight-copy">
 <h4 class="highlight-title" data-i18n="t5-title">Lentes diárias</h4>
@@ -547,17 +554,26 @@
 <h4 class="highlight-title" data-i18n="t8-title">Lentes multifocais</h4>
 <p class="highlight-desc" data-i18n="t8-desc">Perto e longe na mesma lente, para quem quer dispensar os óculos.</p>
 </div>
+<div class="highlight-copy">
+<h4 class="highlight-title" data-i18n="t3-title">Óculos de sol</h4>
+<p class="highlight-desc" data-i18n="t3-desc">Com ou sem graduação, com proteção UV e opção polarizada.</p>
+</div>
+<div class="highlight-copy">
+<h4 class="highlight-title" data-i18n="t4-title">Óculos para crianças</h4>
+<p class="highlight-desc" data-i18n="t4-desc">Armações leves e resistentes, dimensionadas para o rosto infantil.</p>
+</div>
 </div>
 <div class="highlight-viewport">
 <ul class="highlight-track">
 <li class="highlight-item"><img src="assets/artigos/graduados.avif" alt="Homem com óculos graduados" data-i18n-alt="t1-alt" loading="eager"/></li>
 <li class="highlight-item"><img src="assets/artigos/progressivos.jpg" alt="Óculos segurados contra a rua, a mostrar a nitidez das lentes" data-i18n-alt="t2-alt" loading="lazy"/></li>
-<li class="highlight-item"><img src="assets/artigos/sunglasses_woman.avif" alt="Mulher com óculos de sol" data-i18n-alt="t3-alt" loading="lazy"/></li>
-<li class="highlight-item"><img src="assets/artigos/child.jpg" alt="Criança com óculos graduados" data-i18n-alt="t4-alt" loading="lazy"/></li>
+<li class="highlight-item"><img src="assets/artigos/letras.avif" alt="Óculos pousados sobre uma tabela de optometria" data-i18n-alt="t9-alt" loading="lazy"/></li>
 <li class="highlight-item"><img src="assets/artigos/lente_contacto_pinca.avif" alt="Lente de contacto diária a ser retirada do blister" data-i18n-alt="t5-alt" loading="lazy"/></li>
 <li class="highlight-item"><img src="assets/artigos/lentes_contacto_caixa.avif" alt="Estojos de lentes de contacto reutilizáveis" data-i18n-alt="t6-alt" loading="lazy"/></li>
 <li class="highlight-item"><img src="assets/artigos/lente_contacto.avif" alt="Grande plano de um olho com lente de contacto" data-i18n-alt="t7-alt" loading="lazy"/></li>
 <li class="highlight-item"><img src="assets/artigos/lente-contacto-mesa.avif" alt="Colocação de lentes de contacto ao espelho" data-i18n-alt="t8-alt" loading="lazy"/></li>
+<li class="highlight-item"><img src="assets/artigos/sunglasses_woman.avif" alt="Mulher com óculos de sol" data-i18n-alt="t3-alt" loading="lazy"/></li>
+<li class="highlight-item"><img src="assets/artigos/child.jpg" alt="Criança com óculos graduados" data-i18n-alt="t4-alt" loading="lazy"/></li>
 <li class="highlight-item" aria-hidden="true"><img src="assets/artigos/graduados.avif" alt="" loading="lazy"/></li>
 </ul>
 <button type="button" class="carousel-arrow carousel-arrow-prev" data-highlight-prev aria-label="Artigo anterior" data-i18n-aria="destaque-prev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></button>
@@ -571,6 +587,7 @@
 <button type="button" data-highlight-go="5" aria-label="6"></button>
 <button type="button" data-highlight-go="6" aria-label="7"></button>
 <button type="button" data-highlight-go="7" aria-label="8"></button>
+<button type="button" data-highlight-go="8" aria-label="9"></button>
 </div>
 </div>
 </div>
@@ -730,8 +747,8 @@
 <div class="visit-value mt-3"><a href="https://www.google.com/maps/place/Art'Vis%C3%A3o/@39.8164797,-7.4868901,17z/data=!3m1!4b1!4m6!3m5!1s0xd3d5f6b8c904e03:0x7376081cd4caddb4!8m2!3d39.8164797!4d-7.4843152!16s%2Fg%2F11hdx9h9cx" target="_blank" rel="noopener noreferrer" class="text-cream">R. Dr. Simplício Magro, lote 107, Loja 2
 6000-332 Castelo Branco</a></div>
 <div class="text-uppercase mt-3 visit-label" data-i18n="visita-label-horario">Horário</div>
-<div class="visit-value" data-i18n="visita-horario-value">Segunda–Sexta · 9h–19h
-Almoço 13h–15h</div>
+<div class="visit-value" data-i18n="visita-horario-value">De Segunda a Sexta · 9h–19h
+Almoço - 13h–15h</div>
 </div>
 <div class="map-slot mt-auto">
 <iframe class="map-embed" hidden data-consent-src="https://maps.google.com/maps?q=39.8164797,-7.4843152&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Localização da loja de Castelo Branco no Google Maps"></iframe>
@@ -752,8 +769,7 @@ Almoço 13h–15h</div>
 <div class="visit-value mt-3"><a href="https://www.google.com/maps/search/?api=1&query=Centro%20de%20Neg%C3%B3cios%20Transfronteiri%C3%A7o%20do%20Soito" target="_blank" rel="noopener noreferrer" class="text-cream">Centro de Negócios Transfronteiriço do Soito
 Avenida de São Cristóvão, 6320-624 Soito</a></div>
 <div class="text-uppercase mt-3 visit-label" data-i18n="visita-label-horario">Horário</div>
-<div class="visit-value" data-i18n="visita-horario-soito">Terça · 10h–17h30
-Sáb · 10h–13h30</div>
+<div class="visit-value" data-i18n="visita-horario-soito">Terça e Sábado · 10h–17h30</div>
 </div>
 <div class="map-slot mt-auto">
 <iframe class="map-embed" hidden data-consent-src="https://maps.google.com/maps?q=Centro%20de%20Neg%C3%B3cios%20Transfronteiri%C3%A7o%20do%20Soito&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Localização da loja do Soito no Google Maps"></iframe>
@@ -840,12 +856,12 @@ Sáb · 10h–13h30</div>
 </a>
 
 <!-- Consentimento: banner de primeiro nível e painel de preferências.
-     As categorias reflectem o que o site carrega mesmo — não há analytics nem marketing. -->
+     As categorias reflectem o que o site carrega mesmo: mapas e estatísticas (Google Analytics), sem marketing. -->
 <div class="consent-banner" id="consentBanner" role="region" aria-labelledby="consentBannerTitle" hidden>
 <div class="container-brand consent-banner-inner">
 <div>
 <p class="font-display consent-banner-title mb-1" id="consentBannerTitle" data-i18n="consent-title">Cookies neste site</p>
-<p class="mb-0 consent-banner-text" data-i18n="consent-text">Usamos armazenamento local para guardar o idioma que escolheu. Os mapas das lojas são carregados de serviços externos e só depois da sua autorização.</p>
+<p class="mb-0 consent-banner-text" data-i18n="consent-text">Usamos armazenamento local para guardar o idioma que escolheu. Os mapas das lojas e as estatísticas de visitas (Google Analytics) só são carregados depois da sua autorização.</p>
 </div>
 <div class="consent-actions">
 <button type="button" class="consent-btn consent-btn-ghost" data-consent-prefs data-i18n="consent-prefs">Preferências</button>
@@ -886,6 +902,16 @@ Sáb · 10h–13h30</div>
 </label>
 </div>
 <p class="consent-cat-desc mb-0" data-i18n="consent-cat-maps-desc">Mostram a localização das duas lojas. São carregados a partir do Google e do OpenStreetMap, que recebem o seu endereço IP e, no caso do Google, colocam cookies. Sem autorização, os mapas não são carregados.</p>
+</div>
+<div class="consent-cat">
+<div class="consent-cat-head">
+<label class="consent-cat-name" for="consentStats" data-i18n="consent-cat-stats">Estatísticas</label>
+<label class="consent-switch">
+<input type="checkbox" id="consentStats"/>
+<span class="consent-switch-track" aria-hidden="true"></span>
+</label>
+</div>
+<p class="consent-cat-desc mb-0" data-i18n="consent-cat-stats-desc">Ajudam-nos a perceber como o site é usado — que páginas são vistas e de onde chegam as visitas — através do Google Analytics, que coloca cookies e recebe o seu endereço IP. Sem autorização, não são carregadas.</p>
 </div>
 <button type="button" class="consent-save" data-consent-save data-i18n="consent-save">Guardar e continuar</button>
 </div>
@@ -939,10 +965,10 @@ Sáb · 10h–13h30</div>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="js/i18n.js"></script>
-<script src="js/main.js"></script>
-<script src="js/search.js"></script>
-<script src="js/consent.js"></script>
-<script src="js/contact.js"></script>
+<script src="js/i18n.js?v=20260925"></script>
+<script src="js/main.js?v=20260925"></script>
+<script src="js/search.js?v=20260925"></script>
+<script src="js/consent.js?v=20260925"></script>
+<script src="js/contact.js?v=20260925"></script>
 </body>
 </html>

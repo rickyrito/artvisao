@@ -1,4 +1,5 @@
 :root{
+  color-scheme:only light;
   /* Paleta da identidade visual (2026): #2a2a2a, #5689c7, #f7f3eb, #122c4f, #0f1015 */
   --ink:#2a2a2a;
   --cream:#f7f3eb;
@@ -249,13 +250,28 @@ section[id]{scroll-margin-top:8rem;}
    peso ótico semelhante, apesar de irem de 1,5:1 (Médis) a 5,6:1 (Multicare).
    Algumas destas SVG só trazem viewBox, sem largura nem altura. */
 /* Sem o título entre eles, o logótipo precisa de mais folga até à descrição */
-.accord-logo-link{display:inline-block;margin-bottom:1.6rem;}
-.accord-logo-img{display:block;width:10rem;height:2.75rem;object-fit:contain;object-position:left center;}
-/* Logótipos SAD, com escudo, que ficariam pequenos na altura dos outros: ganham 1rem de altura e perdem-no na margem, para a descrição continuar alinhada com a dos vizinhos */
-.accord-logo-tall{margin-bottom:.6rem;}
-.accord-logo-tall .accord-logo-img{height:3.75rem;}
+.accord-logo-link{display:inline-block;margin-bottom:.6rem;}
+/* Letra e logótipos contidos: todos os cartões ficam com a altura do que tem mais texto,
+   por isso é o texto mais longo que manda na altura de todos. Sem a margem do <p>. */
+.accord-card{padding:1.1rem 1.25rem;}
+.accord-card p{margin:0;font-size:.82rem;line-height:1.5;}
+.accord-logo-img{display:block;width:10rem;height:2rem;object-fit:contain;object-position:left center;}
+/* Logótipos SAD, com escudo, que ficariam pequenos na altura dos outros: ganham .6rem de altura e perdem-nos na margem (.6rem - .6rem = 0), para a descrição continuar alinhada com a dos vizinhos */
+.accord-logo-tall{margin-bottom:0;}
+.accord-logo-tall .accord-logo-img{height:2.6rem;}
 /* Logótipos muito largos (ADBB): mesma altura, mais largura, para o texto miúdo se ler */
 .accord-logo-wide .accord-logo-img{width:14rem;max-width:100%;}
+/* Todos os cartões com a mesma altura, a do que tem mais texto: a grelha passa de flex
+   (onde cada linha tem a sua altura) para grid com linhas iguais. Os gutters do Bootstrap
+   (padding e margin-top das colunas) continuam a funcionar dentro da grid.
+   Só com 2 ou mais colunas: numa coluna só, igualar apenas acrescentava espaço vazio. */
+@media (min-width:768px){
+  .accord-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;}
+  .accord-grid > .col{width:auto;}
+}
+@media (min-width:992px){
+  .accord-grid{grid-template-columns:repeat(4,minmax(0,1fr));}
+}
 .bg-sky-20{background-color:rgba(86,137,199,.2)!important;}
 .btn-ink{display:inline-flex;align-items:center;gap:.5rem;background-color:var(--navy);color:var(--cream);padding:.9rem 1.75rem;font-size:.9rem;font-weight:500;border:0;transition:background-color .2s ease;}
 .btn-ink:hover{background-color:var(--sky);color:var(--cream);}
@@ -275,24 +291,21 @@ section[id]{scroll-margin-top:8rem;}
   .nav-pill .nav-link-brand::after{content:'';position:absolute;left:0;right:100%;bottom:-.4rem;height:1px;background:var(--sky);transition:right .2s ease;}
   .nav-pill .nav-link-brand:hover::after{right:0;}
 }
-/* Artigos: duas colunas de tipos (óculos | lentes) e, por baixo, um carrossel em
-   que cada imagem traz a descrição do tipo correspondente. */
-.type-columns{display:grid;grid-template-columns:1fr;gap:2.5rem;}
-@media (min-width:992px){.type-columns{grid-template-columns:1fr 1fr;column-gap:2.5rem;}}
+/* Artigos: os tipos por grupo (lentes oftálmicas, lentes de contacto, armações), um grupo por
+   linha, e por baixo um carrossel em que cada imagem traz a descrição do tipo correspondente. */
+.type-rows{display:grid;gap:1.75rem;}
 .type-group{font-family:'MuseoModerno',sans-serif;font-size:1.3rem;color:var(--ink);margin:0 0 1rem;padding-bottom:.6rem;border-bottom:1px solid rgba(42,42,42,.14);}
 .type-group-wide{margin-top:3rem;}
-.type-list{display:grid;gap:.8rem;}
-/* Lado a lado, as duas colunas partilham as filas (subgrid): cada cartão fica com a altura
-   do vizinho, e as colunas acabam juntas mesmo quando uma descrição ocupa duas linhas.
-   O span conta o título + 4 cartões por coluna; se uma coluna ganhar cartões, subir o número. */
-@supports (grid-template-rows:subgrid){
-  @media (min-width:992px){
-    .type-columns{row-gap:.8rem;}
-    .type-column{display:grid;grid-row:span 5;grid-template-rows:subgrid;}
-    .type-column > .type-group{margin-bottom:.2rem;}
-    .type-column > .type-list{display:contents;}
-  }
+/* Os tipos de cada grupo em lista, um por linha: cada linha é um cartão a toda a largura, com
+   espaço entre linhas e folga à esquerda. Em ecrãs largos o título e a descrição ficam lado a
+   lado, numa coluna de títulos com a mesma largura em todos os grupos, para alinhar tudo. */
+.type-list{display:flex;flex-direction:column;gap:.6rem;}
+.type-list > .type-card{padding:1rem 1.25rem 1rem 1.5rem;}
+@media (min-width:992px){
+  .type-list > .type-card{align-items:center;padding:.9rem 1.5rem .9rem 2rem;}
+  .type-list .type-body{display:grid;grid-template-columns:18rem minmax(0,1fr);column-gap:1.5rem;align-items:baseline;}
 }
+/* Cartão isolado (usado também nas dicas rápidas) */
 .type-card{display:flex;align-items:flex-start;gap:.95rem;padding:1rem 1.15rem;background:var(--card);border:1px solid rgba(42,42,42,.1);transition:border-color .2s ease,box-shadow .2s ease;}
 .type-card:hover{border-color:rgba(86,137,199,.45);box-shadow:0 10px 24px -14px rgba(42,42,42,.35);}
 .type-icon{flex-shrink:0;display:grid;place-items:center;width:2.4rem;height:2.4rem;background:rgba(86,137,199,.1);color:var(--sky);}
@@ -656,16 +669,22 @@ body.search-open{overflow:hidden;}
 /* Brand wall: static two-row grid of logo tiles (muted by default, full colour + lift on hover) */
 .brand-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1.25rem;list-style:none;margin:0;padding:0;}
 .brand-grid > li{display:flex;}
-.brand-tile{flex:1 1 auto;position:relative;background:rgba(248,248,248,1);border:1px solid rgba(42,42,42,.08);padding:1.25rem;min-height:6.5rem;display:flex;align-items:center;justify-content:center;font-weight:600;color:var(--ink);text-align:center;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;}
+.brand-tile{flex:1 1 auto;position:relative;background:rgba(248,248,248,1);border:1px solid rgba(42,42,42,.08);padding:.75rem 1rem;min-height:4.875rem;display:flex;align-items:center;justify-content:center;font-weight:600;color:var(--ink);text-align:center;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;}
 .brand-tile:hover{transform:translateY(-3px);box-shadow:0 14px 30px -12px rgba(42,42,42,.2);border-color:rgba(86,137,199,.35);}
 /* O nome fica no DOM para a pesquisa; quem o lê em voz alta é o alt do logótipo */
 .brand-tile.has-logo .brand-tile-text{display:none !important}
 .brand-tile img.brand-tile-logo{max-height:2.1rem;max-width:80%;height:auto;width:auto;transition:transform .2s ease;}
 .brand-tile:hover img.brand-tile-logo{transform:scale(1.04);}
 /* Logótipo quadrado: com a altura dos outros ficava minúsculo */
-.brand-tile[data-logo="enrico-coveri"] img.brand-tile-logo{max-height:3.6rem;}
-.brand-tile[data-logo="essilor"] img.brand-tile-logo{max-height:3.6rem;}
-.brand-tile[data-logo="zeiss"] img.brand-tile-logo{max-height:3.2rem;}
+.brand-tile[data-logo="enrico-coveri"] img.brand-tile-logo{max-height:3rem;}
+.brand-tile[data-logo="essilor"] img.brand-tile-logo{max-height:3rem;}
+.brand-tile[data-logo="zeiss"] img.brand-tile-logo{max-height:2.8rem;}
+/* Logótipos muito largos: podem ocupar a largura toda do quadrado */
+.brand-tile[data-logo="coopervision"] img.brand-tile-logo{max-width:100%;max-height:2.6rem;}
+.brand-tile[data-logo="bausch-lomb"] img.brand-tile-logo{max-width:100%;}
+.brand-tile[data-logo="avizor"] img.brand-tile-logo{max-width:92%;}
+/* Letra muito grossa: um pouco mais baixo, para não pesar mais do que os vizinhos */
+.brand-tile[data-logo="alcon"] img.brand-tile-logo{max-height:1.75rem;}
 .brand-tile[data-logo="superbike"] img.brand-tile-logo{max-height:2.6rem;}
 
 @media (max-width:900px){.brand-grid{grid-template-columns:repeat(4,1fr);}}

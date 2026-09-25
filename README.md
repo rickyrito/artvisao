@@ -22,6 +22,10 @@ sem build, com Bootstrap 5.3 carregado da CDN.
   formulário de contacto (o Pages não corre PHP) e traz as últimas
   publicações do Instagram (`.github/scripts/instagram.py`).
 
+Os `<link>` e `<script>` do CSS e do JS levam `?v=AAAAMMDD` nas quatro
+páginas. Ao publicar alterações ao `styles.css` ou aos scripts, atualizar essa
+data em todas, para os browsers não continuarem a usar a versão antiga em cache.
+
 ## Instagram
 
 A galeria é preenchida durante a publicação, com o token da Meta guardado nos

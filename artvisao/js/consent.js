@@ -1,7 +1,7 @@
 /* Consentimento de cookies.
-   O banner só é honesto se bloquear de facto: os mapas do Google só recebem o src
-   depois de o visitante consentir, e a escolha fica guardada localmente.
-   Categorias correspondem ao que o site carrega mesmo — não há analytics nem marketing. */
+   O banner só é honesto se bloquear de facto: os mapas do Google só recebem o src e o
+   Google Analytics só é descarregado depois de o visitante consentir; a escolha fica
+   guardada localmente. Categorias: necessárias, mapas e estatísticas — não há marketing. */
 
 (function () {
   var KEY = 'artvisao-consent';
@@ -10,6 +10,12 @@
   if (!banner || !panel) return;
 
   var mapsToggle = document.getElementById('consentMaps');
+  var statsToggle = document.getElementById('consentStats');
+
+  // Google Analytics (GA4). Só no domínio de produção: as visitas à cópia de teste e às
+  // cópias locais não entram nas estatísticas.
+  var GA_ID = 'G-J551NMQL4J';
+  var GA_HOSTS = ['www.artvisao.pt', 'artvisao.pt'];
   var openers = document.querySelectorAll('[data-consent-open]');
   var lastFocus = null;
 
@@ -56,8 +62,48 @@
     });
   }
 
+  // O gtag.js só é pedido à Google depois do consentimento: antes disso não há script,
+  // cookies nem pedidos. Sem consentimento para publicidade, os sinais de anúncios ficam negados.
+  function loadAnalytics() {
+    if (GA_HOSTS.indexOf(location.hostname) === -1) return;
+    window['ga-disable-' + GA_ID] = false;
+    if (window.gtag) {
+      window.gtag('consent', 'update', { analytics_storage: 'granted' });
+      return;
+    }
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('consent', 'default', {
+      analytics_storage: 'granted',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
+    window.gtag('js', new Date());
+    window.gtag('config', GA_ID);
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+  }
+
+  // Retirar o consentimento: pára o envio já nesta página e apaga os cookies _ga*.
+  function disableAnalytics() {
+    window['ga-disable-' + GA_ID] = true;
+    if (window.gtag) window.gtag('consent', 'update', { analytics_storage: 'denied' });
+    var host = location.hostname.replace(/^www\./, '');
+    document.cookie.split(';').forEach(function (c) {
+      var name = c.split('=')[0].trim();
+      if (name.indexOf('_ga') !== 0) return;
+      ['', '; domain=' + host, '; domain=.' + host].forEach(function (d) {
+        document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + d;
+      });
+    });
+  }
+
   function apply(choice) {
     applyMaps(!!(choice && choice.maps));
+    if (choice && choice.stats) loadAnalytics(); else disableAnalytics();
   }
 
   function save(choice) {
@@ -93,6 +139,7 @@
     lastFocus = document.activeElement;
     var current = read();
     mapsToggle.checked = !!(current && current.maps);
+    if (statsToggle) statsToggle.checked = !!(current && current.stats);
     panel.hidden = false;
     document.body.classList.add('consent-panel-open');
     mapsToggle.focus();
@@ -107,13 +154,18 @@
     if (lastFocus && lastFocus.offsetParent) lastFocus.focus();
   }
 
-  banner.querySelector('[data-consent-accept]').addEventListener('click', function () { save({ maps: true }); });
-  banner.querySelector('[data-consent-reject]').addEventListener('click', function () { save({ maps: false }); });
+  function acceptAll() { save({ maps: true, stats: true }); }
+  function rejectAll() { save({ maps: false, stats: false }); }
+
+  banner.querySelector('[data-consent-accept]').addEventListener('click', acceptAll);
+  banner.querySelector('[data-consent-reject]').addEventListener('click', rejectAll);
   banner.querySelector('[data-consent-prefs]').addEventListener('click', openPanel);
 
-  panel.querySelector('[data-consent-accept]').addEventListener('click', function () { save({ maps: true }); });
-  panel.querySelector('[data-consent-reject]').addEventListener('click', function () { save({ maps: false }); });
-  panel.querySelector('[data-consent-save]').addEventListener('click', function () { save({ maps: mapsToggle.checked }); });
+  panel.querySelector('[data-consent-accept]').addEventListener('click', acceptAll);
+  panel.querySelector('[data-consent-reject]').addEventListener('click', rejectAll);
+  panel.querySelector('[data-consent-save]').addEventListener('click', function () {
+    save({ maps: mapsToggle.checked, stats: !!(statsToggle && statsToggle.checked) });
+  });
   panel.querySelectorAll('[data-consent-dismiss]').forEach(function (el) {
     el.addEventListener('click', closePanel);
   });
@@ -125,12 +177,18 @@
     });
   });
 
-  // Pedido explícito e específico para aquele mapa — vale como consentimento dessa categoria.
+  // Pedido explícito e específico para aquele mapa — vale como consentimento dessa categoria
+  // e só dessa: a escolha que já existia para as estatísticas mantém-se.
   document.querySelectorAll('[data-consent-enable-maps]').forEach(function (btn) {
-    btn.addEventListener('click', function () { save({ maps: true }); });
+    btn.addEventListener('click', function () {
+      var current = read();
+      save({ maps: true, stats: !!(current && current.stats) });
+    });
   });
 
   var saved = read();
   apply(saved);
-  if (!saved) showBanner();
+  // Quem respondeu antes de haver estatísticas ainda não se pronunciou sobre elas:
+  // o banner volta a aparecer uma vez, e a escolha dos mapas continua aplicada até lá.
+  if (!saved || !('stats' in saved)) showBanner();
 })();
