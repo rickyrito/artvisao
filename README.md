@@ -26,6 +26,24 @@ Os `<link>` e `<script>` do CSS e do JS levam `?v=AAAAMMDD` nas quatro
 páginas. Ao publicar alterações ao `styles.css` ou aos scripts, atualizar essa
 data em todas, para os browsers não continuarem a usar a versão antiga em cache.
 
+## Produção
+
+www.artvisao.pt é publicado pela Action **Publicar em produção**
+(`producao.yml`), só quando se corre à mão:
+
+1. Em *Settings → Secrets and variables → Actions*, criar os secrets
+   `FTP_SERVER`, `FTP_USERNAME` e `FTP_PASSWORD`, com os dados da conta FTP do
+   alojamento.
+2. Correr a Action no modo **testar ligação**: confirma os dados e mostra as
+   pastas do servidor.
+3. No separador *Variables*, criar `FTP_DIR` com a pasta do site (por exemplo
+   `public_html`).
+4. Correr no modo **publicar**.
+
+A cópia de produção leva o formulário de contacto (`contact.php`, que precisa
+de PHP 8) e a galeria do Instagram. No servidor não se apaga nada, exceto as
+imagens de publicações do Instagram que saíram da galeria.
+
 ## Instagram
 
 A galeria é preenchida durante a publicação, com o token da Meta guardado nos
