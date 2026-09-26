@@ -303,7 +303,7 @@ section[id]{scroll-margin-top:8rem;}
 .type-list > .type-card{padding:1rem 1.25rem 1rem 1.5rem;}
 @media (min-width:992px){
   .type-list > .type-card{align-items:center;padding:.9rem 1.5rem .9rem 2rem;}
-  .type-list .type-body{display:grid;grid-template-columns:18rem minmax(0,1fr);column-gap:1.5rem;align-items:baseline;}
+  .type-list .type-body{display:grid;grid-template-columns:22rem minmax(0,1fr);column-gap:1.5rem;align-items:baseline;}
 }
 /* Cartão isolado (usado também nas dicas rápidas) */
 .type-card{display:flex;align-items:flex-start;gap:.95rem;padding:1rem 1.15rem;background:var(--card);border:1px solid rgba(42,42,42,.1);transition:border-color .2s ease,box-shadow .2s ease;}
