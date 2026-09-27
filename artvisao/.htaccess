@@ -1,0 +1,17 @@
+# Endereço único do site: https://www.artvisao.pt
+# O GitHub Pages ignora este ficheiro; só conta no alojamento de produção (Apache).
+
+RewriteEngine On
+
+# As validações dos certificados (Let's Encrypt/AutoSSL) passam sem redirecionamento
+RewriteRule ^\.well-known/ - [L]
+
+# artvisao.pt e artvisao.nathperdigao.pt → www.artvisao.pt
+RewriteCond %{HTTP_HOST} !^www\.artvisao\.pt$ [NC]
+RewriteRule ^ https://www.artvisao.pt%{REQUEST_URI} [L,R=301]
+
+# http → https. Atrás do nginx do alojamento o Apache pode receber o pedido já sem TLS,
+# por isso também se confia no X-Forwarded-Proto para não entrar em ciclo.
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule ^ https://www.artvisao.pt%{REQUEST_URI} [L,R=301]
